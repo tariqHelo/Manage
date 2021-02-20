@@ -1,4 +1,5 @@
-@extends('admin.dashboard')
+@extends("admin.dashboard")
+
 @section("content")
 <div class="portlet light ">
         <div class="portlet-body form">

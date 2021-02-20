@@ -35,9 +35,9 @@
 					</form>
 					<!-- END RESPONSIVE QUICK SEARCH FORM -->
 				</li>
-			<!-- START SIDEBAR MENU -->
-            @php $links =  \App\Models\Linke::get() @endphp
-            @foreach($links->where('parent_id' , 0) as $link)
+			 <!-- START SIDEBAR MENU -->
+             @php $links =  \App\Models\Linke::get() @endphp
+             @foreach($links->where('parent_id' , 0) as $link)
                     <li class="nav-item start ">
                         <a href="{{ $link->route=='#'?'#':route($link->route) }}" class="nav-link nav-toggle">
                             <i class="{{ $link->icon }}"></i>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\StudentController;
 
 
 /*
@@ -21,25 +22,24 @@ use App\Http\Controllers\Admin\AdminController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/test', [TestController::class, 'index'])->name('test');
-// Route::get('roles',    [RoleController::class,'index']);
-//  Route::get('users',    [UserController::class,'index']);
-    // Route::get('users',    [UserController::class, 'index']);
-    // Route::get('rols',    [RoleController::class, 'index']);
 
 Route::get('/', function () {
     return view('welcome');
 });
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
     
     Route::resource('roles',    RoleController::class);
     Route::resource('users',    UserController::class);
 
-    Route::get('/test', [TestController::class, 'index'])->name('test');
+    Route::get('/test', [TestController::class,'index'])->name('test');
+   
+    Route::get('/students', [StudentController::class,'index'])->name('students');
+    Route::get('/add_student', [StudentController::class,'create'])->name('add_student');
+
 
 
     Route::get("/change-password", [ AdminController::class,'changePassword'])->name("change-password");

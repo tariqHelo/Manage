@@ -16,8 +16,8 @@ class LinksSeeder extends Seeder
     public function run()
     {
         $link = Linke::create(['title' => 'قسم الطلاب', 'icon' => 'icon-home', 'route' => '#']);
-            Linke::create(['title' => ' كل الطلاب ', 'icon' => 'icon-list', 'route' => 'test', 'parent_id' => $link->id]);
-            Linke::create(['title' => 'إضافة طالب', 'icon' => 'icon-plus', 'route' => 'test', 'parent_id' => $link->id]);
+            Linke::create(['title' => ' كل الطلاب ', 'icon' => 'icon-list', 'route' => 'students', 'parent_id' => $link->id]);
+            Linke::create(['title' => 'إضافة طالب', 'icon' => 'icon-plus', 'route' => 'add_student', 'parent_id' => $link->id]);
 
         $link = Linke::create(['title' => 'المجموعات والصلاحيات ', 'icon' => 'icon-home', 'route' => '#']);
             Linke::create(['title' => 'المستخدمين', 'icon' => 'icon-list', 'route' => 'users.index', 'parent_id' => $link->id]);
@@ -25,9 +25,22 @@ class LinksSeeder extends Seeder
 
 
         $link = Linke::create(['title' => 'الفعاليات', 'icon' => 'icon-home', 'route' => '#']);
-            Linke::create(['title' => 'القوالب', 'icon' => 'icon-list', 'route' => 'users.index', 'parent_id' => $link->id]);
-            Linke::create(['title' => 'عرض الفعاليات', 'icon' => 'icon-plus', 'route' => 'roles.index', 'parent_id' => $link->id]);
+            Linke::create(['title' => 'القوالب', 'icon' => 'icon-list', 'route' => 'test', 'parent_id' => $link->id]);
+            Linke::create(['title' => 'عرض الفعاليات', 'icon' => 'icon-plus', 'route' => 'test', 'parent_id' => $link->id]);
 
 
     }
 }
+
+
+
+
+// //* 
+
+// public function sendSms(){
+// //< input type="checkbox" name="ids[]>
+// foreach($request->ids as $id){
+// $std = Stuedent:findOrFail($id)
+// }
+// }
+

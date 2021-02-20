@@ -19,13 +19,12 @@
 							</div>
 						</div>
 						<div class="portlet-body form">
-							<form class="form-horizontal" role="form">
+							<form class="form-horizontal"action="store" enctype="multipart/form-data" role="form">
 								<div class="form-body">
 									<div class="form-group">
 										<label class="col-md-3 control-label">إختار ملف</label>
 										<div class="col-md-6">
-                                            <input type="file" class="form-control input-lg" placeholder="Large Input">
-                                            
+                                            <input id="image" name="image" type="file" class="form-control input-lg" placeholder="Large Input">
 										</div>
                                     </div>
 									<div class="form-group">
@@ -54,7 +53,6 @@
 									</div>
 								 <div class="form-actions right1">
                                     <button type="submit" class="btn green">تحميل الملف</button>
-                                    
 								</div>
 							</form>
                         </div>
@@ -62,7 +60,6 @@
                           <div class="form-group" id="preview">
                         <h2>عرض تقريبي:</h2>
                         <div style="width: 100%; height: 700px;border: 1px #ff1c1c dotted;padding: 5px;">
-                            
                         </div>
                     </div>
 					</div>

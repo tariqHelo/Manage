@@ -35,9 +35,18 @@ Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
     Route::resource('roles',    RoleController::class);
     Route::resource('users',    UserController::class);
 
-    Route::get('/test', [TestController::class,'index'])->name('test');
-   
+    Route::get('/test1', [TestController::class,'create'])->name('temp-create');
+
+    Route::get('/test', [TestController::class,'index'])->name('temp-main');
+
+
+
     Route::get('/students', [StudentController::class,'index'])->name('students');
+    Route::get('/add_student', [StudentController::class,'create'])->name('add_student');
+
+
+    Route::post('/makeimage', [TestController::class,'makeimage'])->name('store_temp');
+
     Route::get('/add_student', [StudentController::class,'create'])->name('add_student');
 
 

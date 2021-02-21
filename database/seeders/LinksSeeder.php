@@ -25,8 +25,8 @@ class LinksSeeder extends Seeder
 
 
         $link = Linke::create(['title' => 'الفعاليات', 'icon' => 'icon-home', 'route' => '#']);
-            Linke::create(['title' => 'القوالب', 'icon' => 'icon-list', 'route' => 'test', 'parent_id' => $link->id]);
-            Linke::create(['title' => 'عرض الفعاليات', 'icon' => 'icon-plus', 'route' => 'test', 'parent_id' => $link->id]);
+            Linke::create(['title' => 'القوالب', 'icon' => 'icon-list', 'route' => 'temp-create', 'parent_id' => $link->id]);
+            Linke::create(['title' => 'عرض الفعاليات', 'icon' => 'icon-plus', 'route' => 'temp-main', 'parent_id' => $link->id]);
 
 
     }

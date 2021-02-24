@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\WaterMarkController;
 
 
 /*
@@ -22,6 +23,11 @@ use App\Http\Controllers\Admin\StudentController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/watermark-image', [WaterMarkController::class, 'imageWatermark']);
+Route::get('/watermark-text', [WaterMarkController::class, 'textWatermark']);
+
+// Route::get('watermark-image', 'WaterMarkController@imageWatermark');
+// Route::get('watermark-text', 'WaterMarkController@textWatermark');
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,8 +41,13 @@ Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
     Route::resource('roles',    RoleController::class);
     Route::resource('users',    UserController::class);
 
-    Route::get('/test1', [TestController::class,'create'])->name('temp-create');
 
+    Route::resource('/students',    StudentController::class);
+
+    Route::resource('/students',    StudentController::class);
+
+
+    Route::get('/test1', [TestController::class,'create'])->name('temp-create');
     Route::get('/test', [TestController::class,'index'])->name('temp-main');
 
 
@@ -47,11 +58,16 @@ Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
 
     Route::post('/makeimage', [TestController::class,'makeimage'])->name('store_temp');
 
-    Route::get('/add_student', [StudentController::class,'create'])->name('add_student');
-
-
 
     Route::get("/change-password", [ AdminController::class,'changePassword'])->name("change-password");
     Route::put("/change-password", [ AdminController::class,'postChangePassword'])->name("post-change-password");
 
+    Route::post("/receve" , [StudentController::class , 'receve'])->name("receve");    
+});
+
+
+Route::get('download-file/{id}' , function($id){
+    $file = \App\Models\ImageDetail::find($id);
+    $file = str_replace('/storage/' , '' , $file->file);
+    return Storage::disk('public')->download($file);
 });

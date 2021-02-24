@@ -61,12 +61,19 @@
                          </div>
                         
                             <div class="form-group" id="preview">
-                            <h2>عرض تقريبي:</h2>
-                            <div style="width: 100%; height: 700px;border: 1px #ff1c1c dotted;padding: 5px;">
-                                @if(isset($file))
-                                    <img height="200" width="200" src="{{ asset('storage/imgaes/'.$file) }}" alt="">
-                                @endif
-                            </div>
+							<h2>عرض تقريبي:</h2>
+							@if(isset($file))
+								<div style="width: 100%; height: 700px;border: 1px #ff1c1c dotted;padding: 5px;">
+										<embed
+											src="{{ $file }}"
+											type="application/pdf"
+											frameBorder="0"
+											scrolling="initial"
+											height="100%"
+											width="100%"
+										></embed>
+								</div>
+							@endif
                     </div>
                  </div>
              </div>               

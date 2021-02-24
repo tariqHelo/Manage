@@ -16,5 +16,10 @@ class ImageDetail extends Model
     //     'option1',
     //     'option2',
     // ];
+
+
+    public function students(){
+        return $this->hasMany("App\Models\Student");
+    }
     
 }

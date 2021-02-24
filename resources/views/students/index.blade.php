@@ -127,11 +127,17 @@
 						</div>
 					</div>
 					<!-- END EXAMPLE TABLE PORTLET--> --}}
-
+     
 
 		<!-- BEGIN PAGE CONTENT-->
-			<div class="row">
+			<form action="{{ route('receve') }}" method="post" class="row">
+				@csrf
 				<div class="col-md-12">
+						<select class="form-control" name="sm">
+							@foreach($files as $file)
+								<option value="{{ $file->id }}">{{ $file->title }}</option>
+							@endforeach
+						</select>
 					<!-- BEGIN EXAMPLE TABLE PORTLET-->
 					<div class="portlet box grey-cascade">
 						<div class="portlet-title">
@@ -148,6 +154,7 @@
 								<a href="javascript:;" class="remove">
 								</a>
 							</div>
+							
 						</div>
 						<div class="portlet-body">
 							<div class="table-toolbar">
@@ -169,8 +176,8 @@
 												SMS	  </a>
 												</li>
 												<li>
-													<a href="javascript:;">
-													البريد الإلكتروني </a>
+													<button type="submit">
+													البريد الإلكتروني </button>
 												</li>
 												
 											</ul>
@@ -194,7 +201,7 @@
 									 رقم الجوال
 								</th>
 								<th>
-									 Joined
+									 المدرسة
 								</th>
 								<th>
 									 Status
@@ -202,232 +209,39 @@
 							</tr>
 							</thead>
 							<tbody>
-							<tr class="odd gradeX">
-								<td>
-									<input type="checkbox" class="checkboxes" value="1"/>
-								</td>
-								<td>
-									 shuxer
-								</td>
-								<td>
-									<a href="mailto:shuxer@gmail.com">
-									shuxer@gmail.com </a>
-								</td>
-								<td>
-									 120
-								</td>
-								<td class="center">
-									 12 Jan 2012
-								</td>
-								<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-								</td>
-							</tr>
-							<tr class="odd gradeX">
-								<td>
-									<input type="checkbox" class="checkboxes" value="1"/>
-								</td>
-								<td>
-									 looper
-								</td>
-								<td>
-									<a href="mailto:looper90@gmail.com">
-									looper90@gmail.com </a>
-								</td>
-								<td>
-									 120
-								</td>
-								<td class="center">
-									 12.12.2011
-								</td>
-								<td>
-									<span class="label label-sm label-warning">
-									Suspended </span>
-								</td>
-							</tr>
-							<tr class="odd gradeX">
-								<td>
-									<input type="checkbox" class="checkboxes" value="1"/>
-								</td>
-								<td>
-									 userwow
-								</td>
-								<td>
-									<a href="mailto:userwow@yahoo.com">
-									userwow@yahoo.com </a>
-								</td>
-								<td>
-									 20
-								</td>
-								<td class="center">
-									 12.12.2012
-								</td>
-								<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-								</td>
-							</tr>
-							<tr class="odd gradeX">
-								<td>
-									<input type="checkbox" class="checkboxes" value="1"/>
-								</td>
-								<td>
-									 user1wow
-								</td>
-								<td>
-									<a href="mailto:userwow@gmail.com">
-									userwow@gmail.com </a>
-								</td>
-								<td>
-									 20
-								</td>
-								<td class="center">
-									 12.12.2012
-								</td>
-								<td>
-									<span class="label label-sm label-default">
-									Blocked </span>
-								</td>
-							</tr>
-							<tr class="odd gradeX">
-								<td>
-									<input type="checkbox" class="checkboxes" value="1"/>
-								</td>
-								<td>
-									 restest
-								</td>
-								<td>
-									<a href="mailto:userwow@gmail.com">
-									test@gmail.com </a>
-								</td>
-								<td>
-									 20
-								</td>
-								<td class="center">
-									 12.12.2012
-								</td>
-								<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-								</td>
-							</tr>
-							<tr class="odd gradeX">
-								<td>
-									<input type="checkbox" class="checkboxes" value="1"/>
-								</td>
-								<td>
-									 foopl
-								</td>
-								<td>
-									<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-								</td>
-								<td>
-									 20
-								</td>
-								<td class="center">
-									 19.11.2010
-								</td>
-								<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-								</td>
-							</tr>
-							<tr class="odd gradeX">
-								<td>
-									<input type="checkbox" class="checkboxes" value="1"/>
-								</td>
-								<td>
-									 weep
-								</td>
-								<td>
-									<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-								</td>
-								<td>
-									 20
-								</td>
-								<td class="center">
-									 19.11.2010
-								</td>
-								<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-								</td>
-							</tr>
-							<tr class="odd gradeX">
-								<td>
-									<input type="checkbox" class="checkboxes" value="1"/>
-								</td>
-								<td>
-									 coop
-								</td>
-								<td>
-									<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-								</td>
-								<td>
-									 20
-								</td>
-								<td class="center">
-									 19.11.2010
-								</td>
-								<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-								</td>
-							</tr>
-							<tr class="odd gradeX">
-								<td>
-									<input type="checkbox" class="checkboxes" value="1"/>
-								</td>
-								<td>
-									 pppol
-								</td>
-								<td>
-									<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-								</td>
-								<td>
-									 20
-								</td>
-								<td class="center">
-									 19.11.2010
-								</td>
-								<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-								</td>
-							</tr>
-							<tr class="odd gradeX">
-								<td>
-									<input type="checkbox" class="checkboxes" value="1"/>
-								</td>
-								<td>
-									 test
-								</td>
-								<td>
-									<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-								</td>
-								<td>
-									 20
-								</td>
-								<td class="center">
-									 19.11.2010
-								</td>
-								<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-								</td>
-							</tr>
+								
+								@foreach($students as  $student)
+									<tr class="odd gradeX">
+										<td>
+											<input type="checkbox" class="checkboxes" name="users[]" value="{{ $student->id }}"/>
+										</td>
+										<td>
+											{{ $student->fname }}
+										</td>
+										<td>
+											<a href="mailto:{{ $student->email }}">
+											{{ $student->email }} </a>
+										</td>
+										<td>
+											{{ $student->school }}
+										</td>
+										<td class="center">
+											{{ $student->mobile }}
+										</td>
+										<td>
+											<span class="label label-sm label-success">
+											{{ $student->status }} </span>
+										</td>
+									</tr>
+								@endforeach
+						
+							
 							</tbody>
 							</table>
 						</div>
 					</div>
 					<!-- END EXAMPLE TABLE PORTLET-->
 				</div>
-			</div>
+			</form>
 
 @endsection

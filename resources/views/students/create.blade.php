@@ -21,7 +21,9 @@
 						</div>
 						<div class="portlet-body form">
 							<!-- BEGIN FORM-->
-							<form action="#" id="form_sample_1" class="form-horizontal">
+							<form action="{{ route('students.store') }}" method="POST" id="form_sample_1" class="form-horizontal">
+								@CSRF
+								@method('post')
 								<div class="form-body">
 									<div class="alert alert-danger display-hide">
 										<button class="close" data-close="alert"></button>
@@ -36,16 +38,16 @@
 										* </span>
 										</label>
 										<div class="col-md-2">
-											<input type="text" name="name" placeholder="الإسم الإول " data-required="1" class="form-control"/>
+											<input type="text" name="fname" placeholder="الإسم الإول " data-required="1" class="form-control"/>
 										</div>
 											<div class="col-md-2">
-											<input type="text" name="name" placeholder="إسم الإب" data-required="1" class="form-control"/>
+											<input type="text" name="sname" placeholder="إسم الإب" data-required="1" class="form-control"/>
 										</div>
 										<div class="col-md-2">
-											<input type="text" name="name" placeholder="إسم الجد" data-required="1" class="form-control"/>
+											<input type="text" name="tname" placeholder="إسم الجد" data-required="1" class="form-control"/>
 										</div>
 											<div class="col-md-2">
-											<input type="text" name="name" placeholder="إسم العائلة" data-required="1" class="form-control"/>
+											<input type="text" name="lname" placeholder="إسم العائلة" data-required="1" class="form-control"/>
 										</div>
 										
 									</div>
@@ -55,7 +57,7 @@
 										* </span>
 										</label>
 										<div class="col-md-4">
-											<input name="number" type="text" class="form-control"/>
+											<input name="number" type="number" class="form-control"/>
 										</div>
 									</div>
 									<div class="form-group">
@@ -63,7 +65,7 @@
 										* </span>
 										</label>
 										<div class="col-md-4">
-											<select class="form-control" name="select">
+											<select class="form-control" name="class">
 												<option value="">Select...</option>
 												<option value="Category 1">Category 1</option>
 												<option value="Category 2">Category 2</option>
@@ -77,7 +79,7 @@
 										* </span>
 										</label>
 										<div class="col-md-4">
-											<select class="form-control" name="select">
+											<select class="form-control" name="school">
 												<option value="">Select...</option>
 												<option value="Category 1">Category 1</option>
 												<option value="Category 2">Category 2</option>
@@ -91,7 +93,7 @@
 										* </span>
 										</label>
 										<div class="col-md-4">
-											<select class="form-control" name="select">
+											<select class="form-control" name="status">
 												<option value="">Select...</option>
 												<option value="Category 1">Category 1</option>
 												<option value="Category 2">Category 2</option>
@@ -107,7 +109,7 @@
 										<div class="col-md-4">
 											<div class="input-icon">
 												<i class="fa fa-envelope"></i>
-												<input type="email" class="form-control" id="inputEmail12" placeholder="Email">
+												<input type="email" name="email" class="form-control" id="inputEmail12" placeholder="Email">
 											</div>
 										</div>
 									</div>
@@ -116,7 +118,7 @@
 										* </span>
 										</label>
 										<div class="col-md-4">
-											<input name="number" type="text" class="form-control"/>
+											<input name="mobile" type="text" class="form-control"/>
 										</div>
 									</div>
 										<div class="form-group">
@@ -126,7 +128,7 @@
 										<div class="col-md-4">
 											<div class="input-icon right">
 												<i class="fa fa-user"></i>
-												<input type="password" class="form-control" id="inputPassword1" placeholder="Password">
+												<input type="password" name="password" class="form-control" id="inputPassword1" placeholder="Password">
 											</div>
 										</div>
 									</div>

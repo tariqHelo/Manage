@@ -1,169 +1,50 @@
 @extends('admin.dashboard')     
 @section('content')
-				{{-- <!-- BEGIN EXAMPLE TABLE PORTLET-->
-					<div class="portlet box red-intense">
+	<form action="{{ route('receve') }}" method="post" class="row">
+		@csrf
+				<div class="col-md-12">
+				   @include("shared.msg")
+					<!-- BEGIN PORTLET-->
+					<div class="portlet box yellow">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-globe"></i>جميع الطلاب
+								<i class="fa fa-gift"></i>إختيار الملف المرسل
 							</div>
-							<div class="actions">
-								<div class="btn-group">
-									<a class="btn default" href="javascript:;" data-toggle="dropdown">
-									Columns <i class="fa fa-angle-down"></i>
-									</a>
-									<div id="sample_4_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
-										<label><input type="checkbox" checked data-column="0">Rendering engine</label>
-										<label><input type="checkbox" checked data-column="1">Browser</label>
-										<label><input type="checkbox" checked data-column="2">Platform(s)</label>
-										<label><input type="checkbox" checked data-column="3">Engine version</label>
-										<label><input type="checkbox" checked data-column="4">CSS grade</label>
+						</div>
+						<div class="portlet-body form">
+							<!-- BEGIN FORM-->
+							<div class="form-horizontal form-row-seperated">
+								<div class="form-group">
+										<label class="control-label col-md-3"> إسم الملف</label>
+										<div class="col-md-4">
+											<select class="form-control input-medium select2me"  name="sm" data-placeholder="Select...">
+												@foreach($files as $file)
+													<option value="{{ $file->id }}">{{ $file->title }}</option>
+												@endforeach
+											</select>
+										
+										</div>
 									</div>
-								</div>
-							</div>
-						</div>
-						<div class="portlet-body">
-							<table class="table table-striped table-bordered table-hover" id="sample_4">
-							<thead>
-								<tr>
-									<th>
-										 #
-									</th>
-									<th>
-										 إسم الطالب
-									</th>
-									<th>
-										 رقم الهوية
-									</th>
-									<th>
-										المدرسة
-									</th>
-									<th>
-										 الصف
-									</th>
-									<th>
-										الحالة
-									</th>
-									<th>
-										 Action
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-						
-						</tr>
-								</thead>
-								<tbody>
-								<tr>
-									<td>
-										 1
-									</td>
-									<td>
-										 Table cell
-									</td>
-									<td>
-										 Table cell
-									</td>
-									<td>
-										 Table cell
-									</td>
-									<td>
-										 Table cell
-									</td>
-									<td>
-										 Table cell
-									</td>
-									<td>
-										 Table cell
-									</td>
-								</tr>
-								<tr>
-									<td>
-										 2
-									</td>
-									<td>
-										 Table cell
-									</td>
-									<td>
-										 Table cell
-									</td>
-									<td>
-										 Table cell
-									</td>
-									<td>
-										 Table cell
-									</td>
-									<td>
-										 Table cell
-									</td>
-									<td>
-										 Table cell
-									</td>
-								</tr>
-								<tr>
-									<td>
-										 3
-									</td>
-									<td>
-										 Table cell
-									</td>
-									<td>
-										 Table cell
-									</td>
-									<td>
-										 Table cell
-									</td>
-									<td>
-										 Table cell
-									</td>
-									<td>
-										 Table cell
-									</td>
-									<td>
-										 Table cell
-									</td>
-								</tr>
-							</tbody>
-							</table>
-						</div>
-					</div>
-					<!-- END EXAMPLE TABLE PORTLET--> --}}
-     
-
-		<!-- BEGIN PAGE CONTENT-->
-			<form action="{{ route('receve') }}" method="post" class="row">
-				@csrf
+							 </div>
+    	
+		    	<div  class="row">
 				<div class="col-md-12">
-						<select class="form-control" name="sm">
-							@foreach($files as $file)
-								<option value="{{ $file->id }}">{{ $file->title }}</option>
-							@endforeach
-						</select>
 					<!-- BEGIN EXAMPLE TABLE PORTLET-->
 					<div class="portlet box grey-cascade">
 						<div class="portlet-title">
 							<div class="caption">
 								<i class="fa fa-globe"></i>كل الطلاب
 							</div>
-							<div class="tools">
-								<a href="javascript:;" class="collapse">
-								</a>
-								<a href="#portlet-config" data-toggle="modal" class="config">
-								</a>
-								<a href="javascript:;" class="reload">
-								</a>
-								<a href="javascript:;" class="remove">
-								</a>
-							</div>
-							
+						
 						</div>
 						<div class="portlet-body">
 							<div class="table-toolbar">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="btn-group">
-											<button id="sample_editable_1_new" class="btn green">
+											<a href="{{ route('add_student') }}" id="sample_editable_1_new" class="btn green">
 											إضافة<i class="fa fa-plus"></i>
-											</button>
+										</a>
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -172,11 +53,11 @@
 											</button>
 											<ul class="dropdown-menu pull-right">
 												<li>
-													<a href="javascript:;">
-												SMS	  </a>
+													<button type="submit" name="sms" >
+													الرسالة النصية   </button>
 												</li>
 												<li>
-													<button type="submit">
+													<button type="submit" name="Email"  >
 													البريد الإلكتروني </button>
 												</li>
 												
@@ -215,6 +96,7 @@
 										<td>
 											<input type="checkbox" class="checkboxes" name="users[]" value="{{ $student->id }}"/>
 										</td>
+										
 										<td>
 											{{ $student->fname }}
 										</td>
@@ -223,10 +105,10 @@
 											{{ $student->email }} </a>
 										</td>
 										<td>
-											{{ $student->school }}
+											{{ $student->mobile}}
 										</td>
 										<td class="center">
-											{{ $student->mobile }}
+											{{ $student->school }}
 										</td>
 										<td>
 											<span class="label label-sm label-success">
@@ -242,6 +124,35 @@
 					</div>
 					<!-- END EXAMPLE TABLE PORTLET-->
 				</div>
-			</form>
+	</form>
 
 @endsection
+
+
+
+{{-- 
+	<div action="{{ route('receve') }}" method="post" class="row">
+			@csrf
+				<div class="col-md-12">
+					<!-- BEGIN PORTLET-->
+					<div class="portlet box yellow">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-gift"></i>إختيار الملف
+							</div>
+						</div>
+						<div class="portlet-body form">
+							<!-- BEGIN FORM-->
+							<div class="form-horizontal form-row-seperated">
+								<div class="form-group">
+										<label class="control-label col-md-3"> إسم الملف</label>
+										<div class="col-md-4">
+											<select class="form-control input-medium select2me"  name="sm" data-placeholder="Select...">
+												@foreach($files as $file)
+													<option value="{{ $file->id }}">{{ $file->title }}</option>
+												@endforeach
+											</select>
+										
+										</div>
+									</div>
+							 </div> --}}

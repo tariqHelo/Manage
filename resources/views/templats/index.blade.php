@@ -26,31 +26,30 @@
 									<th>
 										 إسم الكشف
 									</th>
-									<th>
-										 الخيارات
-									</th>
+									
 									
 									<th>
-										 Status
+										 الخيارات
 									</th>
 								</tr>
 								</thead>
 								<tbody>
-								<tr>
-									<td>
-										 1
-									</td>
-									<td>
-										 Mark
-									</td>
-									<td>
-										 makr124
-									</td>
-									<td>
-										<span class="label label-sm label-success">
-										Approved </span>
-									</td>
-								</tr>
+
+									@foreach ($templates as $template )
+									<tr>
+										<td>
+											{{ $template->id }}
+										</td>
+										<td>
+											{{ $template->title }}
+										</td>
+										<td>
+											<a href="" class="btn btn-primary btn-sm"><i class='fa fa-edit'></i></a>
+											<a href="" onclick='return confirm("Are you sure delete?")' class="btn btn-warning btn-sm"><i class='fa fa-trash'></i></a>
+										</td>
+									</tr>
+									@endforeach
+								
 								</tbody>
 								</table>
 							</div>

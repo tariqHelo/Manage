@@ -3,7 +3,7 @@
 	<div class="page-header-inner">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a href="index.html">
+			<a href="#">
 			<img src="{{ asset('metroinc/assets/admin/layout/img/logo.png') }}" alt="logo" class="logo-default"/>
 			</a>
 			<div class="menu-toggler sidebar-toggler hide">
@@ -23,12 +23,12 @@
 				<li class="dropdown dropdown-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<img alt="" class="img-circle" src="{{ asset('metroinc/assets/admin/layout/img/avatar3_small.jpg')}}"/>
-                     <span class="username username-hide-on-mobile"> {{-- {{ auth()->user()->name }} --}}</span>
+                     <span class="username username-hide-on-mobile"> {{ auth()->user()->name }}</span>
 					<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
 						<li>
-							<a href="extra_profile.html">
+							<a href="#">
 							<i class="icon-user"></i> حسابي</a>
 						</li>
 						<li>
@@ -39,7 +39,7 @@
 							<a class="dropdown-item" href="{{ route('logout') }}"
 								onclick="event.preventDefault();
 												document.getElementById('logout-form').submit();">
-									<i class="icon-key"></i> {{ __('Logout') }}
+									<i class="icon-key"></i> {{ __('خروج') }}
 								</a>
 
 								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

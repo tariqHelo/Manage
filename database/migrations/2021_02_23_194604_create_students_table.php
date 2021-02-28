@@ -25,7 +25,7 @@ class CreateStudentsTable extends Migration
              $table->integer('year')->nullable();
              $table->integer('number')->nullable();
              $table->string('email');
-             $table->integer('mobile')->nullable();
+             $table->bigInteger('mobile')->nullable();
              $table->integer('password')->nullable();
             $table->timestamps();
         });

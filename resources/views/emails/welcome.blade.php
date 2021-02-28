@@ -8,7 +8,6 @@
 </head>
 <body>
     <h1>Hi</h1>
-
-<a href="http://127.1.1.1/download-file/{{ $id }}" target="_blank">download from here</a>
+<a href="http://127.1.1.1/download-file/{{$id}}"target="_blank">download from here</a>
 </body>
 </html>

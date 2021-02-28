@@ -23,16 +23,11 @@ use App\Http\Controllers\WaterMarkController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/watermark-image', [WaterMarkController::class, 'imageWatermark']);
-Route::get('/watermark-text', [WaterMarkController::class, 'textWatermark']);
-
-// Route::get('watermark-image', 'WaterMarkController@imageWatermark');
-// Route::get('watermark-text', 'WaterMarkController@textWatermark');
-
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 Auth::routes();
+
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -57,17 +52,20 @@ Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
 
 
     Route::post('/makeimage', [TestController::class,'makeimage'])->name('store_temp');
+    Route::post('/printimage', [TestController::class,'printimage'])->name('print-image');
 
 
     Route::get("/change-password", [ AdminController::class,'changePassword'])->name("change-password");
     Route::put("/change-password", [ AdminController::class,'postChangePassword'])->name("post-change-password");
 
-    Route::post("/receve" , [StudentController::class , 'receve'])->name("receve");    
+    Route::post("/receve" , [StudentController::class , 'receve'])->name("receve"); 
+    Route::post("/SMS" , [StudentController::class , 'SMS'])->name("SMS");    
+   
 });
-
 
 Route::get('download-file/{id}' , function($id){
     $file = \App\Models\ImageDetail::find($id);
-    $file = str_replace('/storage/' , '' , $file->file);
+    $file = str_replace('/storage/','', $file->file);
+    //dd($file);
     return Storage::disk('public')->download($file);
 });

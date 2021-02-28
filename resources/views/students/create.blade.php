@@ -8,22 +8,15 @@
 							<div class="caption">
 								<i class="fa fa-gift"></i>إضافة طالب جديد
 							</div>
-							<div class="tools">
-								<a href="javascript:;" class="collapse">
-								</a>
-								<a href="#portlet-config" data-toggle="modal" class="config">
-								</a>
-								<a href="javascript:;" class="reload">
-								</a>
-								<a href="javascript:;" class="remove">
-								</a>
-							</div>
+						
 						</div>
 						<div class="portlet-body form">
 							<!-- BEGIN FORM-->
 							<form action="{{ route('students.store') }}" method="POST" id="form_sample_1" class="form-horizontal">
 								@CSRF
 								@method('post')
+								@include("shared.msg")
+
 								<div class="form-body">
 									<div class="alert alert-danger display-hide">
 										<button class="close" data-close="alert"></button>

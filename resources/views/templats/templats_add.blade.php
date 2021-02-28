@@ -5,7 +5,6 @@
 	@csrf
 	@method('POST')
 						<!-- START PORTLET-->
-						
 							<div class="portlet-title">
 								<div class="caption">
 									<i class="fa fa-gift"></i> تصميم قالب
@@ -17,13 +16,19 @@
 									@if(isset($file))
 									<input type="hidden" value="{{ $file }}" name="file">
 									@endif
-									<div class="form-body">
+									@if(isset($path))
+									<input type="hidden" value="{{ $path }}" name="path">
+									@endif
+									
+										<div class="form-body">
+										@if(!isset($file))
 										<div class="form-group">
 											<label class="col-md-3 control-label">إختار ملف</label>
 											<div class="col-md-6">
 												<input id="file" name="file" type="file" class="form-control input-lg" placeholder="Large Input">
 											</div>
 										</div>
+										@endif
 										<div class="form-group">
 											<label class="col-md-3 control-label">العنوان</label>
 											<div class="col-md-6">
@@ -59,7 +64,7 @@
 										@if(isset($file))
 											<div style="width: 100%; height: 700px;border: 1px #ff1c1c dotted;padding: 5px;">
 													<embed
-														src="{{ $file }}"
+														src="{{ isset($path) ? $path : $file }}"
 														type="application/pdf"
 														frameBorder="0"
 														scrolling="initial"
@@ -88,19 +93,19 @@
 									 <div class="form-group"> 
 										<label class="col-md-3 control-label">النص</label>
 										<div class="col-md-6">
-									       <input type="text" name="wr" class="form-control" id="wr" value="{{ isset($ImageD) ? $ImageD->title : "" }}" placeholder="أدخل هنا">
+									       <input type="text" name="wr" class="form-control" id="wr" value="{{ isset($write) ? $write : "" }}" placeholder="أدخل هنا">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-md-3">الطول</label>
 										<div class="col-md-6">
-									       <input type="text" name="x" value="{{ isset($ImageD) ? $ImageD->x : "" }}" class="form-control" id="" placeholder="أدخل هنا">
+									       <input type="text" name="x" value="{{ isset($x) ? $x : "" }}" class="form-control" id="" placeholder="أدخل هنا">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-md-3">العرض</label>
 										<div class="col-md-6">
-									       <input type="text" name="y" value="{{ isset($ImageD) ? $ImageD->y : "" }}" class="form-control" id="" placeholder="أدخل هنا">
+									       <input type="text" name="y" value="{{ isset($y) ? $y : "" }}" class="form-control" id="" placeholder="أدخل هنا">
 										</div>
                                     </div>
 								
@@ -117,7 +122,7 @@
 									<div class="form-group last">
 										<label class="control-label col-md-3"></label>
 										<div class="col-md-4">
-											<button type="submit" class="btn yellow" href="#form_modal11" data-toggle="modal">
+											<button type="submit" name="view" value="view" class="btn yellow" href="#form_modal11" data-toggle="modal">
 											عرض <i class="fa fa-share"></i>
 											</button>
 										</div>

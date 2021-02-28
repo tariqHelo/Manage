@@ -35,7 +35,7 @@ class TestController extends Controller
         return view('templats.templats_add' , ['route' => $route ])->with('file',$file);
     } 
     public function printimage(Request $request){
-       // dd($request->all());
+
         $path = request('file');
 
        //Set Parametatrs
@@ -48,7 +48,6 @@ class TestController extends Controller
         // add a page
         $pdf->AddPage();
         // set the source file
-        // $path =
         $fileContent = file_get_contents(asset($path),'rb');
         $pagecount = $pdf->setSourceFile( StreamReader::createByString($fileContent) );
         // import page 1
@@ -59,21 +58,39 @@ class TestController extends Controller
         $pdf->SetFont('Arial','B',15);// Arial bold 15
         $pdf->SetTextColor(0, 0, 0);
         $pdf->SetXY($x, $y);
-        $pdf->Write(0, $write);
-
-       ///Save in Path Public
+        $pdf->Write(0, $write);       
         $file_path = 'storage/pdf/pdf_'.strtotime('now').'.pdf';
-        $pdf->Output( $file_path, 'F');
-       
-        $ImageD = new ImageDetail;
-        $ImageD->file = $file_path;
-        $ImageD->title = $request->title;
-        $ImageD->option1 = $request->option1;
-        $ImageD->option2 = $request->option2;
-        $ImageD->save();
-        $path = str_replace('/storage/' , '' , $path);
-        Storage::delete($path);
-        return redirect()->route('temp-create');  
+        $pdf->Output($file_path, 'F');
+
+        if(request()->has("view")):
+            $route = route('print-image');
+            $file = '/'.$file_path;
+            $old_file = $path;
+            if(request()->has('path')):
+                Storage::delete(request('path'));
+            endif;
+            return view('templats.templats_add' , ['route' => $route , 'x' => $x , 'y' => $y , 'write' => $write ])->with("file" , $path)->with("path" , $file);     
+        else:            ///Save in Path Public
+            $ImageD = new ImageDetail;
+            if(isset($path)):
+                Storage::delete($path);
+                $ImageD->file = $file_path;
+            else:
+                $ImageD->file = $file_path;
+            endif;
+            $ImageD->title = $request->title;
+            $ImageD->option1 = $request->option1;
+            $ImageD->option2 = $request->option2;
+            $ImageD->save();
+            
+            
+
+            $path = str_replace('/storage/' , '' , $path);
+            Storage::delete($path);
+
+            return redirect()->route('temp-create');  
+
+        endif;
     }
 }
 

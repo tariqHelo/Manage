@@ -65,7 +65,11 @@ Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
 
 Route::get('download-file/{id}' , function($id){
     $file = \App\Models\ImageDetail::find($id);
-    $file = str_replace('/storage/','', $file->file);
+    $file = str_replace('storage/','', $file->file);
     //dd($file);
-    return Storage::disk('public')->download($file);
+    if(Storage::disk('public')->exists($file)): 
+        return Storage::disk('public')->download($file);
+    else:
+        echo 'file not found';
+    endif;
 });

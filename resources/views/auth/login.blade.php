@@ -52,20 +52,21 @@
 	<!-- BEGIN LOGIN FORM -->
     
                 <div class="card-body">
-                    <form class="login-form" method="POST" action="{{ route('login') }}">
+                    <form action="{{ route('login') }}" class="login-form" method="POST">
                        @csrf
+                    
                             <h3 class="form-title">Login to your account</h3>
                             <div class="alert alert-danger display-hide">
                                 <button class="close" data-close="alert"></button>
                                 <span>
-                                Enter any username and password. </span>
+                                Enter any Email and password. </span>
                             </div>
                             <div class="form-group">
                                 <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                                <label class="control-label visible-ie8 visible-ie9">Username</label>
+                                <label class="control-label visible-ie8 visible-ie9">Emai</label>
                                 <div class="input-icon">
                                     <i class="fa fa-user"></i>
-                                    <input class="form-control placeholder-no-fix" name="email" type="email" autocomplete="off" placeholder="Username"/>
+                                    <input class="form-control placeholder-no-fix" name="email" type="email" required autocomplete="email" autofocus placeholder="Email"/>
                                 </div>
                             </div>
                             <div class="form-group">

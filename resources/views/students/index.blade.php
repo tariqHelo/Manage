@@ -53,14 +53,13 @@
 											</button>
 											<ul class="dropdown-menu pull-right">
 												<li>
-													<button type="submit" name="sms" >
+													<button type="submit" name="sms">
 													الرسالة النصية   </button>
 												</li>
 												<li>
-													<button type="submit" name="Email"  >
+													<button type="submit" name="Email" >
 													البريد الإلكتروني </button>
 												</li>
-												
 											</ul>
 										</div>
 									</div>

@@ -48,7 +48,7 @@ class StudentController extends Controller
     public function store(CreateRequest $request)
     {
        // dd($request->all());
-        if (!$request->published){
+        if (!$request->status){
             $request['status']=0;
         }
         Student::create($request->all());
@@ -66,16 +66,30 @@ class StudentController extends Controller
             'users.*' => 'required|integer',
             //'file'    =>  'required|mimes:pdf|max:1024'
         ]);
-    $emails = Student::whereIn('id' , request('users'))->get()->pluck('email')->all();
-    //dd($emails);
-    Mail::send('emails.welcome', [
-        'id'    =>  request('sm')
-    ], function($message) use ($emails)
-    {    
-        $message->to($emails)->subject('This is test e-mail');    
-    }); 
-     Session::flash("msg","Student Sending E-mail successfully");
-       return redirect()->back();
+
+    if(request()->has('sms')):
+        $sms = Student::whereIn('id' , request('users'))->get()->pluck('mobile')->all();
+        //dd($sms);
+        $res = Http::withHeaders([
+        'Content-Type'=> 'application/Json',
+        "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2F1dGguc21zLnRvL29hdXRoL3Rva2VuIiwiaWF0IjoxNjE0MTk0MTY2LCJuYmYiOjE2MTQxOTQxNjYsImp0aSI6Ijc0RWdiSTk1b0doYWxmVlYiLCJzdWIiOjIxNjczNCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsImtpZCI6MTI1NDJ9.qeOEuKkJ6glOLapTl7Ok7iWIijt1K6wvLbyMcVQrc4w"
+        ])->post('https://api.sms.to/sms/send',[
+            "message"=> "http://127.1.1.1/download-file/".request('sm'),
+            "to"=> $sms
+        ]);
+       Session::flash("msg","Student Sending SMS  successfully");
+    elseif(request()->has("Email")):
+        $emails = Student::whereIn('id' , request('users'))->get()->pluck('email')->all();
+        //dd($emails);
+        Mail::send('emails.welcome', [
+            'id'    =>  request('sm')
+        ], function($message) use ($emails)
+        {    
+            $message->to($emails)->subject('This is test e-mail');    
+        }); 
+        Session::flash("msg","Student Sending E-mail successfully");
+    endif;
+    return redirect()->back();
     }
      
     /**
@@ -86,17 +100,7 @@ class StudentController extends Controller
      */
     public function SMS(Request $request)
     {
-      $sms = Student::whereIn('id' , request('users'))->get()->pluck('mobile')->all();
-     // dd($sms);
-        $res = Http::withHeaders([
-        'Content-Type'=> 'application/Json',
-        "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2F1dGguc21zLnRvL29hdXRoL3Rva2VuIiwiaWF0IjoxNjE0MTk0MTY2LCJuYmYiOjE2MTQxOTQxNjYsImp0aSI6Ijc0RWdiSTk1b0doYWxmVlYiLCJzdWIiOjIxNjczNCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsImtpZCI6MTI1NDJ9.qeOEuKkJ6glOLapTl7Ok7iWIijt1K6wvLbyMcVQrc4w"
-        ])->post('https://api.sms.to/sms/send',[
-            "message"=> "good job Man",
-            "to"=> $sms
-        ]);
-       Session::flash("msg","Student Sending SMS  successfully");
-       return redirect()->back();
+
     }
 
   
@@ -135,10 +139,3 @@ class StudentController extends Controller
         //
     }
 }
- 
- 
-//    if($request->setaction == "preview"){
-        //     return "yes";
-        // }else{
-        //     return "No";
-        // } 

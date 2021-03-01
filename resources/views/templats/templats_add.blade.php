@@ -12,14 +12,12 @@
 							</div>
 							<div class="portlet-body form">
 								<div class="form-horizontal">
-								
 									@if(isset($file))
 									<input type="hidden" value="{{ $file }}" name="file">
 									@endif
 									@if(isset($path))
 									<input type="hidden" value="{{ $path }}" name="path">
-									@endif
-									
+									@endif	
 										<div class="form-body">
 										@if(!isset($file))
 										<div class="form-group">
@@ -76,9 +74,6 @@
 						     </div>
 			               </div>
  					<!-- BEGIN PORTLET-->
-
-			     
-			
 					<!-- BEGIN PORTLET-->
 					<div class="portlet box yellow">
 						<div class="portlet-title">

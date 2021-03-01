@@ -64,12 +64,12 @@ class StudentController extends Controller
         $request->validate([
             'users' => 'required|array',
             'users.*' => 'required|integer',
-            //'file'    =>  'required|mimes:pdf|max:1024'
+            'file'    =>  'required|mimes:pdf|max:1024'
         ]);
 
     if(request()->has('sms')):
         $sms = Student::whereIn('id' , request('users'))->get()->pluck('mobile')->all();
-        //dd($sms);
+       // dd($sms);
         $res = Http::withHeaders([
         'Content-Type'=> 'application/Json',
         "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2F1dGguc21zLnRvL29hdXRoL3Rva2VuIiwiaWF0IjoxNjE0MTk0MTY2LCJuYmYiOjE2MTQxOTQxNjYsImp0aSI6Ijc0RWdiSTk1b0doYWxmVlYiLCJzdWIiOjIxNjczNCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsImtpZCI6MTI1NDJ9.qeOEuKkJ6glOLapTl7Ok7iWIijt1K6wvLbyMcVQrc4w"

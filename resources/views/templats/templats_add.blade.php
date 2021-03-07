@@ -1,9 +1,10 @@
 @extends('admin.dashboard')     
 @section('content')
- 
+@include("shared.msg")
 <form action="{{ $route }}" method="post" enctype="multipart/form-data" role="form" class="portlet box purple">
 	@csrf
 	@method('POST')
+
 						<!-- START PORTLET-->
 							<div class="portlet-title">
 								<div class="caption">
@@ -23,7 +24,7 @@
 										<div class="form-group">
 											<label class="col-md-3 control-label">إختار ملف</label>
 											<div class="col-md-6">
-												<input id="file" name="file" type="file" class="form-control input-lg" placeholder="Large Input">
+												<input  id="file" name="file" type="file"  class="form-control input-lg" placeholder="Large Input">
 											</div>
 										</div>
 										@endif
@@ -85,25 +86,148 @@
 							<!-- BEGIN FORM-->
 							<div class="form-horizontal form-row-seperated">
 								<div class="form-body">
-									 <div class="form-group"> 
-										<label class="col-md-3 control-label">النص</label>
-										<div class="col-md-6">
-									       <input type="text" name="wr" class="form-control" id="wr" value="{{ isset($write) ? $write : "" }}" placeholder="أدخل هنا">
+								<div class="form-body">
+								<div style="border: 1px #cccccc solid;padding: 5px;border-radius: 4px">
+									<div  class="mt-repeater-item">
+										@if(isset($data))
+										@foreach($data as $i => $obj)
+										<div class="row">
+											<div class="form-group"> 
+												<label class="col-md-3 control-label">النص</label>
+												<div class="col-md-6">
+												<input type="text" name="data[{{ $i }}][wr]" value="{{ $obj['wr'] }}" class="form-control" id="wr" value="{{ isset($write) ? $write : "" }}" placeholder="أدخل هنا">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<label class="control-label">اسم الخانة <span class="oldprename" style="color: #ccc"></span></label>
+												<select name="data[{{ $i }}][settitle]" value="{{ $obj['settitle'] }}" class="form-control input-lg selectsize prevname">
+													<option value="{free_text}">نص حر</option>
+													<option value="{اسم_الفعالية}">اسم الفعالية</option>
+													<option value="{اسم_المتدرب}">اسم المتدرب</option>
+													<option value="{اليوم}">اليوم</option>
+													<option value="{الموافق}">الموافق</option>
+													<option value="{المدة}">المدة</option>
+												</select>
+											</div>
+											<div class="col-md-2 divinsidetxt" style="display: none">
+												<label class="control-label">النص</label>
+												<textarea rows="1" name='data[{{ $i }}][free_text]' value="{{ $obj['free_text'] }}"  class="form-control input-lg free_text"></textarea> </div>
+											<div class="col-md-1">
+												<label class="control-label">الطول</label>
+												<input name='data[{{ $i }}][y]' value="{{ $obj['y'] }}" value="{{ isset($y) ? $y : "" }}" type="text" placeholder="" class="form-control input-lg" /> </div>
+											<div class="col-md-1">
+												<label class="control-label"> العرض</label>
+												<select class="form-control input-lg" name="data[{{ $i }}][position_fixed]" value="{{ $obj['position_fixed'] }}" data-placeholder="اختر ">
+													<option value="width: auto;">تحديد</option>
+													<option value="width: 100%; text-align:center;">في المنتصف</option>
+												</select> </div>
+											<div class="col-md-1">
+												<label class="control-label">  قيمة العرض</label>
+												<input name='data[{{ $i }}][x]' value="{{ $obj['x'] }}" value="{{ isset($x) ? $x : "" }}" type="text" placeholder="" class="form-control input-lg " /> </div>
+											<div class="col-md-1">
+												<label class="control-label"> حجم الخط</label>
+												<select class="form-control input-lg" name="data[{{ $i }}][font_size]" value="{{ $obj['font_size'] }}" data-placeholder="اختر ">
+														<option value="40px">40</option>
+														<option value="35px">35</option>
+														<option value="30px">30</option>
+														<option value="25px">25</option>
+														<option value="20px">20</option>
+														<option value="18px">18</option>
+														<option value="16px">16</option>
+														<option value="14px">14</option>
+												</select>
+											 </div>
+											<div class="col-md-1">
+												<label class="control-label"> لون الخط</label>
+												<input  name="data[{{ $i }}][font_color]" value="{{ $obj['font_color'] }}" class="form-control" type="color">
+											</div>
+											<div class="col-md-1">
+												<label class="control-label"> نوع الخط</label>
+												<select class="form-control input-lg" name="data[{{ $i }}][font_type]" value="{{ $obj['font_type'] }}" data-placeholder="اختر ">
+														<option value="gess">gess عربي</option>
+														<option value="almarai">almarai عربي</option>
+														<option value="tajawal">tajawal عربي</option>
+														<option value="amiri">amiri عربي</option>
+														<option value="xbriyaz">XBRiyaz عربي</option>
+														<option value="kfgqpcuthmantahanaskh">Uthman عربي</option>
+														<option value="dejavusans">dejavusans انجليزي</option>
+													</select>
+											 </div>
 										</div>
+										@endforeach
+										@else
+										<div class="row">
+											<div class="form-group"> 
+												<label class="col-md-3 control-label">النص</label>
+												<div class="col-md-6">
+												<input type="text" name="data[0][wr]" class="form-control" id="wr" value="{{ isset($write) ? $write : "" }}" placeholder="أدخل هنا">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<label class="control-label">اسم الخانة <span class="oldprename" style="color: #ccc"></span></label>
+												<select name="data[0][settitle]" class="form-control input-lg selectsize prevname">
+													<option value="{free_text}">نص حر</option>
+													<option value="{اسم_الفعالية}">اسم الفعالية</option>
+													<option value="{اسم_المتدرب}">اسم المتدرب</option>
+													<option value="{اليوم}">اليوم</option>
+													<option value="{الموافق}">الموافق</option>
+													<option value="{المدة}">المدة</option>
+												</select>
+											</div>
+											<div class="col-md-2 divinsidetxt" style="display: none">
+												<label class="control-label">النص</label>
+												<textarea rows="1" name='data[0][free_text]'  class="form-control input-lg free_text"></textarea> </div>
+											<div class="col-md-1">
+												<label class="control-label">الطول</label>
+												<input name='data[0][y]' value="{{ isset($y) ? $y : "" }}" type="text" placeholder="" class="form-control input-lg" /> </div>
+											<div class="col-md-1">
+												<label class="control-label"> العرض</label>
+												<select class="form-control input-lg" name="data[0][position_fixed]" data-placeholder="اختر ">
+													<option value="width: auto;">تحديد</option>
+													<option value="width: 100%; text-align:center;">في المنتصف</option>
+												</select> </div>
+											<div class="col-md-1">
+												<label class="control-label">  قيمة العرض</label>
+												<input name='data[0][x]' value="{{ isset($x) ? $x : "" }}" type="text" placeholder="" class="form-control input-lg " /> </div>
+											<div class="col-md-1">
+												<label class="control-label"> حجم الخط</label>
+												<select class="form-control input-lg" name="data[0][font_size]" data-placeholder="اختر ">
+														<option value="40px">40</option>
+														<option value="35px">35</option>
+														<option value="30px">30</option>
+														<option value="25px">25</option>
+														<option value="20px">20</option>
+														<option value="18px">18</option>
+														<option value="16px">16</option>
+														<option value="14px">14</option>
+												</select>
+											 </div>
+											<div class="col-md-1">
+												<label class="control-label"> لون الخط</label>
+												<input  name="data[0][font_color]" class="form-control" type="color">
+											</div>
+											<div class="col-md-1">
+												<label class="control-label"> نوع الخط</label>
+												<select class="form-control input-lg" name="data[0][font_type]" data-placeholder="اختر ">
+														<option value="gess">gess عربي</option>
+														<option value="almarai">almarai عربي</option>
+														<option value="tajawal">tajawal عربي</option>
+														<option value="amiri">amiri عربي</option>
+														<option value="xbriyaz">XBRiyaz عربي</option>
+														<option value="kfgqpcuthmantahanaskh">Uthman عربي</option>
+														<option value="dejavusans">dejavusans انجليزي</option>
+													</select>
+											 </div>
+										</div>
+										@endif
 									</div>
-									<div class="form-group">
-										<label class="control-label col-md-3">الطول</label>
-										<div class="col-md-6">
-									       <input type="text" name="x" value="{{ isset($x) ? $x : "" }}" class="form-control" id="" placeholder="أدخل هنا">
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="control-label col-md-3">العرض</label>
-										<div class="col-md-6">
-									       <input type="text" name="y" value="{{ isset($y) ? $y : "" }}" class="form-control" id="" placeholder="أدخل هنا">
-										</div>
-                                    </div>
-								
+									@if(isset($data))
+									<button type="button" class="btn btn-primary add-new-row" data-index="{{ count($data) - 1 }}">Add new</button>
+									@else
+									<button type="button" class="btn btn-primary add-new-row" data-index="0">Add new</button>
+									@endif
+								</div>
+							</div>
 								   <div class="form-group">
 										<label class="control-label col-md-3">Default</label>
 										<div class="col-md-4">
@@ -132,13 +256,13 @@
 									</div>
 								</div>
 							</div>
+							
 							<!-- END FORM-->
-						
 						</div>
-					</div>
+							
 					<!-- END PORTLET-->
 				
-         
+
 </form>		
 	<!-- END CONTENT -->
                     

@@ -159,6 +159,80 @@ Demo.init(); // init demo features
 });
 </script>
 <!-- END PAGE LEVEL SCRIPTS -->
+<script>
+	$(function(){
+		$("body").on("click" , ".add-new-row" , function(){
+			var index = parseInt($(this).attr("data-index")) + 1;
+			$(this).attr("data-index" , index);
+			console.log(index);
+			$(".mt-repeater-item").append(`
+<div class="row">
+											<div class="form-group"> 
+												<label class="col-md-3 control-label">النص</label>
+												<div class="col-md-6">
+												<input type="text" name="data[${index}][wr]" class="form-control" id="wr" value="{{ isset($write) ? $write : "" }}" placeholder="أدخل هنا">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<label class="control-label">اسم الخانة <span class="oldprename" style="color: #ccc"></span></label>
+												<select name="data[${index}][settitle]" class="form-control input-lg selectsize prevname">
+													<option value="{free_text}">نص حر</option>
+													<option value="{اسم_الفعالية}">اسم الفعالية</option>
+													<option value="{اسم_المتدرب}">اسم المتدرب</option>
+													<option value="{اليوم}">اليوم</option>
+													<option value="{الموافق}">الموافق</option>
+													<option value="{المدة}">المدة</option>
+												</select>
+											</div>
+											<div class="col-md-2 divinsidetxt" style="display: none">
+												<label class="control-label">النص</label>
+												<textarea rows="1" name='data[${index}][free_text]'  class="form-control input-lg free_text"></textarea> </div>
+											<div class="col-md-1">
+												<label class="control-label">الطول</label>
+												<input name='data[${index}][y]' value="{{ isset($y) ? $y : "" }}" type="text" placeholder="" class="form-control input-lg" /> </div>
+											<div class="col-md-1">
+												<label class="control-label"> العرض</label>
+												<select class="form-control input-lg" name="data[${index}][position_fixed]" data-placeholder="اختر ">
+													<option value="width: auto;">تحديد</option>
+													<option value="width: 100%; text-align:center;">في المنتصف</option>
+												</select> </div>
+											<div class="col-md-1">
+												<label class="control-label">  قيمة العرض</label>
+												<input name='data[${index}][x]' value="{{ isset($x) ? $x : "" }}" type="text" placeholder="" class="form-control input-lg " /> </div>
+											<div class="col-md-1">
+												<label class="control-label"> حجم الخط</label>
+												<select class="form-control input-lg" name="data[${index}][font_size]" data-placeholder="اختر ">
+														<option value="40px">40</option>
+														<option value="35px">35</option>
+														<option value="30px">30</option>
+														<option value="25px">25</option>
+														<option value="20px">20</option>
+														<option value="18px">18</option>
+														<option value="16px">16</option>
+														<option value="14px">14</option>
+												</select>
+											 </div>
+											<div class="col-md-1">
+												<label class="control-label"> لون الخط</label>
+												<input  name="data[${index}][font_color]" class="form-control" type="color">
+											</div>
+											<div class="col-md-1">
+												<label class="control-label"> نوع الخط</label>
+												<select class="form-control input-lg" name="data[${index}][font_type]" data-placeholder="اختر ">
+														<option value="gess">gess عربي</option>
+														<option value="almarai">almarai عربي</option>
+														<option value="tajawal">tajawal عربي</option>
+														<option value="amiri">amiri عربي</option>
+														<option value="xbriyaz">XBRiyaz عربي</option>
+														<option value="kfgqpcuthmantahanaskh">Uthman عربي</option>
+														<option value="dejavusans">dejavusans انجليزي</option>
+													</select>
+											 </div>
+										</div>
+			`);
+		});
+	});
+</script>
 </body>
 <!-- END BODY -->
 </html>

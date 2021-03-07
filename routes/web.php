@@ -37,13 +37,15 @@ Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
     Route::resource('users',    UserController::class);
 
 
-    Route::resource('/students',    StudentController::class);
+    Route::resource('/templates',    TestController::class);
 
-    Route::resource('/students',    StudentController::class);
+    Route::resource('/students',    TestController::class);
 
 
     Route::get('/test1', [TestController::class,'create'])->name('temp-create');
     Route::get('/test', [TestController::class,'index'])->name('temp-main');
+
+
 
 
 
@@ -72,4 +74,9 @@ Route::get('download-file/{id}' , function($id){
     else:
         echo 'file not found';
     endif;
+});
+
+
+Route::get('/test'  , function(){
+    echo public_path('storage');
 });

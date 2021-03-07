@@ -1,10 +1,9 @@
 @extends('admin.dashboard')
 
 @section('content')
-
-
 		<div class="row">
 				<div class="col-md-12">
+					@include("shared.msg")
 					<!-- BEGIN SAMPLE TABLE PORTLET-->
 					<div class="portlet box purple">
 						<div class="portlet-title">
@@ -44,8 +43,12 @@
 											{{ $template->title }}
 										</td>
 										<td>
-											<a href="" class="btn btn-primary btn-sm"><i class='fa fa-edit'></i></a>
-											<a href="" onclick='return confirm("Are you sure delete?")' class="btn btn-warning btn-sm"><i class='fa fa-trash'></i></a>
+											 <form method="post" action="{{ route('templates.destroy', $template->id) }}">
+											<a href="{{ route('templates.edit', $template->id) }}" class="btn btn-primary btn-sm"><i class='fa fa-edit'></i></a>
+                                            <button onclick='return confirm("Are you sure??")' type="submit" class="btn btn-danger btn-sm"><i class='fa fa-trash'></i></button>
+											@csrf
+											@method("DELETE")
+										</form></td></tr> 
 										</td>
 									</tr>
 									@endforeach

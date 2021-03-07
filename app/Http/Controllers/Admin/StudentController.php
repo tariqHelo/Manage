@@ -64,7 +64,7 @@ class StudentController extends Controller
         $request->validate([
             'users' => 'required|array',
             'users.*' => 'required|integer',
-            'file'    =>  'required|mimes:pdf|max:1024'
+           // 'file'    =>  'required|mimes:pdf|max:1024'
         ]);
 
     if(request()->has('sms')):
@@ -113,7 +113,6 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -136,6 +135,6 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd($id);
     }
 }

@@ -19,6 +19,8 @@ use setasign\Fpdi\PdfParser\StreamReader;
 class TestController extends Controller
 {
 
+
+
      public function index(){
         $templates = ImageDetail::all();
         return view('templats.index')->with('templates' , $templates);
@@ -55,19 +57,24 @@ class TestController extends Controller
         // use the imported page and place it at point 10,10 with a width of 100 mm
         $pdf->useTemplate($tplId, 0, 0, 200 , 150 , true);
 
-        dd(request('data'));
+    
+    //   dd(request('data'));
         foreach(request('data') as $i => $obj):
             $color = $obj['font_color'];
             list($r , $g , $b) = sscanf($color , "#%02x%02x%02x");
            //Set Parametatrs
-            $write = $obj['wr'];
-            $x = $obj['x'];
-            $y = $obj['y'];
-            // now write some text above the imported page
-            $pdf->SetFont('aefurat ','B',18);// Arial bold 15
+            $write =   $obj['wr'];
+            $x     =   $obj['x'];
+            $y     =   $obj['y'];
+            $size  =   $obj['font_size'];
+            $type  =   $obj['font_type'];
+          //  dd($type);
+            $pdf->SetFont("$type",'B',$size);// Arial bold 15
             $pdf->SetTextColor($r , $g , $b);
             $pdf->SetXY($x, $y);
-            $pdf->Write(0, $write);       
+            $pdf->Write(0, $write);      
+
+
         endforeach;
         $file_path = 'storage/pdf/pdf_'.strtotime('now').'.pdf';
         $pdf->Output( public_path($file_path) , 'F');
@@ -94,9 +101,9 @@ class TestController extends Controller
             $ImageD->save();
             
             $path = str_replace('/storage/' , '' , $path);
-            Storage::delete($path);
-
+             Storage::delete($path);
             return redirect()->route('temp-create');  
+            \Session::flash("msg","Templates Add successfully");
 
         endif;
     }

@@ -123,7 +123,7 @@
 												</select> </div>
 											<div class="col-md-1">
 												<label class="control-label">  قيمة العرض</label>
-												<input name='data[{{ $i }}][x]' value="{{ $obj['x'] }}" value="{{ isset($x) ? $x : "" }}" type="text" placeholder="" class="form-control input-lg " /> </div>
+												<input name='data[{{ $i }}][x]' value="{{ $obj['x'] }}"  type="text" placeholder="" class="form-control input-lg " /> </div>
 											<div class="col-md-1">
 												<label class="control-label"> حجم الخط</label>
 												<select class="form-control input-lg" name="data[{{ $i }}][font_size]" value="{{ $obj['font_size'] }}" data-placeholder="اختر ">
@@ -143,16 +143,16 @@
 											</div>
 											<div class="col-md-1">
 												<label class="control-label"> نوع الخط</label>
-												<select class="form-control input-lg" name="data[{{ $i }}][font_type]" value="{{ $obj['font_type'] }}" data-placeholder="اختر ">
-														<option value="gess">gess عربي</option>
-														<option value="almarai">almarai عربي</option>
-														<option value="tajawal">tajawal عربي</option>
-														<option value="amiri">amiri عربي</option>
-														<option value="xbriyaz">XBRiyaz عربي</option>
-														<option value="kfgqpcuthmantahanaskh">Uthman عربي</option>
+												<select class="form-control input-lg" name="data[{{ $i }}][font_type]" value="{{ $obj['font_type'] }}" placeholder="اختر ">
+														<option value="aefurat">aefurat عربي</option>
 														<option value="dejavusans">dejavusans انجليزي</option>
 													</select>
 											 </div>
+											 	 <div class="col-md-1" style="margin: 30px 0">
+													<a href="javascript:;" data-repeater-delete class="btn btn-danger btn-sm btn-icon btn-circle mt-repeater-delete">
+														<i class="fa fa-trash"></i>
+													</a>
+											</div>
 										</div>
 										@endforeach
 										@else
@@ -209,15 +209,15 @@
 											<div class="col-md-1">
 												<label class="control-label"> نوع الخط</label>
 												<select class="form-control input-lg" name="data[0][font_type]" data-placeholder="اختر ">
-														<option value="gess">gess عربي</option>
-														<option value="almarai">almarai عربي</option>
-														<option value="tajawal">tajawal عربي</option>
-														<option value="amiri">amiri عربي</option>
-														<option value="xbriyaz">XBRiyaz عربي</option>
-														<option value="kfgqpcuthmantahanaskh">Uthman عربي</option>
+														<option value="aefurat">aefurat عربي</option>
 														<option value="dejavusans">dejavusans انجليزي</option>
-													</select>
+													</select>	
 											 </div>
+											 <div class="col-md-1" style="margin: 30px 0">
+													<a href="javascript:;" data-repeater-delete class="btn btn-danger btn-sm btn-icon btn-circle mt-repeater-delete">
+														<i class="fa fa-trash"></i>
+													</a>
+											</div>
 										</div>
 										@endif
 									</div>
@@ -227,17 +227,42 @@
 									<button type="button" class="btn btn-primary add-new-row" data-index="0">Add new</button>
 									@endif
 								</div>
+                   
 							</div>
 								   <div class="form-group">
-										<label class="control-label col-md-3">Default</label>
+										<label class="control-label col-md-3">إضافة كود التحقق</label>
 										<div class="col-md-4">
-											<select class="bs-select form-control">
-												<option>Mustard</option>
-												<option>Ketchup</option>
-												<option>Relish</option>
+											 <select class="form-control input-lg" name="certcode" data-placeholder="اختر ">
+												<option value="none">بلا</option>
+												<option value="top:1mm;right:1mm">فوق يمين</option>
+												<option  value="top:1mm;right:50%">فوق وسط</option>
+												<option value="top:1mm;left:1mm">فوق يسار</option>
+												<option  value="bottom:1mm;right:1mm">تحت يمين</option>
+												<option  value="bottom:1mm;right:50%">تحت وسط</option>
+												<option  value="bottom:1mm;left:1mm">تحت يسار</option>
 											</select>
 										</div>
+										
 									</div>
+									 <div class="form-group row">
+										<label class="control-label col-md-3">هوامش الكود</label>
+										<div class="col-lg-2">
+											اعلى
+											<input name="certcode_margins_top" type="text" value="" class="form-control input-lg onlyNum" />
+										</div>
+										<div class="col-lg-2">
+											يمين
+											<input name="certcode_margins_right" type="text" value="" class="form-control input-lg onlyNum" />
+										</div>
+										<div class="col-lg-2">
+											اسفل
+											<input name="certcode_margins_bottom" type="text" value="" class="form-control input-lg onlyNum" />
+										</div>
+										<div class="col-lg-2">
+											يسار
+											<input name="certcode_margins_left" type="text" value="" class="form-control input-lg onlyNum" />
+										</div>
+                                    </div>
 									<div class="form-group last">
 										<label class="control-label col-md-3"></label>
 										<div class="col-md-4">
@@ -251,7 +276,7 @@
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn green"><i class="fa fa-check"></i> حفظ</button>
-											<button type="button" class="btn red">إلغاء</button>
+											<a href="{{ route('templates.index') }}" type="submit"  class="btn red">إلغاء</a>
 										</div>
 									</div>
 								</div>

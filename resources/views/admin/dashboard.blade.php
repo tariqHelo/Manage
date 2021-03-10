@@ -219,19 +219,32 @@ Demo.init(); // init demo features
 											<div class="col-md-1">
 												<label class="control-label"> نوع الخط</label>
 												<select class="form-control input-lg" name="data[${index}][font_type]" data-placeholder="اختر ">
-														<option value="gess">gess عربي</option>
-														<option value="almarai">almarai عربي</option>
-														<option value="tajawal">tajawal عربي</option>
-														<option value="amiri">amiri عربي</option>
-														<option value="xbriyaz">XBRiyaz عربي</option>
-														<option value="kfgqpcuthmantahanaskh">Uthman عربي</option>
+														<option value="aefurat">aefurat عربي</option>
 														<option value="dejavusans">dejavusans انجليزي</option>
 													</select>
 											 </div>
+											  <div class="col-md-1" style="margin: 30px 0">
+												<a href="javascript:;" data-repeater-delete class="btn btn-danger btn-sm btn-icon btn-circle mt-repeater-delete">
+													<i class="fa fa-trash"></i>
+												</a>
+											</div>
 										</div>
 			`);
 		});
 	});
+</script>
+
+<script>
+	 var my_repeater = $('#kt_repeater_3').repeater({
+            show: function() {
+                $(this).slideDown();                               
+            },
+            hide: function(deleteElement) {                 
+                if(confirm('هل ترغب بالحذف؟')) {
+                    $(this).slideUp(deleteElement);
+                }                                  
+            }      
+        });
 </script>
 </body>
 <!-- END BODY -->

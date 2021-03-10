@@ -232,11 +232,11 @@
 								   <div class="form-group">
 										<label class="control-label col-md-3">إضافة كود التحقق</label>
 										<div class="col-md-4">
-											 <select class="form-control input-lg" name="certcode" data-placeholder="اختر ">
-												<option value="none">بلا</option>
-												<option value="top:1mm;right:1mm">فوق يمين</option>
+											 <select class="form-control input-lg" name="data[0][certcode]" data-placeholder="اختر ">
+												<option  value="none">بلا</option>
+												<option  value="top:1mm;right:1mm">فوق يمين</option>
 												<option  value="top:1mm;right:50%">فوق وسط</option>
-												<option value="top:1mm;left:1mm">فوق يسار</option>
+												<option  value="top:1mm;left:1mm">فوق يسار</option>
 												<option  value="bottom:1mm;right:1mm">تحت يمين</option>
 												<option  value="bottom:1mm;right:50%">تحت وسط</option>
 												<option  value="bottom:1mm;left:1mm">تحت يسار</option>

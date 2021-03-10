@@ -57,18 +57,31 @@ class TestController extends Controller
         // use the imported page and place it at point 10,10 with a width of 100 mm
         $pdf->useTemplate($tplId, 0, 0, 200 , 150 , true);
 
+        $style = array(
+        'border' => 2,
+        'vpadding' => 'auto',
+        'hpadding' => 'auto',
+        'fgcolor' => array(0,0,0),
+        'bgcolor' => array(255,255,255),
+        'module_width' => 1, // width of a single module in points
+        'module_height' => 1 // height of a single module in points
+        );
     
-    //   dd(request('data'));
+      // dd(request('data'));
         foreach(request('data') as $i => $obj):
             $color = $obj['font_color'];
             list($r , $g , $b) = sscanf($color , "#%02x%02x%02x");
            //Set Parametatrs
-            $write =   $obj['wr'];
-            $x     =   $obj['x'];
-            $y     =   $obj['y'];
-            $size  =   $obj['font_size'];
-            $type  =   $obj['font_type'];
-          //  dd($type);
+            $write    =   $obj['wr'];
+            $x        =   $obj['x'];
+            $y        =   $obj['y'];
+            $size     =   $obj['font_size'];
+            $type     =   $obj['font_type'];
+            $certcode = $obj['certcode'];
+            if($obj['certcode']!=='none') {
+                $pdf->write2DBarcode('www.tcpdf.org', 'QRCODE,L', 20, 30, 17, 17, $style, 'N');
+                $pdf->Text(20, 25, 'QRCODE L');
+            }
             $pdf->SetFont("$type",'B',$size);// Arial bold 15
             $pdf->SetTextColor($r , $g , $b);
             $pdf->SetXY($x, $y);

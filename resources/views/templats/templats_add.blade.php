@@ -100,13 +100,13 @@
 											</div>
 											<div class="col-md-2">
 												<label class="control-label">اسم الخانة <span class="oldprename" style="color: #ccc"></span></label>
-												<select name="data[{{ $i }}][settitle]" value="{{ $obj['settitle'] }}" class="form-control input-lg selectsize prevname">
-													<option value="{free_text}">نص حر</option>
-													<option value="{اسم_الفعالية}">اسم الفعالية</option>
-													<option value="{اسم_المتدرب}">اسم المتدرب</option>
-													<option value="{اليوم}">اليوم</option>
-													<option value="{الموافق}">الموافق</option>
-													<option value="{المدة}">المدة</option>
+												<select name="data[{{ $i }}][settitle]"  class="form-control input-lg selectsize prevname">
+													<option value="{free_text}" >نص حر</option>
+													<option value="{اسم_الفعالية}"{{ $obj['settitle']==  "{اسم_الفعالية}" ? 'selected' : '' }}>اسم الفعالية</option>
+													<option value="{اسم_المتدرب}" {{ $obj['settitle']==  "{اسم_المتدرب}"  ? 'selected' : '' }}>اسم المتدرب</option>
+													<option value="{اليوم}"       {{ $obj['settitle']==  "{اليوم}"         ? 'selected' : '' }}>اليوم</option>
+													<option value="{الموافق}"     {{ $obj['settitle']==  "{الموافق}"       ? 'selected' : '' }}>الموافق</option>
+													<option value="{المدة}"       {{ $obj['settitle']==  "{المدة}"         ? 'selected' : '' }}>المدة</option>
 												</select>
 											</div>
 											<div class="col-md-2 divinsidetxt" style="display: none">
@@ -126,15 +126,15 @@
 												<input name='data[{{ $i }}][x]' value="{{ $obj['x'] }}"  type="text" placeholder="" class="form-control input-lg " /> </div>
 											<div class="col-md-1">
 												<label class="control-label"> حجم الخط</label>
-												<select class="form-control input-lg" name="data[{{ $i }}][font_size]" value="{{ $obj['font_size'] }}" data-placeholder="اختر ">
-														<option value="40px">40</option>
-														<option value="35px">35</option>
-														<option value="30px">30</option>
-														<option value="25px">25</option>
-														<option value="20px">20</option>
-														<option value="18px">18</option>
-														<option value="16px">16</option>
-														<option value="14px">14</option>
+												<select class="form-control input-lg" name="data[{{ $i }}][font_size]"  data-placeholder="اختر ">
+														<option value="40px" {{ $obj['font_size']==  "40px" ? 'selected' : '' }}>40</option>
+														<option value="35px" {{ $obj['font_size']==  "35px" ? 'selected' : '' }}>35</option>
+														<option value="30px" {{ $obj['font_size']==  "30px" ? 'selected' : '' }}>30</option>
+														<option value="25px" {{ $obj['font_size']==  "25px" ? 'selected' : '' }}>25</option>
+														<option value="20px" {{ $obj['font_size']==  "20px" ? 'selected' : '' }}>20</option>
+														<option value="18px" {{ $obj['font_size']==  "18px" ? 'selected' : '' }}>18</option>
+														<option value="16px" {{ $obj['font_size']==  "16px" ? 'selected' : '' }}>16</option>
+														<option value="14px" {{ $obj['font_size']==  "14px" ? 'selected' : '' }}>14</option>
 												</select>
 											 </div>
 											<div class="col-md-1">
@@ -143,9 +143,9 @@
 											</div>
 											<div class="col-md-1">
 												<label class="control-label"> نوع الخط</label>
-												<select class="form-control input-lg" name="data[{{ $i }}][font_type]" value="{{ $obj['font_type'] }}" placeholder="اختر ">
-														<option value="aefurat">aefurat عربي</option>
-														<option value="dejavusans">dejavusans انجليزي</option>
+												<select class="form-control input-lg" name="data[{{ $i }}][font_type]"  placeholder="اختر ">
+														<option value="aefurat"   {{ $obj['font_type']==  "aefurat" ? 'selected' : '' }}>aefurat عربي</option>
+														<option value="dejavusans"{{ $obj['font_type']==  "dejavusans" ? 'selected' : '' }}>dejavusans انجليزي</option>
 													</select>
 											 </div>
 											 	 <div class="col-md-1" style="margin: 30px 0">
@@ -232,7 +232,7 @@
 								   <div class="form-group">
 										<label class="control-label col-md-3">إضافة كود التحقق</label>
 										<div class="col-md-4">
-											 <select class="form-control input-lg" name="data[0][certcode]" data-placeholder="اختر ">
+											 <select class="form-control input-lg" name="data[0][certcode]" value="{{ isset($certcode) ? $certcode : "" }}" data-placeholder="اختر ">
 												<option  value="none">بلا</option>
 												<option  value="top:1mm;right:1mm">فوق يمين</option>
 												<option  value="top:1mm;right:50%">فوق وسط</option>

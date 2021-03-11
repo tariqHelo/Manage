@@ -77,11 +77,11 @@ class TestController extends Controller
             $y        =   $obj['y'];
             $size     =   $obj['font_size'];
             $type     =   $obj['font_type'];
-            $certcode = $obj['certcode'];
-            if($obj['certcode']!=='none') {
-                $pdf->write2DBarcode('www.tcpdf.org', 'QRCODE,L', 20, 30, 17, 17, $style, 'N');
-                $pdf->Text(20, 25, 'QRCODE L');
-            }
+            // $certcode = $obj['certcode'];
+            // if($certcode!=='none') {
+            //     $pdf->write2DBarcode('www.tcpdf.org', 'QRCODE,L', 170, 108, 16, 16, $style, 'N');
+            //    // $pdf->Text(170, 124, 'QRCODE L');   
+            // }
             $pdf->SetFont("$type",'B',$size);// Arial bold 15
             $pdf->SetTextColor($r , $g , $b);
             $pdf->SetXY($x, $y);

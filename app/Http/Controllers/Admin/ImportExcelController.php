@@ -16,14 +16,22 @@ use Image;
 use Carbon\Carbon;
 class ImportExcelController extends Controller
 {
-    function index()
+   public function index()
     {
-        $data = DB::table('import_excels')->orderBy('id', 'DESC')->get();
+        
+        $data = DB::table('students')->orderBy('id', 'ASC')->get();
+        //dd($data);
         $user = Auth::user();
-        return view('import_excel', compact('data','user',$user));
+        return view('students.create')
+        ->with('data' , $data)
+        ->with('user' , $user);
     }
+     public function create()
+     {
+       //dd(20);
+     }
 
-    function import(Request $request)
+   public function import(Request $request)
     {
         $this->validate($request, [
             'select_file'  => 'required|mimes:xls,xlsx'
@@ -33,7 +41,8 @@ class ImportExcelController extends Controller
         ]);
         $file = $request->select_file;
         Excel::import(new ExcelImport ,$file);
-        return redirect()->back()->with('success', 'Import successful.!');
+        Session::flash("msg","File Excel Uploded successfully");
+        return redirect()->back();
     }
 
     // insert
@@ -48,7 +57,7 @@ class ImportExcelController extends Controller
         if($request->get('No'))
         {
             $codesExists = $request->get('No');
-            $data = DB::table("import_excels")->where('id', $codesExists)->count();
+            $data = DB::table("students")->where('id', $codesExists)->count();
             if($data > 0)
             {
                 return redirect()->back()->with('codesExists',"Exit already.!");
@@ -61,7 +70,7 @@ class ImportExcelController extends Controller
                     'Sex' 	=>	$request->Sex,
                     'Age' 	=>	$request->Age
                 ];
-                DB::table('import_excels')->insert($importInsert);
+                DB::table('students')->insert($importInsert);
                 return redirect()->back()->with('importInsert','Insert Sucessful.!');
             }
 
@@ -77,14 +86,14 @@ class ImportExcelController extends Controller
             'Sex' 	=>	$request->Sex,
             'Age'   =>	$request->Age
         ];
-		DB::table('import_excels')->where('id',$request->idUpdate)->update($importUpdate);
+		DB::table('students')->where('id',$request->idUpdate)->update($importUpdate);
 		return redirect()->back()->with('importUpdate' ,'Update Successfull.!');
     }
 
     // delete
     public function importDelete($importID)
     { dd(20);
-		DB::table('import_excels')->where('id',$importID)->delete();
+		DB::table('students')->where('id',$importID)->delete();
 		return redirect()->back()->with('importDelete','Delect Successfull.!');
 	}
 }

@@ -1,9 +1,41 @@
 @extends('admin.dashboard')     
 @section('content')
+<div>
+	@include("shared.msg")
+
+					<!-- BEGIN SAMPLE FORM PORTLET-->
+					<div class="portlet box red">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-gift"></i> تحميل ملف إكسل
+							</div>
+						</div>
+						<div class="portlet-body form">
+							<form role="form" method="POST" action="{{ route('import_excel') }}" enctype="multipart/form-data">
+								@csrf
+								@method('post')
+								<div class="form-body">
+									<div class="form-group">
+										<label>Excel File</label>
+										<input type="file"  name="select_file" class="form-control input-lg" placeholder="input-lg">
+									</div>
+								<div class="form-actions left">
+										<button type="submit" class="btn btn-circle btn-lg blue m-icon-big">
+										Submit <i class="m-icon-big-swapdown m-icon-white"></i>
+										</button>
+								</div>
+								<div class="tab-pane " id="buttons_metro_circle">
+									<div class="clearfix">
+									
+									
+									</div>
+							</form>
+						</div>
+					</div>
+					<!-- END SAMPLE FORM PORTLET-->
 	<form action="{{ route('receve') }}" method="post" class="row">
 		@csrf
-				<div class="col-md-12">
-				   @include("shared.msg")
+			<div class="col-md-12">
 					<!-- BEGIN PORTLET-->
 					<div class="portlet box yellow">
 						<div class="portlet-title">
@@ -81,7 +113,7 @@
 									 رقم الجوال
 								</th>
 								<th>
-									 المدرسة
+									 رقم الهوية
 								</th>
 								<th>
 									 Status
@@ -97,17 +129,17 @@
 										</td>
 										
 										<td>
-											{{ $student->fname }}
+											{{ $student->name }}
 										</td>
 										<td>
 											<a href="mailto:{{ $student->email }}">
 											{{ $student->email }} </a>
 										</td>
 										<td>
-											{{ $student->mobile}}
+											{{ $student->mobile ?? ""}}
 										</td>
 										<td class="center">
-											{{ $student->school }}
+											{{ $student->numberId ?? ""}}
 										</td>
 										<td>
 											<span class="label label-sm label-success">
@@ -122,8 +154,10 @@
 						</div>
 					</div>
 					<!-- END EXAMPLE TABLE PORTLET-->
-				</div>
+		    </div>
 	</form>
+
+</div>
 
 @endsection
 

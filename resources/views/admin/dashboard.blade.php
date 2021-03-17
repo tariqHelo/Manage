@@ -246,6 +246,21 @@ Demo.init(); // init demo features
             }      
         });
 </script>
+
+{{-- <script>
+    // select import
+    $(document).on('click', '.importEdit', function()
+    {
+        var _this = $(this).parents('tr');
+        $('#idUpdate').val(_this.find('.idUpdate').text());
+        $('#e_No').val(_this.find('.No').text());
+        $('#e_Name').val(_this.find('.Name').text());
+        $('#e_Sex').val(_this.find('.Sex').text());
+        $('#e_Age').val(_this.find('.Age').text());
+    });
+</script> --}}
+
+
 </body>
 <!-- END BODY -->
 </html>

@@ -12,22 +12,34 @@ class Student extends Model
     protected $table = 'students';
 
     protected $fillable = [
-        'fname' ,
-        'sname' ,
-        'tname' ,
-        'lname' ,
+         'name' ,
+          'email' ,
+          'mobile',
+          'numberId',
+          'class',
+          'school'
 
-        'school' ,
-        'class' ,
-
-        'year',
-        'number' ,
-
-
-        'email' ,
-        'mobile',
-        'password',
-        'status',
     ];
+        // public function collection(Collection $collection)
+        // {
+        //     Student::truncate();
+        //     foreach($collection as $key => $value)
+        //     {
+        //     if($key > 0)
+        //     {
+        //         Student::insert([
+
+        //         //'No' =>$value[0]
+        //         'name'       =>$value[1]
+        //         ,'mobile'    =>$value[2]
+        //         ,'email'     =>$value[3]
+        //         ,'numberId'  =>$value[4] 
+        //         ,'class'     =>$value[5]
+        //         ,'school'    =>$value[6]
+                
+        //         ]);
+        //     }
+        //   }
+        // }
 
 }

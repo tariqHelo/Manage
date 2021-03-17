@@ -13,18 +13,23 @@ class ExcelImport implements ToCollection
     */
     public function collection(Collection $collection)
     {
-        DB::table('import_excels')->truncate();
+        DB::table('students')->truncate();
         foreach($collection as $key => $value)
         {
+            // dd($value[1]);
             if($key > 0)
             {
-                DB::table('import_excels')->insert([
-
-                    'No'	   =>$value[0]
-                    ,'Name'    =>$value[1]
-                    ,'Sex'     =>$value[2]
-                    ,'Age'     =>$value[3]
-
+                if($value[1] == null):
+                    continue;
+                endif;
+                DB::table('students')->insert([
+                    //'id'	    =>$value[0]
+                     'numberId'   =>$value[1]
+                     ,'name'      =>$value[2]
+                    ,'email'      =>$value[3]
+                     ,'mobile'    =>$value[4]
+                     ,'class'     =>$value[5]
+                     ,'school'    =>$value[6]
                 ]);
             }
         }

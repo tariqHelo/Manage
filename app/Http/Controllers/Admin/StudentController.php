@@ -23,7 +23,7 @@ class StudentController extends Controller
      */
     public function index()
     {    
-        $students = Student::get();
+        $students = Student::orderBy('id', 'ASC')->get();
         $files = ImageDetail::get();
         return view('students.index')->with(compact('students', 'files'));
 

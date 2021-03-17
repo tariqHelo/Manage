@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\WaterMarkController;
+use App\Http\Controllers\Admin\ImportExcelController;
 
 
 /*
@@ -46,11 +47,13 @@ Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
     Route::get('/test', [TestController::class,'index'])->name('temp-main');
 
 
+     // Route::get('/import_excel', [ImportExcelController::class,'index'])->name('add_student');
 
 
+    Route::post('/import_excel/import', [ImportExcelController::class,'import'])->name('import_excel');
 
     Route::get('/students', [StudentController::class,'index'])->name('students');
-    Route::get('/add_student', [StudentController::class,'create'])->name('add_student');
+    Route::get('/add_student', [ImportExcelController::class,'index'])->name('add_student');
 
 
     Route::post('/makeimage', [TestController::class,'makeimage'])->name('store_temp');
@@ -61,7 +64,22 @@ Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
     Route::put("/change-password", [ AdminController::class,'postChangePassword'])->name("post-change-password");
 
     Route::post("/receve" , [StudentController::class , 'receve'])->name("receve"); 
-    Route::post("/SMS" , [StudentController::class , 'SMS'])->name("SMS");    
+    Route::post("/SMS" , [StudentController::class , 'SMS'])->name("SMS");
+    
+    
+
+
+// Route::get('/import_excel', [ImportExcelController::class,'index'])->name('import_excel');
+// Route::post('/import_excel/import', [ImportExcelController::class,'import']);
+// ------------------------ delete ------------------------- //
+Route::get('import_excel/{importID}',[ImportExcelController::class,'import'])->name('importDelete');
+// ------------------------ insert ------------------------ //
+Route::post('importInsert',[ImportExcelController::class,'importInsert'])->name('importInsert');
+// ------------------------ update ------------------------ //
+Route::post('importUpdate',[ImportExcelController::class,'importUpdate'])->name('importUpdate');
+
+
+
    
 });
 

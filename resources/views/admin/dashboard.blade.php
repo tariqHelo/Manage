@@ -137,7 +137,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END PAGE LEVEL PLUGINS -->
 
 <script>
-jQuery(document).ready(function() {       
+ jQuery(document).ready(function() {       
 	Metronic.init(); // init metronic core components
 	Layout.init();  //init current layout
 	QuickSidebar.init();  //init quick sidebar
@@ -146,17 +146,17 @@ jQuery(document).ready(function() {
 	});
 </script>
 <script>
-jQuery(document).ready(function() {       
-   // initiate layout and plugins
-   Metronic.init(); // init metronic core components
-Layout.init(); // init current layout
-QuickSidebar.init(); // init quick sidebar
-Demo.init(); // init demo features
-   ChartsFlotcharts.init();
-   ChartsFlotcharts.initCharts();
-   ChartsFlotcharts.initPieCharts();
-   ChartsFlotcharts.initBarCharts();
-});
+	jQuery(document).ready(function() {       
+	// initiate layout and plugins
+	Metronic.init(); // init metronic core components
+	Layout.init(); // init current layout
+	QuickSidebar.init(); // init quick sidebar
+	Demo.init(); // init demo features
+	ChartsFlotcharts.init();
+	ChartsFlotcharts.initCharts();
+	ChartsFlotcharts.initPieCharts();
+	ChartsFlotcharts.initBarCharts();
+	});
 </script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
@@ -166,7 +166,7 @@ Demo.init(); // init demo features
 			$(this).attr("data-index" , index);
 			console.log(index);
 			$(".mt-repeater-item").append(`
-<div class="row">
+  <div class="row">
 											<div class="form-group"> 
 												<label class="col-md-3 control-label">النص</label>
 												<div class="col-md-6">
@@ -233,33 +233,6 @@ Demo.init(); // init demo features
 		});
 	});
 </script>
-
-<script>
-	 var my_repeater = $('#kt_repeater_3').repeater({
-            show: function() {
-                $(this).slideDown();                               
-            },
-            hide: function(deleteElement) {                 
-                if(confirm('هل ترغب بالحذف؟')) {
-                    $(this).slideUp(deleteElement);
-                }                                  
-            }      
-        });
-</script>
-
-{{-- <script>
-    // select import
-    $(document).on('click', '.importEdit', function()
-    {
-        var _this = $(this).parents('tr');
-        $('#idUpdate').val(_this.find('.idUpdate').text());
-        $('#e_No').val(_this.find('.No').text());
-        $('#e_Name').val(_this.find('.Name').text());
-        $('#e_Sex').val(_this.find('.Sex').text());
-        $('#e_Age').val(_this.find('.Age').text());
-    });
-</script> --}}
-
 
 </body>
 <!-- END BODY -->

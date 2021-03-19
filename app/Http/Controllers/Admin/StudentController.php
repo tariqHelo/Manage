@@ -47,13 +47,13 @@ class StudentController extends Controller
 
     public function store(CreateRequest $request)
     {
-       // dd($request->all());
-        if (!$request->status){
-            $request['status']=0;
-        }
-        Student::create($request->all());
-        Session::flash("msg","Student created successfully");
-        return view('students.index');  
+    //    // dd($request->all());
+    //     if (!$request->status){
+    //         $request['status']=0;
+    //     }
+    //     Student::create($request->all());
+    //     Session::flash("msg","Student created successfully");
+    //     return view('students.index');  
         
     }
 
@@ -80,7 +80,7 @@ class StudentController extends Controller
        Session::flash("msg","Student Sending SMS  successfully");
     elseif(request()->has("Email")):
         $emails = Student::whereIn('id' , request('users'))->get()->pluck('email')->all();
-        //dd($emails);
+        dd($emails);
         Mail::send('emails.welcome', [
             'id'    =>  request('sm')
         ], function($message) use ($emails)

@@ -115,8 +115,8 @@ class TestController extends Controller
             
             $path = str_replace('/storage/' , '' , $path);
              Storage::delete($path);
+            \Session::flash("msg","تم حفظ الملف بنجاح");
             return redirect()->route('temp-create');  
-            \Session::flash("msg","Templates Add successfully");
 
         endif;
     }

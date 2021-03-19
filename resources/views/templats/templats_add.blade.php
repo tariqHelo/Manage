@@ -116,13 +116,13 @@
 												<label class="control-label">الطول</label>
 												<input name='data[{{ $i }}][y]' value="{{ $obj['y'] }}" value="{{ isset($y) ? $y : "" }}" type="text" placeholder="" class="form-control input-lg" /> </div>
 											<div class="col-md-1">
-												<label class="control-label"> العرض</label>
+												<label class="control-label"> تحديد</label>
 												<select class="form-control input-lg" name="data[{{ $i }}][position_fixed]" value="{{ $obj['position_fixed'] }}" data-placeholder="اختر ">
 													<option value="width: auto;">تحديد</option>
 													<option value="width: 100%; text-align:center;">في المنتصف</option>
 												</select> </div>
 											<div class="col-md-1">
-												<label class="control-label">  قيمة العرض</label>
+												<label class="control-label">  العرض</label>
 												<input name='data[{{ $i }}][x]' value="{{ $obj['x'] }}"  type="text" placeholder="" class="form-control input-lg " /> </div>
 											<div class="col-md-1">
 												<label class="control-label"> حجم الخط</label>
@@ -181,13 +181,13 @@
 												<label class="control-label">الطول</label>
 												<input name='data[0][y]' value="{{ isset($y) ? $y : "" }}" type="text" placeholder="" class="form-control input-lg" /> </div>
 											<div class="col-md-1">
-												<label class="control-label"> العرض</label>
+												<label class="control-label"> تحديد</label>
 												<select class="form-control input-lg" name="data[0][position_fixed]" data-placeholder="اختر ">
 													<option value="width: auto;">تحديد</option>
 													<option value="width: 100%; text-align:center;">في المنتصف</option>
 												</select> </div>
 											<div class="col-md-1">
-												<label class="control-label">  قيمة العرض</label>
+												<label class="control-label">   العرض</label>
 												<input name='data[0][x]' value="{{ isset($x) ? $x : "" }}" type="text" placeholder="" class="form-control input-lg " /> </div>
 											<div class="col-md-1">
 												<label class="control-label"> حجم الخط</label>

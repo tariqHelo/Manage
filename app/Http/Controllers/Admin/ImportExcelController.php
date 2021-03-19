@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Http\Requests\Students\CreateRequest;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\ExcelImport;
@@ -18,7 +18,6 @@ class ImportExcelController extends Controller
 {
    public function index()
     {
-        
         $data = DB::table('students')->orderBy('id', 'ASC')->get();
         //dd($data);
         $user = Auth::user();
@@ -45,15 +44,13 @@ class ImportExcelController extends Controller
         return redirect()->back();
     }
 
+
+
     // insert
     public function importInsert(Request $request)
-    {
-		$request->validate([
-                            'No'   => 'required',
-                            'Name' => 'required',
-                            'Sex'  => 'required',
-                            'Age'  => 'required'
-                        ]);
+    {    
+        dd(10);
+
         if($request->get('No'))
         {
             $codesExists = $request->get('No');
@@ -78,7 +75,7 @@ class ImportExcelController extends Controller
     }
     // update
 	public function importUpdate(Request $request)
-	{
+	{ dd(20);
 		$importUpdate = [
             'id'    =>	$request->idUpdate,
             'No' 	=>	$request->No,
@@ -92,7 +89,7 @@ class ImportExcelController extends Controller
 
     // delete
     public function importDelete($importID)
-    { dd(20);
+    { //dd(20);
 		DB::table('students')->where('id',$importID)->delete();
 		return redirect()->back()->with('importDelete','Delect Successfull.!');
 	}

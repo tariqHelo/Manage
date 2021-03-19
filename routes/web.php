@@ -40,8 +40,10 @@ Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
 
     Route::resource('/templates',    TestController::class);
 
-    Route::resource('/students',    TestController::class);
+  //  Route::resource('/students',    TestController::class);
 
+    Route::POST('/add/students', [ImportExcelController::class ,'importInsert'])->name('student-store');
+    Route::POST('/edit/students', [ImportExcelController::class ,'importUpdate'])->name('student-edit');
 
     Route::get('/test1', [TestController::class,'create'])->name('temp-create');
     Route::get('/test', [TestController::class,'index'])->name('temp-main');
@@ -66,9 +68,6 @@ Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
     Route::post("/receve" , [StudentController::class , 'receve'])->name("receve"); 
     Route::post("/SMS" , [StudentController::class , 'SMS'])->name("SMS");
     
-    
-
-
 // Route::get('/import_excel', [ImportExcelController::class,'index'])->name('import_excel');
 // Route::post('/import_excel/import', [ImportExcelController::class,'import']);
 // ------------------------ delete ------------------------- //
@@ -76,11 +75,7 @@ Route::get('import_excel/{importID}',[ImportExcelController::class,'import'])->n
 // ------------------------ insert ------------------------ //
 Route::post('importInsert',[ImportExcelController::class,'importInsert'])->name('importInsert');
 // ------------------------ update ------------------------ //
-Route::post('importUpdate',[ImportExcelController::class,'importUpdate'])->name('importUpdate');
-
-
-
-   
+Route::post('importUpdate',[ImportExcelController::class,'importUpdate'])->name('importUpdate');  
 });
 
 Route::get('download-file/{id}' , function($id){

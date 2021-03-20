@@ -42,8 +42,8 @@ Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
 
   //  Route::resource('/students',    TestController::class);
 
-    Route::POST('/add/students', [ImportExcelController::class ,'importInsert'])->name('student-store');
-    Route::POST('/edit/students', [ImportExcelController::class ,'importUpdate'])->name('student-edit');
+    Route::post('/add/students', [StudentController::class ,'store'])->name('student-store');
+    Route::post('/edit/{id}/students', [StudentController::class ,'update'])->name('student-edit');
 
     Route::get('/test1', [TestController::class,'create'])->name('temp-create');
     Route::get('/test', [TestController::class,'index'])->name('temp-main');

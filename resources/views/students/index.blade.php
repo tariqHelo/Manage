@@ -37,7 +37,7 @@
 	</div>
 	<!-- END SAMPLE FORM PORTLET-->
 	 <form action="{{ route('receve') }}" method="post" class="row">
-		@csrf
+	    	@csrf
 			<div class="col-md-12">
 					<!-- BEGIN PORTLET-->
 					<div class="portlet box yellow">
@@ -106,6 +106,7 @@
 								<th class="table-checkbox">
 									<input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"/>
 								</th>
+								
 								<th>
 									 إسم الطالب
 								</th>
@@ -136,7 +137,6 @@
 										<td>
 											<input type="checkbox" class="checkboxes" name="users[]" value="{{ $student->id }}"/>
 										</td>
-										
 										<td>
 											{{ $student->name }}
 										</td>
@@ -162,7 +162,7 @@
 										</td>
 									</tr>
 								@endforeach
-							</tbody>
+							  </tbody>
 							</table>
 						</div>
 					</div>
@@ -171,7 +171,10 @@
 	</form>
 	<!-- /.modal -->
 				{{--Start Add New --}}
-					 <div id="stack1" class="modal fade" tabindex="-1" data-width="400">
+					 <form action="{{ route('student-store') }}" method="POST" id="stack1" class="modal fade" tabindex="-1" data-width="400">
+						@csrf
+						@method('POST')
+
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -179,59 +182,60 @@
 									<h4 class="modal-title">إضافة طالب جديد</h4>
 								</div>
 								<div class="modal-body">
-									<form action="{{ route('student-store') }}" method="POST" ><!-- form add -->
-										@method('POST')
+								<!-- form add -->
+										
 											<div class="modal-body">
 												<div class="form-group row">
 													<label class="col-sm-3 col-form-label">الإسم</label>
 													<div class="col-sm-9">
-														<input type="text"name="name" class="form-control" placeholder="Enter Name">
+														<input type="text"name="name" value="{{ old('name') }}" class="form-control" placeholder="الإسم">
 													</div>
 												</div>
 												<div class="form-group row">
 													<label class="col-sm-3 col-form-label">الإيميل</label>
 													<div class="col-sm-9">
-														<input type="text" name="email" class="form-control" placeholder="Enter Age">
+														<input type="text" name="email" value="{{ old('email') }}" class="form-control" placeholder="أدخل الإيميل ">
 													</div>
 												</div>
 												<div class="form-group row">
 													<label class="col-sm-3 col-form-label">رقم الجوال</label>
 													<div class="col-sm-9">
-														<input type="text" name="mobile" class="form-control" placeholder="Enter Sex">
+														<input type="text" name="mobile" value="{{ old('mobile') }}" class="form-control" placeholder="رقم الجوال ">
 													</div>
 												</div>
 												<div class="form-group row">
 													<label class="col-sm-3 col-form-label">رقم الهوية</label>
 													<div class="col-sm-9">
-														<input type="text" name="numberId" class="form-control" placeholder="Enter No">
+														<input type="text" name="numberId" value="{{ old('numberId') }}" class="form-control" placeholder="رقم الهوية">
 													</div>
 												</div>
 												<div class="form-group row">
 													<label class="col-sm-3 col-form-label">الصف</label>
 													<div class="col-sm-9">
-														<input type="text" name="class" class="form-control" placeholder="Enter Age">
+														<input type="text" name="class" value="{{ old('class') }}" class="form-control" placeholder="الصف">
 													</div>
 												</div>
 												<div class="form-group row">
 													<label class="col-sm-3 col-form-label">المدرسة</label>
 													<div class="col-sm-9">
-														<input type="text" name="school" class="form-control" placeholder="Enter Age">
+														<input type="text" name="school" value="{{ old('school') }}" class="form-control" placeholder="المدرسة">
 													</div>
 												</div>
 											</div>
-									</form>
 								</div>
 								<div class="modal-footer">
-									<button type="button" data-dismiss="modal" class="btn">Close</button>
-									<button type="submit" class="btn red">Ok</button>
+									<button type="button" data-dismiss="modal" class="btn">إلغاء</button>
+									<button type="submit" class="btn red">حفظ</button>
 								</div>
 							</div>
 						</div>
-					</div>
+					</form>
 				{{--End Add New --}}
 				{{--Start Edit --}}
 		         @foreach($students as  $student)
-					<div id="stack2{{ $student->id }}" class="modal fade" tabindex="-1" data-width="400">
+					<form action="" method="POST"  id="stack2{{ $student->id }}" class="modal fade" tabindex="-1" data-width="400">
+						@csrf
+						@method('post')
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -239,9 +243,7 @@
 									<h4 class="modal-title">تعديل طالب</h4>
 								</div>
 								<div class="modal-body">
-									<form action="" method="POST"><!-- form add -->
-										@csrf
-										@method('PUT')
+									
 											<div class="modal-body">
 												<div class="form-group row">
 													<label class="col-sm-3 col-form-label">الإسم</label>
@@ -280,15 +282,14 @@
 													</div>
 												</div>
 											</div>
-									</form>
 								</div>
 								<div class="modal-footer">
-									<button type="button" data-dismiss="modal" class="btn">Close</button>
-									<button type="button" class="btn red">Ok</button>
+									<button type="button" data-dismiss="modal" class="btn">إلغاء</button>
+									<button type="submit" class="btn red">حفظ </button>
 								</div>
 							</div>
 						</div>
-					</div>
+					</form>
 			     @endforeach
 				{{--End Edit --}}
 </div>

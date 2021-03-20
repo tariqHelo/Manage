@@ -24,12 +24,12 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required',
-            // 'email' => 'required',
-            // 'mobile' => 'required',
-            // 'numberId' => 'required',
-            // 'class' => 'required',
-            // 'school' => 'required',
+            'name' => 'required',
+            'numberId' => 'required',
+            'email' => 'required',
+            'mobile' => 'required',
+            'class' => 'required',
+            'school' => 'required',
 
         ];
     }
@@ -37,11 +37,9 @@ class CreateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Please enter a fname for your blog!',
-            'numberId.required' => 'Please enter a summary for your blog!',
-            'email' => 'required',
-            'mobile' => 'required',
-            'password' => 'required',
+            'name.required' => 'Please enter a name for your app!',
+            'numberId.required' => 'Please enter a numberId for your app!',
+   
         ];
     }
 }

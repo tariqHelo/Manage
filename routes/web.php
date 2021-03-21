@@ -43,7 +43,8 @@ Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
   //  Route::resource('/students',    TestController::class);
 
     Route::post('/add/students', [StudentController::class ,'store'])->name('student-store');
-    Route::post('/edit/{id}/students', [StudentController::class ,'update'])->name('student-edit');
+    Route::post('/update/students/{id}', [StudentController::class ,'update'])->name('student-update');
+    Route::get('/delete/students/{id}', [StudentController::class ,'destroy'])->name('student-delete');
 
     Route::get('/test1', [TestController::class,'create'])->name('temp-create');
     Route::get('/test', [TestController::class,'index'])->name('temp-main');

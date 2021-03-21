@@ -23,7 +23,7 @@ class StudentController extends Controller
      */
     public function index()
     {    
-        $students = Student::orderBy('id', 'ASC')->get();
+        $students = Student::orderBy('id', 'DESC')->get();
         $files = ImageDetail::get();
         return view('students.index')->with(compact('students', 'files'));
 
@@ -104,27 +104,16 @@ class StudentController extends Controller
      */
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $id)
-    {   dd(20);
+    public function update($id, Request $request)
+    {  // dd($request->all());
         Student::find($id)->update($request->all());
-        Session::flash("msg","Student created successfully");
+        Session::flash("msg","Student Updated successfully");
         return redirect()->route('students');
     }
 
@@ -136,6 +125,9 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
+          $task = Student::findOrFail($id)->delete();
+          session()->flash("msg", "w: Student Deleted Successfully");
+        return redirect()->route('students');
+
     }
 }

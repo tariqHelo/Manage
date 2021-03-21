@@ -156,9 +156,14 @@
 											<td class="center">
 											{{ $student->school ?? ""}}
 										</td> --}}
-										<td>              
-											<a {{route('student-edit' , $student->id)}} data-target="#stack2{{ $student->id }}" data-toggle="modal" class="btn btn-primary btn-sm"><i class='fa fa-edit'></i></a>
-											<button onclick='return confirm("Are you sure??")' type="submit" class="btn btn-danger btn-sm"><i class='fa fa-trash'></i></button>
+										<td>   
+											<form method="post" action="{{ route('student-delete', $student->id) }}">
+												<a href="{{ route('student-update' , $student->id) }}" data-target="#stack2{{ $student->id }}" data-toggle="modal" class="btn btn-primary btn-sm"><i class='fa fa-edit'></i></a>
+											     <a href="{{ route("student-delete", $student->id) }}" onclick='return confirm("Are you sure dude?")' class="btn btn-warning btn-sm"><i class='fa fa-trash'></i></a>
+												@csrf
+												@method("DELETE")
+											</form>           
+									
 										</td>
 									</tr>
 								@endforeach
@@ -233,9 +238,9 @@
 				{{--End Add New --}}
 				{{--Start Edit --}}
 		         @foreach($students as  $student)
-					<form action="" method="POST"  id="stack2{{ $student->id }}" class="modal fade" tabindex="-1" data-width="400">
+					<form action="{{ route('student-update',$student->id) }}" method="POST"  id="stack2{{ $student->id }}" class="modal fade" tabindex="-1" data-width="400">
 						@csrf
-						@method('post')
+						@method('POST')
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -248,7 +253,7 @@
 												<div class="form-group row">
 													<label class="col-sm-3 col-form-label">الإسم</label>
 													<div class="col-sm-9">
-														<input type="text"  name="Name" value="{{ $student->name }}" class="form-control" placeholder="Enter Name">
+														<input type="text"  name="name" value="{{ $student->name }}" class="form-control" placeholder="Enter Name">
 													</div>
 												</div>
 												<div class="form-group row">

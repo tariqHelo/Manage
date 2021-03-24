@@ -77,11 +77,11 @@ class TestController extends Controller
             $y        =   $obj['y'];
             $size     =   $obj['font_size'];
             $type     =   $obj['font_type'];
-            // $certcode = $obj['certcode'];
-            // if($certcode!=='none') {
-            //     $pdf->write2DBarcode('www.tcpdf.org', 'QRCODE,L', 170, 108, 16, 16, $style, 'N');
-            //    // $pdf->Text(170, 124, 'QRCODE L');   
-            // }
+            $certcode = $obj['certcode'];
+            if($certcode!=='none') {
+                $pdf->write2DBarcode('www.tcpdf.org', 'QRCODE,L', 170, 108, 16, 16, $style, 'N');
+               // $pdf->Text(170, 124, 'QRCODE L');   
+            }
             $pdf->SetFont("$type",'B',$size);// Arial bold 15
             $pdf->SetTextColor($r , $g , $b);
             $pdf->SetXY($x, $y);
@@ -132,37 +132,4 @@ class TestController extends Controller
         return redirect(route("templates.index"));
     }
 
-
-
-      public function MultiRow($left, $right) {
-          
-        $page_start = $this->getPage();
-        $y_start = $this->GetY();
-        // write the left cell
-        $this->MultiCell(40, 0, $left, 1, 'R', 1, 2, '', '', true, 0);
-
-        $page_end_1 = $this->getPage();
-        $y_end_1 = $this->GetY();
-
-        $this->setPage($page_start);
-
-        // write the right cell
-        $this->MultiCell(0, 0, $right, 1, 'J', 0, 1, $this->GetX() ,$y_start, true, 0);
-
-        $page_end_2 = $this->getPage();
-        $y_end_2 = $this->GetY();
-
-        // set the new row position by case
-        if (max($page_end_1,$page_end_2) == $page_start) {
-            $ynew = max($y_end_1, $y_end_2);
-        } elseif ($page_end_1 == $page_end_2) {
-            $ynew = max($y_end_1, $y_end_2);
-        } elseif ($page_end_1 > $page_end_2) {
-            $ynew = $y_end_1;
-        } else {
-            $ynew = $y_end_2;
-        }
-        $this->setPage(max($page_end_1,$page_end_2));
-        $this->SetXY($this->GetX(),$ynew);
-    }
 }

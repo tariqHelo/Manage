@@ -61,6 +61,7 @@ Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
 
     Route::post('/makeimage', [TestController::class,'makeimage'])->name('store_temp');
     Route::post('/printimage', [TestController::class,'printimage'])->name('print-image');
+    Route::post('/update-print-image/{id}', [TestController::class,'updateprintimage'])->name('update-print-image');
 
 
     Route::get("/change-password", [ AdminController::class,'changePassword'])->name("change-password");

@@ -170,18 +170,18 @@ License: You must have a valid license purchased only from themeforest(the above
 											<div class="form-group"> 
 												<label class="col-md-3 control-label">النص</label>
 												<div class="col-md-6">
-												<input type="text" name="data[${index}][wr]" class="form-control" id="wr" value="{{ isset($write) ? $write : "" }}" placeholder="أدخل هنا">
+												<input type="text" name="data[${index}][wr]" class="form-control main-text" id="wr" value="{{ isset($write) ? $write : "" }}" placeholder="أدخل هنا">
 												</div>
 											</div>
 											<div class="col-md-2">
 												<label class="control-label">اسم الخانة <span class="oldprename" style="color: #ccc"></span></label>
 												<select name="data[${index}][settitle]" class="form-control input-lg selectsize prevname">
-													<option value="{free_text}">نص حر</option>
-													<option value="{اسم_الفعالية}">اسم الفعالية</option>
-													<option value="{اسم_المتدرب}">اسم المتدرب</option>
-													<option value="{اليوم}">اليوم</option>
-													<option value="{الموافق}">الموافق</option>
-													<option value="{المدة}">المدة</option>
+													<option value="نص حر">نص حر</option>
+													<option value="اسم_الفعالية">اسم الفعالية</option>
+													<option value="اسم_المتدرب">اسم المتدرب</option>
+													<option value="اليوم">اليوم</option>
+													<option value="الموافق">الموافق</option>
+													<option value="المدة">المدة</option>
 												</select>
 											</div>
 											<div class="col-md-2 divinsidetxt" style="display: none">
@@ -224,12 +224,23 @@ License: You must have a valid license purchased only from themeforest(the above
 													</select>
 											 </div>
 											  <div class="col-md-1" style="margin: 30px 0">
-												<a href="javascript:;" data-repeater-delete class="btn btn-danger btn-sm btn-icon btn-circle mt-repeater-delete">
+												<a href="javascript:;" data-repeater-delete class="delete-row btn btn-danger btn-sm btn-icon btn-circle mt-repeater-delete">
 													<i class="fa fa-trash"></i>
 												</a>
 											</div>
 										</div>
 			`);
+		});
+
+		$("body").on("change" , "select.prevname" , function(){
+			var val = $(this).val();
+			val = $(this).find("option[value="+val+"]").text();
+			console.log(val);
+			$(this).parents(".row").find("input.main-text").val(val);
+
+		});
+		$("body").on("click" , ".delete-row" , function(){
+			$(this).parents(".row").remove();
 		});
 	});
 </script>

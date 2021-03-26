@@ -70,7 +70,7 @@ class StudentController extends Controller
 
             $sms = Student::whereIn('id' , request('users'))->get()->pluck('mobile')->all();
         // dd($sms);
-            $response = Http::post('https://www.hisms.ws/api.php', [
+            $response = Http::get('https://www.hisms.ws/api.php', [
             'username' => 'يزيد ناصر بن سراء',
             'password' => 'Y1121111211y',
             'numbers' => "$sms",

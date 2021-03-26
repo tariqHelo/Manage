@@ -36,8 +36,9 @@
 		</div>
 	</div>
 	<!-- END SAMPLE FORM PORTLET-->
-	 <form action="{{ route('receve') }}" method="post" class="row">
-	    	@csrf
+	 <form action="{{ route('receve') }}" method="POST" class="row">
+			@csrf
+			@method('POST')
 			<div class="col-md-12">
 					<!-- BEGIN PORTLET-->
 					<div class="portlet box yellow">
@@ -157,12 +158,8 @@
 											{{ $student->school ?? ""}}
 										</td> --}}
 										<td>   
-											<form method="post" action="{{ route('student-delete', $student->id) }}">
 												<a href="{{ route('student-update' , $student->id) }}" data-target="#stack2{{ $student->id }}" data-toggle="modal" class="btn btn-primary btn-sm"><i class='fa fa-edit'></i></a>
 											     <a href="{{ route("student-delete", $student->id) }}" onclick='return confirm("Are you sure dude?")' class="btn btn-warning btn-sm"><i class='fa fa-trash'></i></a>
-												@csrf
-												@method("DELETE")
-											</form>           
 									
 										</td>
 									</tr>

@@ -95,18 +95,18 @@
 											<div class="form-group"> 
 												<label class="col-md-3 control-label">النص</label>
 												<div class="col-md-6">
-												<input type="text" name="data[{{ $i }}][wr]" value="{{ $obj['wr'] }}" class="form-control" id="wr" value="{{ isset($write) ? $write : "" }}" placeholder="أدخل هنا">
+												<input type="text" name="data[{{ $i }}][wr]" value="{{ $obj['wr'] }}" class="form-control main-text" id="wr" value="{{ isset($write) ? $write : "" }}" placeholder="أدخل هنا">
 												</div>
 											</div>
 											<div class="col-md-2">
 												<label class="control-label">اسم الخانة <span class="oldprename" style="color: #ccc"></span></label>
 												<select name="data[{{ $i }}][settitle]"  class="form-control input-lg selectsize prevname">
-													<option value="{free_text}" >نص حر</option>
-													<option value="{اسم_الفعالية}"{{ $obj['settitle']==  "{اسم_الفعالية}" ? 'selected' : '' }}>اسم الفعالية</option>
-													<option value="{اسم_المتدرب}" {{ $obj['settitle']==  "{اسم_المتدرب}"  ? 'selected' : '' }}>اسم المتدرب</option>
-													<option value="{اليوم}"       {{ $obj['settitle']==  "{اليوم}"         ? 'selected' : '' }}>اليوم</option>
-													<option value="{الموافق}"     {{ $obj['settitle']==  "{الموافق}"       ? 'selected' : '' }}>الموافق</option>
-													<option value="{المدة}"       {{ $obj['settitle']==  "{المدة}"         ? 'selected' : '' }}>المدة</option>
+													<option value="نص حر" >نص حر</option>
+													<option value="اسم_الفعالية"{{ $obj['settitle']==  "{اسم_الفعالية}" ? 'selected' : '' }}>اسم الفعالية</option>
+													<option value="اسم_المتدرب" {{ $obj['settitle']==  "{اسم_المتدرب}"  ? 'selected' : '' }}>اسم المتدرب</option>
+													<option value="اليوم"       {{ $obj['settitle']==  "{اليوم}"         ? 'selected' : '' }}>اليوم</option>
+													<option value="الموافق"     {{ $obj['settitle']==  "{الموافق}"       ? 'selected' : '' }}>الموافق</option>
+													<option value="المدة"       {{ $obj['settitle']==  "{المدة}"         ? 'selected' : '' }}>المدة</option>
 												</select>
 											</div>
 											<div class="col-md-2 divinsidetxt" style="display: none">
@@ -149,7 +149,7 @@
 													</select>
 											 </div>
 											 	 <div class="col-md-1" style="margin: 30px 0">
-													<a href="javascript:;" data-repeater-delete class="btn btn-danger btn-sm btn-icon btn-circle mt-repeater-delete">
+													<a href="javascript:;" data-repeater-delete class="delete-row btn btn-danger btn-sm btn-icon btn-circle mt-repeater-delete">
 														<i class="fa fa-trash"></i>
 													</a>
 											</div>
@@ -160,18 +160,18 @@
 											<div class="form-group"> 
 												<label class="col-md-3 control-label">النص</label>
 												<div class="col-md-6">
-												<input type="text" name="data[0][wr]" class="form-control" id="wr" value="{{ isset($write) ? $write : "" }}" placeholder="أدخل هنا">
+												<input type="text" name="data[0][wr]" class="form-control main-text" id="wr" value="{{ isset($write) ? $write : "" }}" placeholder="أدخل هنا">
 												</div>
 											</div>
 											<div class="col-md-2">
 												<label class="control-label">اسم الخانة <span class="oldprename" style="color: #ccc"></span></label>
 												<select name="data[0][settitle]" class="form-control input-lg selectsize prevname">
-													<option value="{free_text}">نص حر</option>
-													<option value="{اسم_الفعالية}">اسم الفعالية</option>
-													<option value="{اسم_المتدرب}">اسم المتدرب</option>
-													<option value="{اليوم}">اليوم</option>
-													<option value="{الموافق}">الموافق</option>
-													<option value="{المدة}">المدة</option>
+													<option value="نص حر">نص حر</option>
+													<option value="اسم_الفعالية">اسم الفعالية</option>
+													<option value="اسم_المتدرب">اسم المتدرب</option>
+													<option value="اليوم">اليوم</option>
+													<option value="الموافق">الموافق</option>
+													<option value="المدة">المدة</option>
 												</select>
 											</div>
 											<div class="col-md-2 divinsidetxt" style="display: none">
@@ -214,7 +214,7 @@
 													</select>	
 											 </div>
 											 <div class="col-md-1" style="margin: 30px 0">
-													<a href="javascript:;" data-repeater-delete class="btn btn-danger btn-sm btn-icon btn-circle mt-repeater-delete">
+													<a href="javascript:;" data-repeater-delete class="delete-row btn btn-danger btn-sm btn-icon btn-circle mt-repeater-delete">
 														<i class="fa fa-trash"></i>
 													</a>
 											</div>

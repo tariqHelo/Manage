@@ -44,6 +44,7 @@ class TestController extends Controller
     } 
     public function printimage(Request $request){
         $path = request('file');
+       // dd($path);
         // initiate FPDI
         $pdf = new Fpdi();
         // add a page
@@ -120,13 +121,105 @@ class TestController extends Controller
 
         endif;
     }
-    public function edit($id)
+    public function edit(Request $request , $id)
     {
-        dd($id);
+        $image = ImageDetail::find($id);
+        $route = route('update-print-image' , ['id' => $id]);
+
+        $request->request->add(['title' => $image->title]);
+        $request->request->add(['Option1' => $image->Option1]);
+        $request->request->add(['Option2' => $image->Option2]);
+        $file = '/'.$image->file;
+        return view('templats.templats_add' , ['route' => $route ])->with('file',$file);
 
     }
+
+
+
+    public function updateprintimage(Request $request , $id){
+    $path = request('file');
+    // initiate FPDI
+    $pdf = new Fpdi();
+    // add a page
+    $pdf->AddPage();
+    $pdf->SetMargins(0,0,0);
+    // set the source file
+    $fileContent = file_get_contents(asset($path),'rb');
+    $pagecount = $pdf->setSourceFile( StreamReader::createByString($fileContent) );
+    // import page 1
+    $tplId = $pdf->importPage(1);
+    // use the imported page and place it at point 10,10 with a width of 100 mm
+    $pdf->useTemplate($tplId, 0, 0, 200 , 150 , true);
+
+    $style = array(
+    'border' => 2,
+    'vpadding' => 'auto',
+    'hpadding' => 'auto',
+    'fgcolor' => array(0,0,0),
+    'bgcolor' => array(255,255,255),
+    'module_width' => 1, // width of a single module in points
+    'module_height' => 1 // height of a single module in points
+    );
+
+    // dd(request('data'));
+    foreach(request('data') as $i => $obj):
+    $color = $obj['font_color'];
+    list($r , $g , $b) = sscanf($color , "#%02x%02x%02x");
+    //Set Parametatrs
+    $write = $obj['wr'];
+    $x = $obj['x'];
+    $y = $obj['y'];
+    $size = $obj['font_size'];
+    $type = $obj['font_type'];
+    // $certcode = $obj['certcode'];
+    // if($certcode!=='none') {
+    // $pdf->write2DBarcode('www.tcpdf.org', 'QRCODE,L', 170, 108, 16, 16, $style, 'N');
+    // // $pdf->Text(170, 124, 'QRCODE L');
+    // }
+    $pdf->SetFont("$type",'B',$size);// Arial bold 15
+    $pdf->SetTextColor($r , $g , $b);
+    $pdf->SetXY($x, $y);
+    $pdf->Write(0, $write);
+
+
+    endforeach;
+    $file_path = 'storage/pdf/pdf_'.strtotime('now').'.pdf';
+    $pdf->Output( public_path($file_path) , 'F');
+
+    if(request()->has("view")):
+    $route = route('print-image');
+    $file = '/'.$file_path;
+    $old_file = $path;
+    if(request()->has('path')):
+    Storage::delete(request('path'));
+    endif;
+    return view('templats.templats_add' , ['route' => $route , 'data' => request('data')])->with("file" ,
+    $path)->with("path" , $file);
+    else: ///Save in Path Public
+    $ImageD = ImageDetail::find($id);
+    if(isset($path)):
+    Storage::delete($path);
+    $ImageD->file = $file_path;
+    else:
+    $ImageD->file = $file_path;
+    endif;
+    $ImageD->title = $request->title;
+    $ImageD->option1 = $request->option1;
+    $ImageD->option2 = $request->option2;
+    $ImageD->save();
+
+    $path = str_replace('/storage/' , '' , $path);
+    Storage::delete($path);
+    \Session::flash("msg","تم حفظ الملف بنجاح");
+    return redirect()->route('temp-create');
+
+    endif;
+    }
+
+
      public function destroy($id)
     {
+        
         ImageDetail::destroy($id);
         session()->flash("msg", "w: Template Deleted Successfully");
         return redirect(route("templates.index"));

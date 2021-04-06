@@ -1,9 +1,72 @@
+@push("js")
+<script>
+	
+	$("body").on("change" , ".select2me" , function(){
+		let val = $(this).val();
+		$.ajax({
+			url:"{{ route('search-by-group') }}",
+			method:"POST",
+			data:{val:val,_token:'{{ csrf_token() }}'},
+			dataType:"JSON",
+			success:function(data){
+				var rows = '';
+				data.students.forEach(student => {
+					rows += `<tr class="odd gradeX">
+								<td>
+									<input type="checkbox" class="checkboxes" name="users[]" value="${student['id']}"/>
+								</td>
+								<td>
+									${student['name'] }
+								</td>
+								<td>
+									<a href="mailto:${student['email'] }">
+									${student['email'] } </a>
+								</td>
+								<td>
+								${student['mobile'] }
+									
+								</td>
+								<td class="center">
+								${student['numberId'] }
+								</td>
+									{{-- <td class="center">
+									${student['school'] }
+								</td>
+									<td class="center">
+									${student['school'] }
+								</td> --}}
+								<td>   
+											<a href="/admin/update/students/${student['id'] }" data-target="#stack2${student['id'] }" data-toggle="modal" class="btn btn-primary btn-sm"><i class='fa fa-edit'></i></a>
+											<a href="/admin/delete/students/${student['id'] }" onclick='return confirm("Are you sure dude?")' class="btn btn-warning btn-sm"><i class='fa fa-trash'></i></a>
+							
+								</td>
+							</tr>`;	
+				});
+
+				$("#bodyTable").html(rows);
+
+			}
+		})
+	});
+
+	$("body").on("change" , "input.group-checkable" , function(){
+		let val = $(this).val();
+		if($(this).prop("checked")){
+			$(".checkboxes").click();
+		}else{
+			$(".checkboxes").click();
+		}
+	})
+</script>
+@endpush
+
 @extends('admin.dashboard') 
 @section('css')
 
 @endsection
 @section('content')
  <div>
+	 @csrf
 	@include("shared.msg")
 
 	<!-- BEGIN SAMPLE FORM PORTLET-->
@@ -21,6 +84,10 @@
 					<div class="form-group">
 						<label>Excel File</label>
 						<input type="file"  name="select_file" class="form-control input-lg" placeholder="input-lg">
+					</div>
+					<div class="form-group">
+						<label>إسم المجموعة </label>
+						<input type="text" name="group" id="group" class="form-control input-lg" placeholder="input-lg" required>
 					</div>
 				<div class="form-actions left">
 						<button type="submit" class="btn btn-circle btn-lg blue m-icon-big">
@@ -58,7 +125,6 @@
 													<option value="{{ $file->id }}">{{ $file->title }}</option>
 												@endforeach
 											</select>
-										
 										</div>
 									</div>
 							 </div>
@@ -81,6 +147,14 @@
 											<a data-target="#stack1" data-toggle="modal" class="btn green">
 											إضافة<i class="fa fa-plus"></i>
 										</a>
+										<div class="col-md-8">
+											<select class="form-control input-medium select2me"  name="sd" data-placeholder="Select...">
+												<option value="all">الكل</option>
+												@foreach($groups as $group)
+											    	<option value="{{ $group->group }}">{{ $group->group }}</option>
+												@endforeach
+											</select>
+										</div>
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -101,7 +175,7 @@
 									</div>
 								</div>
 							</div>
-							<table class="table table-striped table-bordered table-hover" id="sample_1">
+							<table id="studentsTable" class="table table-striped table-bordered table-hover" id="sample_1">
 							<thead>
 							<tr>
 								<th class="table-checkbox">
@@ -131,8 +205,7 @@
 								</th>
 							</tr>
 							</thead>
-							<tbody>
-								
+							<tbody id="bodyTable">
 								@foreach($students as  $student)
 									<tr class="odd gradeX">
 										<td>
@@ -158,7 +231,7 @@
 											{{ $student->school ?? ""}}
 										</td> --}}
 										<td>   
-												<a href="{{ route('student-update' , $student->id) }}" data-target="#stack2{{ $student->id }}" data-toggle="modal" class="btn btn-primary btn-sm"><i class='fa fa-edit'></i></a>
+												 <a href="{{ route('student-update' , $student->id) }}" data-target="#stack2{{ $student->id }}" data-toggle="modal" class="btn btn-primary btn-sm"><i class='fa fa-edit'></i></a>
 											     <a href="{{ route("student-delete", $student->id) }}" onclick='return confirm("Are you sure dude?")' class="btn btn-warning btn-sm"><i class='fa fa-trash'></i></a>
 									
 										</td>
@@ -223,6 +296,22 @@
 														<input type="text" name="school" value="{{ old('school') }}" class="form-control" placeholder="المدرسة">
 													</div>
 												</div>
+									          	<div class="form-group row">
+													<label class="col-sm-3 col-form-label">إسم المجموعة</label>
+													<div class="col-sm-9">
+											           {{-- <select class="form-control input-medium select2me"  name="sd" data-placeholder="Select...">
+															<option value="all">الكل</option>
+																@foreach($groups as $group)
+																	<option value="{{ $group->group }}">{{ $group->group }}</option>
+															   @endforeach
+
+														</select> --}}
+													<input type="text" name="group" value="{{ old('group') }}" class="form-control" placeholder="المدرسة">
+
+													</div>
+												</div>
+												
+
 											</div>
 								</div>
 								<div class="modal-footer">
@@ -235,7 +324,7 @@
 				{{--End Add New --}}
 				{{--Start Edit --}}
 		         @foreach($students as  $student)
-					<form action="{{ route('student-update',$student->id) }}" method="POST"  id="stack2{{ $student->id }}" class="modal fade" tabindex="-1" data-width="400">
+					<form action="{{ route('student-update',$student->id) }}" method="POST"id="stack2{{ $student->id }}" class="modal fade" tabindex="-1" data-width="400">
 						@csrf
 						@method('POST')
 						<div class="modal-dialog">
@@ -244,6 +333,7 @@
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 									<h4 class="modal-title">تعديل طالب</h4>
 								</div>
+								
 								<div class="modal-body">
 									
 											<div class="modal-body">

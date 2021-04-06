@@ -18,6 +18,7 @@ class ImportExcelController extends Controller
    public function index()
     {
         $data = DB::table('students')->orderBy('id', 'ASC')->get();
+        
         //dd($data);
         $user = Auth::user();
         return view('students.create')
@@ -30,16 +31,22 @@ class ImportExcelController extends Controller
      }
 
    public function import(Request $request)
-    {
+    {  //dd($request->all());
         $this->validate($request, [
             'select_file'  => 'required|mimes:xls,xlsx'
         ],
         [
             'select_file.required' => __('.'),
         ]);
+
         $file = $request->select_file;
-        Excel::import(new ExcelImport ,$file);
-        Session::flash("msg","File Excel Uploded successfully");
+       // $group =$request->group;
+       try {
+           Excel::import(new ExcelImport($request->group) ,$file);
+           Session::flash("msg"," تم إضافة الملف بنجاح ");
+       } catch (\Throwable $th) {
+           Session::flash("msg"," حدث خطأ اثناء عملية الادخال يرجى التأكد من صحة الملف");
+       }
         return redirect()->back();
     }
     // // insert

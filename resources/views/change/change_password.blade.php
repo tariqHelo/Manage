@@ -1,6 +1,6 @@
 @extends("admin.dashboard")
-
 @section("content")
+@include("shared.msg")
 <div class="portlet light ">
         <div class="portlet-body form">
             <form method="post" action="">

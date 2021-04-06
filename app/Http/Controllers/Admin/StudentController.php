@@ -10,7 +10,7 @@ use App\Http\Requests\Students\CreateRequest;
 use Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Http;
-
+use DB;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -24,8 +24,10 @@ class StudentController extends Controller
     public function index()
     {    
         $students = Student::orderBy('id', 'DESC')->get();
-        $files = ImageDetail::get();
-        return view('students.index')->with(compact('students', 'files'));
+        $files = ImageDetail::select("title")->groupBy("title")->get();
+        $groups = DB::table("students")->select("group")->groupBy("group")->get();
+    
+        return view('students.index')->with(compact('students', 'files' , 'groups'));
 
     }
 
@@ -129,5 +131,19 @@ class StudentController extends Controller
           session()->flash("msg", "w: Student Deleted Successfully");
         return redirect()->route('students');
 
+    }
+
+    public function search(Request $request){
+        if($request->has("val")):
+            if($request->val == 'all'):
+                $students = DB::table("students")->get();
+            else:
+                $students = DB::table("students")->where("group" , $request->val)->get();
+            endif;
+        else:
+            $students = [];
+        endif;
+
+        return response()->json(['students' => $students]);
     }
 }

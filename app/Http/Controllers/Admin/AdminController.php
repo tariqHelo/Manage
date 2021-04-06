@@ -12,6 +12,7 @@ class AdminController extends Controller
       public function changePassword(){
         return view('change.change_password');
     }
+    
     public function postChangePassword(ChangePasswordRequest $request){
         $hasher = app('hash');
         if ($hasher->check($request->current_password, auth()->user()->password)) {

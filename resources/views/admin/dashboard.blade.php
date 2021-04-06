@@ -34,8 +34,11 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END GLOBAL MANDATORY STYLES -->
 
 <!-- BEGIN PAGE LEVEL STYLES -->
+<link rel="stylesheet" type="text/css" href="{{asset('metroinc/assets/global/plugins/bootstrap-select/bootstrap-select-rtl.min.css')}}"/>
 <link rel="stylesheet" type="text/css" href="{{asset('metroinc/assets/global/plugins/select2/select2.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{asset('metroinc/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap-rtl.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('metroinc/assets/global/plugins/jquery-multi-select/css/multi-select-rtl.css')}}"/>
+
 <!-- END PAGE LEVEL STYLES -->
 
 <!-- BEGIN THEME STYLES -->
@@ -45,6 +48,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <link id="style_color" href="{{asset('metroinc/assets/admin/layout/css/themes/darkblue-rtl.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{asset('metroinc/assets/admin/layout/css/custom-rtl.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 
 @yield("css")
@@ -103,68 +107,21 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../../global/p/assetslugins/excanvas.min.js"></script> 
 <![endif]-->
 <script src="{{asset('metroinc/assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
-<script src="{{asset('metroinc/assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
-<script src="{{asset('metroinc/assets/global/plugins/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
-<script src="{{asset('metroinc/assets/global/plugins/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
-<script src="{{asset('metroinc/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}" type="text/javascript"></script>
-<script src="{{asset('metroinc/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
-<script src="{{asset('metroinc/assets/global/plugins/jquery.blockui.min.js') }}" type="text/javascript"></script>
-<script src="{{asset('metroinc/assets/global/plugins/jquery.cokie.min.js') }}" type="text/javascript"></script>
-<script src="{{asset('metroinc/assets/global/plugins/uniform/jquery.uniform.min.js') }}" type="text/javascript"></script>
-<script src="{{asset('metroinc/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}" type="text/javascript"></script>
-<!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="{{asset('metroinc/assets/global/plugins/flot/jquery.flot.min.js') }}"></script>
-<script src="{{asset('metroinc/assets/global/plugins/flot/jquery.flot.resize.min.js') }}"></script>
-<script src="{{asset('metroinc/assets/global/plugins/flot/jquery.flot.pie.min.js') }}"></script>
-<script src="{{asset('metroinc/assets/global/plugins/flot/jquery.flot.stack.min.js') }}"></script>
-<script src="{{asset('metroinc/assets/global/plugins/flot/jquery.flot.crosshair.min.js') }}"></script>
-<script src="{{asset('metroinc/assets/global/plugins/flot/jquery.flot.categories.min.js') }}" type="text/javascript"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="{{asset('metroinc/assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
-<script src="{{asset('metroinc/assets/admin/layout/scripts/layout.js') }}" type="text/javascript"></script>
-<script src="{{asset('metroinc/assets/admin/layout/scripts/quick-sidebar.js') }}" type="text/javascript"></script>
-<script src="{{asset('metroinc/assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
-<script src="{{asset('metroinc/assets/admin/pages/scripts/charts-flotcharts.js') }}"></script>
-<script src="{{asset('metroinc/assets/admin/pages/scripts/table-managed.js') }}"></script>
-  <!-- END THEME LAYOUT SCRIPTS -->
 
-  <!-- BEGIN PAGE LEVEL PLUGINS -->
-<script type="text/javascript" src="{{asset('metroinc/assets/global/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{asset('metroinc/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript" src="{{asset('metroinc/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-
-<script>
- jQuery(document).ready(function() {       
-	Metronic.init(); // init metronic core components
-	Layout.init();  //init current layout
-	QuickSidebar.init();  //init quick sidebar
-	Demo.init();  //init demo features
-	TableManaged.init();
-	});
-</script>
-<script>
-	jQuery(document).ready(function() {       
-	// initiate layout and plugins
-	Metronic.init(); // init metronic core components
-	Layout.init(); // init current layout
-	QuickSidebar.init(); // init quick sidebar
-	Demo.init(); // init demo features
-	ChartsFlotcharts.init();
-	ChartsFlotcharts.initCharts();
-	ChartsFlotcharts.initPieCharts();
-	ChartsFlotcharts.initBarCharts();
-	});
-</script>
-<!-- END PAGE LEVEL SCRIPTS -->
 <script>
 	$(function(){
+
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+
 		$("body").on("click" , ".add-new-row" , function(){
+			console.log(index);
 			var index = parseInt($(this).attr("data-index")) + 1;
 			$(this).attr("data-index" , index);
-			console.log(index);
 			$(".mt-repeater-item").append(`
   <div class="row">
 											<div class="form-group"> 
@@ -245,6 +202,68 @@ License: You must have a valid license purchased only from themeforest(the above
 	});
 </script>
 
+<script src="{{asset('metroinc/assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
+<script src="{{asset('metroinc/assets/global/plugins/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
+<script src="{{asset('metroinc/assets/global/plugins/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{asset('metroinc/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}" type="text/javascript"></script>
+<script src="{{asset('metroinc/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+<script src="{{asset('metroinc/assets/global/plugins/jquery.blockui.min.js') }}" type="text/javascript"></script>
+<script src="{{asset('metroinc/assets/global/plugins/jquery.cokie.min.js') }}" type="text/javascript"></script>
+<script src="{{asset('metroinc/assets/global/plugins/uniform/jquery.uniform.min.js') }}" type="text/javascript"></script>
+<script src="{{asset('metroinc/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="{{asset('metroinc/assets/global/plugins/flot/jquery.flot.min.js') }}"></script>
+<script src="{{asset('metroinc/assets/global/plugins/flot/jquery.flot.resize.min.js') }}"></script>
+<script src="{{asset('metroinc/assets/global/plugins/flot/jquery.flot.pie.min.js') }}"></script>
+<script src="{{asset('metroinc/assets/global/plugins/flot/jquery.flot.stack.min.js') }}"></script>
+<script src="{{asset('metroinc/assets/global/plugins/flot/jquery.flot.crosshair.min.js') }}"></script>
+<script src="{{asset('metroinc/assets/global/plugins/flot/jquery.flot.categories.min.js') }}" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script type="text/javascript" src="{{asset('metroinc/assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js')}}"></script>
+
+<script src="{{asset('metroinc/assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
+<script src="{{asset('metroinc/assets/admin/layout/scripts/layout.js') }}" type="text/javascript"></script>
+<script src="{{asset('metroinc/assets/admin/layout/scripts/quick-sidebar.js') }}" type="text/javascript"></script>
+<script src="{{asset('metroinc/assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
+<script src="{{asset('metroinc/assets/admin/pages/scripts/charts-flotcharts.js') }}"></script>
+<script src="{{asset('metroinc/assets/admin/pages/scripts/table-managed.js') }}"></script>
+<script src="{{asset('metroinc/assets/admin/pages/scripts/components-dropdowns.js')}}"></script>
+
+  <!-- END THEME LAYOUT SCRIPTS -->
+
+  <!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="{{asset('metroinc/assets/global/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{asset('metroinc/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{asset('metroinc/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+
+<script>
+ jQuery(document).ready(function() {       
+	Metronic.init(); // init metronic core components
+	Layout.init();  //init current layout
+	QuickSidebar.init();  //init quick sidebar
+	Demo.init();  //init demo features
+	TableManaged.init();
+	});
+</script>
+<script>
+	jQuery(document).ready(function() {       
+	// initiate layout and plugins
+	Metronic.init(); // init metronic core components
+	Layout.init(); // init current layout
+	QuickSidebar.init(); // init quick sidebar
+	Demo.init(); // init demo features
+	ChartsFlotcharts.init();
+	ChartsFlotcharts.initCharts();
+	ChartsFlotcharts.initPieCharts();
+	ChartsFlotcharts.initBarCharts();
+	});
+</script>
+<!-- END PAGE LEVEL SCRIPTS -->
+
+@stack('js')
 </body>
 <!-- END BODY -->
 </html>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Image;
+use App\Models\Student;
 use App\Models\ImageDetail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ use setasign\Fpdi\PdfReader;
 use setasign\Fpdi\FpdfTpl;
 use setasign\FpdiProtection\FpdiProtection;
 use setasign\Fpdi\PdfParser\StreamReader;
-
+use DB;
 // use PDF; // at the top of the file
 
 class TestController extends Controller
@@ -23,27 +24,41 @@ class TestController extends Controller
 
      public function index(){
         $templates = ImageDetail::all();
-        return view('templats.index')->with('templates' , $templates);
+        
+        return view('templats.index')
+        ->with('templates' , $templates);
     }
     public function create(){
+        $students = Student::get();
+        $groups = DB::table("students")->select("group")->groupBy("group")->get();
+
         $route = route('store_temp');
-        return view('templats.templats_add' , ['route' => $route]);
+        return view('templats.templats_add')
+        ->with('route' , $route)
+        ->with('groups' , $groups)
+        ->with('students' , $students);
+
     }
      public function makeimage(Request $request)  
-    {  
-        $route = route('print-image');
+    {
+         $students = Student::get();
+         $groups = DB::table("students")->select("group")->groupBy("group")->get();
 
+        $route = route('print-image');
         $request->validate([
             'file' => 'required|mimes:pdf,xlx,csv|max:2048',
             'title'=> 'required',
-            //'title'=> 'required',
-
+            'option1'=> 'required',
         ]);
         $file = '/storage/'.Storage::disk('public')->put('files', request('file'));
-        return view('templats.templats_add' , ['route' => $route ])->with('file',$file);
+        return view('templats.templats_add' , ['route' => $route , 'groups' => $groups ])->with('file',$file) ->with('students' , $students);
+;
     } 
     public function printimage(Request $request){
         $path = request('file');
+        $students = Student::get();
+        $groups = DB::table("students")->select("group")->groupBy("group")->get();
+
        // dd($path);
         // initiate FPDI
         $pdf = new Fpdi();
@@ -78,11 +93,11 @@ class TestController extends Controller
             $y        =   $obj['y'];
             $size     =   $obj['font_size'];
             $type     =   $obj['font_type'];
-            $certcode = $obj['certcode'];
-            if($certcode!=='none') {
-                $pdf->write2DBarcode('www.tcpdf.org', 'QRCODE,L', 170, 108, 16, 16, $style, 'N');
-               // $pdf->Text(170, 124, 'QRCODE L');   
-            }
+            // $certcode = $obj['certcode'];
+            // if($certcode!=='none') {
+            //     $pdf->write2DBarcode('https://survey.tareq.live', 'QRCODE,L', 170, 108, 16, 16, $style, 'N');
+            //    // $pdf->Text(170, 124, 'QRCODE L');   
+            // }
             $pdf->SetFont("$type",'B',$size);// Arial bold 15
             $pdf->SetTextColor($r , $g , $b);
             $pdf->SetXY($x, $y);
@@ -100,19 +115,34 @@ class TestController extends Controller
             if(request()->has('path')):
                 Storage::delete(request('path'));
             endif;
-            return view('templats.templats_add' , ['route' => $route , 'data' => request('data')])->with("file" , $path)->with("path" , $file);     
+            return view('templats.templats_add' , ['route' => $route , 'data' => request('data')])->with("file" ,
+            $path)->with("path" , $file) ->with('students' , $students)->with('groups' , $groups);
         else:            ///Save in Path Public
-            $ImageD = new ImageDetail;
-            if(isset($path)):
+            if(isset($request->option1) && is_array($request->option1) ):
+                foreach($request->option1 as $option):
+                    $ImageD = new ImageDetail;
+                    if(isset($path)):
+                        Storage::delete($path);
+                        $ImageD->file = $file_path;
+                    else:
+                        $ImageD->file = $file_path;
+                    endif;
+                    $ImageD->title = $request->title;
+                    $ImageD->option1 = $option;
+                    $ImageD->save();
+                endforeach;
+            else:
+                $ImageD = new ImageDetail;
+                if(isset($path)):
                 Storage::delete($path);
                 $ImageD->file = $file_path;
-            else:
+                else:
                 $ImageD->file = $file_path;
+                endif;
+                $ImageD->title = $request->title;
+                $ImageD->option1 = $request->option1;
+                $ImageD->save();
             endif;
-            $ImageD->title = $request->title;
-            $ImageD->option1 = $request->option1;
-            $ImageD->option2 = $request->option2;
-            $ImageD->save();
             
             $path = str_replace('/storage/' , '' , $path);
              Storage::delete($path);
@@ -122,7 +152,9 @@ class TestController extends Controller
         endif;
     }
     public function edit(Request $request , $id)
-    {
+    { $students = Student::get();
+         $groups = DB::table("students")->select("group")->groupBy("group")->get();
+         $details = ImageDetail::find($id);
         $image = ImageDetail::find($id);
         $route = route('update-print-image' , ['id' => $id]);
 
@@ -130,14 +162,16 @@ class TestController extends Controller
         $request->request->add(['Option1' => $image->Option1]);
         $request->request->add(['Option2' => $image->Option2]);
         $file = '/'.$image->file;
-        return view('templats.templats_add' , ['route' => $route ])->with('file',$file);
-
+        return view('templats.templats_add' ,['route' => $route , 'details' => $details , 'groups'  => $groups ])->with('file',$file)->with('students' , $students);
     }
 
 
 
     public function updateprintimage(Request $request , $id){
     $path = request('file');
+    $students = Student::get();
+    $details = ImageDetail::find($id);
+     $groups = DB::table("students")->select("group")->groupBy("group")->get();
     // initiate FPDI
     $pdf = new Fpdi();
     // add a page
@@ -193,8 +227,8 @@ class TestController extends Controller
     if(request()->has('path')):
     Storage::delete(request('path'));
     endif;
-    return view('templats.templats_add' , ['route' => $route , 'data' => request('data')])->with("file" ,
-    $path)->with("path" , $file);
+    return view('templats.templats_add' , ['route' => $route , 'details' => $details , 'groups' => $groups , 'data' => request('data')])->with("file" ,
+    $path)->with("path" , $file)->with('students' , $students);
     else: ///Save in Path Public
     $ImageD = ImageDetail::find($id);
     if(isset($path)):

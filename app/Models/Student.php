@@ -16,7 +16,8 @@ class Student extends Model
           'mobile',
           'numberId',
           'class',
-          'school'
+          'school',
+          'group',
     ];
 }
 

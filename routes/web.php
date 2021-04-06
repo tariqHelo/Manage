@@ -24,13 +24,14 @@ use App\Http\Controllers\Admin\ImportExcelController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 Route::get('/', function () {
     return view('auth.login');
 });
+
 Auth::routes();
-
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
     
@@ -50,12 +51,15 @@ Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
     Route::get('/test', [TestController::class,'index'])->name('temp-main');
 
 
+    
+
      // Route::get('/import_excel', [ImportExcelController::class,'index'])->name('add_student');
 
 
     Route::post('/import_excel/import', [ImportExcelController::class,'import'])->name('import_excel');
 
     Route::get('/students', [StudentController::class,'index'])->name('students');
+    Route::post('/search-by-group', [StudentController::class,'search'])->name('search-by-group');
     Route::get('/add_student', [ImportExcelController::class,'index'])->name('add_student');
 
 

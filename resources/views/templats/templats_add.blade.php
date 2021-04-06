@@ -29,29 +29,34 @@
 										</div>
 										@endif
 										<div class="form-group">
-											<label class="col-md-3 control-label">العنوان</label>
+											<label class="col-md-3 control-label">عنوان القالب</label>
 											<div class="col-md-6">
 												<input id="title" name="title" value="{{ request('title') }}" type="text" class="form-control input-lg" placeholder="Large Input">
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-md-3 control-label">لغة القالب</label>
+											<label class="col-md-3 control-label">اسم المجموعة</label>
 											<div class="col-md-6">
-												<select name="Option1" i class="form-control input-lg">
-													<option value="Option1" {{ request('Option1') == 'Option1' ? 'selected' : '' }}>Option 1</option>
-													<option value="Option1">Option 2</option>
-												
+												@if(isset($details))
+												<select class="form-control select2me  input-lg" multiple name="option1[]" disabled>
+													@foreach($groups as $group)
+														<option value="{{ $group->group }}" {{ (isset($details) && $details['option1'] == $group->group) ? 'selected' : ''  }}  >{{ $group->group }}</option>
+													@endforeach
 												</select>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-3 control-label">خيارات العرض</label>
-											<div class="col-md-6">
-												<select class="form-control input-lg">
-													<option value="Option2" >Option 1</option>
-													<option value="Option2">Option 2</option>
-												
+												@elseif(request('option1') !== null )
+												<select class="form-control select2me  input-lg" multiple name="option1[]" >
+													@foreach($groups as $group)
+														<option value="{{ $group->group }}" {{ in_array($group->group , request('option1') ) ? 'selected' : ''  }}  >{{ $group->group }}</option>
+													@endforeach
 												</select>
+												@else
+												<select class="form-control select2me  input-lg" multiple name="option1[]" >
+													@foreach($groups as $group)
+														<option value="{{ $group->group }}">{{ $group->group }}</option>
+													@endforeach
+												</select>
+
+												@endif
 											</div>
 										</div>
 									<div class="form-actions right1">

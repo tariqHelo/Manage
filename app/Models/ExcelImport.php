@@ -8,12 +8,25 @@ use DB;
 
 class ExcelImport implements ToCollection
 {
+
+    protected $table = 'students';
+
+    public $group;
+
+    protected $fillable = [
+          'group',
+    ];
     /**
     * @param Collection $collection
     */
+
+    public function __construct($group = null){
+        $this->group = $group;
+    }
+
     public function collection(Collection $collection)
-    {
-        DB::table('students')->truncate();
+    {   
+        // DB::table('students')->truncate();
         foreach($collection as $key => $value)
         {
             // dd($value[1]);
@@ -26,11 +39,15 @@ class ExcelImport implements ToCollection
                     //'id'	    =>$value[0]
                      'numberId'   =>$value[1]
                      ,'name'      =>$value[2]
-                    ,'email'      =>$value[3]
+                     ,'email'      =>$value[3]
                      ,'mobile'    =>$value[4]
                      ,'class'     =>$value[5]
-                     ,'school'    =>$value[6]
+                     ,'school'    =>$value[6],
+                     'group'      => $this->group,
+                    
                 ]);
+                  
+
             }
         }
     }

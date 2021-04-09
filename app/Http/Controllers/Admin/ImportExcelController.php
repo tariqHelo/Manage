@@ -36,7 +36,7 @@ class ImportExcelController extends Controller
             'select_file'  => 'required|mimes:xls,xlsx'
         ],
         [
-            'select_file.required' => __('.'),
+            'select_file.required' => __('يرجي إدخال الملف '),
         ]);
 
         $file = $request->select_file;
@@ -45,7 +45,7 @@ class ImportExcelController extends Controller
            Excel::import(new ExcelImport($request->group) ,$file);
            Session::flash("msg"," تم إضافة الملف بنجاح ");
        } catch (\Throwable $th) {
-           Session::flash("msg"," حدث خطأ اثناء عملية الادخال يرجى التأكد من صحة الملف");
+           Session::flash("msg","w: حدث خطأ اثناء عملية الادخال يرجى التأكد من صحة الملف");
        }
         return redirect()->back();
     }

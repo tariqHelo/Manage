@@ -16,7 +16,7 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
                $table->string('name');
-               $table->decimal('numberId',8,5);
+               $table->bigInteger('numberId');
                $table->string('email')->nuallable();
                $table->bigInteger('mobile')->nuallable();
                $table->string('group');
@@ -25,7 +25,6 @@ class CreateStudentsTable extends Migration
                $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

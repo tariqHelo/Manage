@@ -24,12 +24,15 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
+            
             'name' => 'required',
             'numberId' => 'required',
             'email' => 'required',
             'mobile' => 'required',
             'class' => 'required',
             'school' => 'required',
+            'school' => 'required',
+
 
         ];
     }

@@ -121,8 +121,8 @@
 										<label class="control-label col-md-3"> إسم الملف</label>
 										<div class="col-md-4">
 											<select class="form-control input-medium select2me"  name="sm" data-placeholder="Select...">
-												@foreach($files as $file)
-													<option value="{{ $file->id }}">{{ $file->title }}</option>
+												@foreach($groups as $group)
+													<option value="{{ $group->group }}">{{ $group->group }}</option>
 												@endforeach
 											</select>
 										</div>
@@ -299,14 +299,12 @@
 									          	<div class="form-group row">
 													<label class="col-sm-3 col-form-label">إسم المجموعة</label>
 													<div class="col-sm-9">
-											           {{-- <select class="form-control input-medium select2me"  name="sd" data-placeholder="Select...">
-															<option value="all">الكل</option>
-																@foreach($groups as $group)
-																	<option value="{{ $group->group }}">{{ $group->group }}</option>
-															   @endforeach
-
-														</select> --}}
-													<input type="text" name="group" value="{{ old('group') }}" class="form-control" placeholder="المدرسة">
+						                        	<select class="form-control select2me  input-lg" name="group" value="{{ old('group') }}" >
+														@foreach($groups as $group)
+															<option value="{{ $group->group }}">{{ $group->group }}</option>
+														@endforeach
+													</select>
+													{{-- <input type="text" name="group" value="{{ old('group') }}" class="form-control" placeholder="المجموعة "> --}}
 
 													</div>
 												</div>
@@ -346,31 +344,37 @@
 												<div class="form-group row">
 													<label class="col-sm-3 col-form-label">الإيميل</label>
 													<div class="col-sm-9">
-														<input type="text" name="email" class="form-control" value="{{ $student->email }}" placeholder="Enter Age">
+														<input type="text" name="email" class="form-control" value="{{ $student->email }}" >
 													</div>
 												</div>
 												<div class="form-group row">
 													<label class="col-sm-3 col-form-label">رقم الجوال</label>
 													<div class="col-sm-9">
-														<input type="text" name="mobile" class="form-control" value="{{ $student->mobile }}" placeholder="Enter Sex">
+														<input type="text" name="mobile" class="form-control" value="{{ $student->mobile }}" >
 													</div>
 												</div>
 												<div class="form-group row">
 													<label class="col-sm-3 col-form-label">رقم الهوية</label>
 													<div class="col-sm-9">
-														<input type="text" name="numberId" class="form-control" value="{{ $student->numberId }}" placeholder="Enter No">
+														<input type="text" name="numberId" class="form-control" value="{{ $student->numberId }}">
 													</div>
 												</div>
 												<div class="form-group row">
 													<label class="col-sm-3 col-form-label">الصف</label>
 													<div class="col-sm-9">
-														<input type="text" name="class" class="form-control" value="{{ $student->class }}" placeholder="Enter Age">
+														<input type="text" name="class" class="form-control" value="{{ $student->class }}">
 													</div>
 												</div>
 												<div class="form-group row">
 													<label class="col-sm-3 col-form-label">المدرسة</label>
 													<div class="col-sm-9">
-														<input type="text" name="school" class="form-control" value="{{ $student->school }}" placeholder="Enter Age">
+														<input type="text" name="school" class="form-control" value="{{ $student->school }}">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label class="col-sm-3 col-form-label">إسم المجموعة</label>
+													<div class="col-sm-9">
+														<input type="text" name="group" class="form-control" value="{{ $student->group }}">
 													</div>
 												</div>
 											</div>

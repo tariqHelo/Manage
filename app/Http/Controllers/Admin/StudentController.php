@@ -22,13 +22,12 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {    
+    {
         $students = Student::orderBy('id', 'DESC')->get();
         $files = ImageDetail::select("title")->groupBy("title")->get();
-        $groups = DB::table("students")->select("group")->groupBy("group")->get();
-    
-        return view('students.index')->with(compact('students', 'files' , 'groups'));
-
+        $groups = \DB::table("students")->select("group")->groupBy("group")->get();
+       // $groupName = Student::select("group")->groupBy("group")->get();
+        return view('students.index')->with(compact('students', 'files', 'groups'));
     }
 
     /**
@@ -49,55 +48,69 @@ class StudentController extends Controller
 
     public function store(CreateRequest $request)
     {
-       //dd($request->all());
-        // if (!$request->status){
-        //     $request['status']=0;
-        // }
         Student::create($request->all());
-        Session::flash("msg","Student created successfully");
-        return redirect()->route('students');  
-        
+        Session::flash("msg", "Student created successfully");
+        return redirect()->route('students');
     }
 
     public function receve(Request $request)
     {
-          //  dd($request->all());
-        
-            $request->validate([
-                'users' => 'required|array',
-                'users.*' => 'required|integer',
-            ]);
-        if(request()->has('sms')):
+        //  dd($request->all());
+
+        $request->validate([
+            'users' => 'required|array',
+            'users.*' => 'required|integer',
+        ]);
+        if (request()->has('sms')) :
 
 
-            $sms = Student::whereIn('id' , request('users'))->get()->pluck('mobile')->all();
-        // dd($sms);
-            $response = Http::get('https://www.hisms.ws/api.php', [
-            'username' => 'يزيد ناصر بن سراء',
-            'password' => 'Y1121111211y',
-            'numbers' => "$sms",
-            'sender' => 'Yazed',
-            'message' => "http://127.1.1.1/download-file/".request('sm'),
-            'date' => '',
-            'time' => '',
-            ]);
-        Session::flash("msg","Student Sending SMS  successfully");
+            $students = Student::whereIn('id', request('users'))->get();
 
-        elseif(request()->has("Email")):
 
-                $emails = Student::whereIn('id' , request('users'))->get()->pluck('email')->all();
-            // dd($emails);
+            foreach ($students as $student) :
+                $details = ImageDetail::where('student_id', $student->id)->where('option1', $student->group)->first();
+                if ($details == null) :
+                    continue;
+                endif;
+                $response = Http::get('https://www.hisms.ws/api.php', [
+                    'username' => 'يزيد ناصر بن سراء',
+                    'password' => 'Y1121111211y',
+                    'numbers' => "$student->mobile",
+                    'sender' => 'Yazed',
+                    'message' => "http://127.1.1.1/download-file/" . $details->id,
+                    'date' => '',
+                    'time' => '',
+                ]);
+            endforeach;
+
+            // dd($sms);
+            Session::flash("msg", "Student Sending SMS  successfully");
+
+        elseif (request()->has("Email")) :
+
+            $students = Student::whereIn('id', request('users'))->get();
+
+
+            foreach ($students as $student) :
+                $details = ImageDetail::where('student_id', $student->id)->where('option1', $student->group)->first();
+                if ($details == null) :
+                    continue;
+                endif;
+
+
                 Mail::send('emails.welcome', [
-                    'id'    =>  request('sm')
-                ], function($message) use ($emails)
-                {    
-                    $message->to($emails)->subject('This is test e-mail');    
-                }); 
-                Session::flash("msg","Student Sending E-mail successfully");
+                    'id' => $details->id
+                ], function ($message) use ($student) {
+                    $message->to($student->email)->subject('This is test e-mail');
+                });
+            endforeach;
+
+
+            Session::flash("msg", "Student Sending E-mail successfully");
         endif;
         return redirect()->back();
     }
-     
+
     /**
      * Display the specified resource.
      *
@@ -112,10 +125,10 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id, Request $request)
+    public function update(Request $request ,$id )
     {  // dd($request->all());
         Student::find($id)->update($request->all());
-        Session::flash("msg","Student Updated successfully");
+        Session::flash("msg", "Student Updated successfully");
         return redirect()->route('students');
     }
 
@@ -127,20 +140,20 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-          $task = Student::findOrFail($id)->delete();
-          session()->flash("msg", "w: Student Deleted Successfully");
+        $task = Student::findOrFail($id)->delete();
+        session()->flash("msg", "w: Student Deleted Successfully");
         return redirect()->route('students');
-
     }
 
-    public function search(Request $request){
-        if($request->has("val")):
-            if($request->val == 'all'):
+    public function search(Request $request)
+    {
+        if ($request->has("val")) :
+            if ($request->val == 'all') :
                 $students = DB::table("students")->get();
-            else:
-                $students = DB::table("students")->where("group" , $request->val)->get();
+            else :
+                $students = DB::table("students")->where("group", $request->val)->get();
             endif;
-        else:
+        else :
             $students = [];
         endif;
 

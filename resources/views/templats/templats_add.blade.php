@@ -106,12 +106,15 @@
 											<div class="col-md-2">
 												<label class="control-label">اسم الخانة <span class="oldprename" style="color: #ccc"></span></label>
 												<select name="data[{{ $i }}][settitle]"  class="form-control input-lg selectsize prevname">
-													<option value="نص حر" >نص حر</option>
-													<option value="اسم_الفعالية"{{ $obj['settitle']==  "{اسم_الفعالية}" ? 'selected' : '' }}>اسم الفعالية</option>
-													<option value="اسم_المتدرب" {{ $obj['settitle']==  "{اسم_المتدرب}"  ? 'selected' : '' }}>اسم المتدرب</option>
-													<option value="اليوم"       {{ $obj['settitle']==  "{اليوم}"         ? 'selected' : '' }}>اليوم</option>
-													<option value="الموافق"     {{ $obj['settitle']==  "{الموافق}"       ? 'selected' : '' }}>الموافق</option>
-													<option value="المدة"       {{ $obj['settitle']==  "{المدة}"         ? 'selected' : '' }}>المدة</option>
+													<option value="" >نص حر</option>
+
+													<option value="numberId" {{$obj['settitle'] ==  "numberId"  ? 'selected' : '' }}> رقم الهوية</option>
+													<option value="name"     {{$obj['settitle'] ==  "name"    ? 'selected' : '' }}>اسم المتدرب</option>
+													<option value="email"    {{$obj['settitle'] ==  "email"     ? 'selected' : '' }}>الإيميل</option>
+													<option value="mobile"   {{$obj['settitle'] ==  "mobile"  ? 'selected' : '' }}>رقم الجوال</option>
+													<option value="class"    {{$obj['settitle'] ==  "class"   ? 'selected' : '' }}>الصف</option>
+													<option value="school"   {{$obj['settitle'] ==  "school"  ? 'selected' : '' }}>المدرسة</option>
+
 												</select>
 											</div>
 											<div class="col-md-2 divinsidetxt" style="display: none">
@@ -171,12 +174,14 @@
 											<div class="col-md-2">
 												<label class="control-label">اسم الخانة <span class="oldprename" style="color: #ccc"></span></label>
 												<select name="data[0][settitle]" class="form-control input-lg selectsize prevname">
-													<option value="نص حر">نص حر</option>
-													<option value="اسم_الفعالية">اسم الفعالية</option>
-													<option value="اسم_المتدرب">اسم المتدرب</option>
-													<option value="اليوم">اليوم</option>
-													<option value="الموافق">الموافق</option>
-													<option value="المدة">المدة</option>
+													<option value="">نص حر</option>
+													<option value="name"> الإسم</option>
+													<option value="numberId"> رقم الهوية</option>
+													<option value="email">  الإيميل</option>
+													<option value="mobile"> رقم الجوال</option>
+													<option value="class"> الصف </option>
+													<option value="school">  المدرسة</option>
+
 												</select>
 											</div>
 											<div class="col-md-2 divinsidetxt" style="display: none">

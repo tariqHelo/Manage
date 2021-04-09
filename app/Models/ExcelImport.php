@@ -41,8 +41,8 @@ class ExcelImport implements ToCollection
                      ,'name'      =>$value[2]
                      ,'email'      =>$value[3]
                      ,'mobile'    =>$value[4]
-                     ,'class'     =>$value[5]
-                     ,'school'    =>$value[6],
+                     ,'class'       =>    isset($value[5]) ? $value[5] : ''
+                     ,'school'      =>   isset($value[6]) ? $value[6] : '',
                      'group'      => $this->group,
                     
                 ]);

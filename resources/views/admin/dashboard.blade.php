@@ -134,11 +134,14 @@ License: You must have a valid license purchased only from themeforest(the above
 												<label class="control-label">اسم الخانة <span class="oldprename" style="color: #ccc"></span></label>
 												<select name="data[${index}][settitle]" class="form-control input-lg selectsize prevname">
 													<option value="نص حر">نص حر</option>
-													<option value="اسم_الفعالية">اسم الفعالية</option>
-													<option value="اسم_المتدرب">اسم المتدرب</option>
-													<option value="اليوم">اليوم</option>
-													<option value="الموافق">الموافق</option>
-													<option value="المدة">المدة</option>
+													<option value=" name"> الإسم</option>
+													<option value="numberId"> رقم الهوية</option>
+													<option value=" email">  الإيميل</option>
+													<option value=" mobile"> رقم الجوال</option>
+													<option value=" class"> الصف </option>
+													<option value=" school">  المدرسة</option>
+
+													
 												</select>
 											</div>
 											<div class="col-md-2 divinsidetxt" style="display: none">
@@ -189,13 +192,14 @@ License: You must have a valid license purchased only from themeforest(the above
 			`);
 		});
 
-		$("body").on("change" , "select.prevname" , function(){
-			var val = $(this).val();
-			val = $(this).find("option[value="+val+"]").text();
-			console.log(val);
-			$(this).parents(".row").find("input.main-text").val(val);
+		// $("body").on("change" , "select.prevname" , function(){
+		// 	var val = $(this).val();
+		// 	val = $(this).find("option[value="+val+"]").text();
+		// 	console.log(val);
+		// 	$(this).parents(".row").find("input.main-text").val(val);
 
-		});
+		// });
+
 		$("body").on("click" , ".delete-row" , function(){
 			$(this).parents(".row").remove();
 		});

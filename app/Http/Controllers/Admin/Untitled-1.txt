@@ -258,124 +258,6 @@ class TestController extends Controller
     // );
 
     // dd(request('data'));
-
-            if(request()->has("view")):
-            if(request("data") != null && count(request("data"))):
-                foreach(request('data') as $i => $obj):
-                    $color = $obj['font_color'];
-                    list($r , $g , $b) = sscanf($color , "#%02x%02x%02x");
-                    //Set Parametatrs
-                    $title = $obj['settitle'];
-                    $write = $obj['wr'];
-                    // $write == '' ? $title : $write;
-                    $write = $title == '' ? $write : $title;
-                    $x = $obj['x'];
-                    $y = $obj['y'];
-                    $size = $obj['font_size'];
-                    $type = $obj['font_type'];
-                    // $certcode = $obj['certcode'];
-                    // if($certcode!=='none') {
-                    // $pdf->write2DBarcode('https://survey.tareq.live', 'QRCODE,L', 170, 108, 16, 16, $style, 'N');
-                    // // $pdf->Text(170, 124, 'QRCODE L');
-                    // }
-                    $pdf->SetFont("$type",'B',$size);// Arial bold 15
-                    $pdf->SetTextColor($r , $g , $b);
-                    $pdf->SetXY($x, $y);
-                    $pdf->Write(0, $write);
-    
-    
-                endforeach;
-            endif;
-            $file_path = 'storage/pdf/pdf_'.strtotime('now').'.pdf';
-            $pdf->Output( public_path($file_path) , 'F');
-
-            $route = route('update-print-image' , ['id' => $id]);
-            $file = '/'.$file_path;
-            $old_file = $path;
-            if(request()->has('path')):
-                Storage::delete(request('path'));
-            endif;
-            return view('templats.templats_add' , ['route' => $route , 'data' => request('data')])->with("file" ,
-                $path)->with("path" , $file) ->with('students' , $students)->with('groups' , $groups);
-        else: ///Save in Path Public
-
-
-            $pdf = new Fpdi();
-            // add a page
-            $pdf->AddPage();
-            $pdf->SetMargins(0,0,0);
-            // set the source file
-            $fileContent = file_get_contents(asset($path),'rb');
-            $pagecount = $pdf->setSourceFile( StreamReader::createByString($fileContent) );
-            // import page 1
-            $tplId = $pdf->importPage(1);
-            // use the imported page and place it at point 10,10 with a width of 100 mm
-            $pdf->useTemplate($tplId, 0, 0, 200 , 150 , true);
-
-            $style = array(
-            'border' => 2,
-            'vpadding' => 'auto',
-            'hpadding' => 'auto',
-            'fgcolor' => array(0,0,0),
-            'bgcolor' => array(255,255,255),
-            'module_width' => 1, // width of a single module in points
-            'module_height' => 1 // height of a single module in points
-            );
-
-            $ImageD = ImageDetail::find($id);
-            $s = \App\Models\Student::find($ImageD->student_id);
-
-            if(request('data') != null):
-                foreach(request('data') as $i => $obj):
-                    $color = $obj['font_color'];
-                    list($r , $g , $b) = sscanf($color , "#%02x%02x%02x");
-                    //Set Parametatrs
-                    $write = $obj['wr'];
-                    $title = $obj['settitle'] == '' ? $write : $s->{$obj['settitle']};
-                    // $title = $s->{$obj['settitle']};
-                    // $write = $write == null ? $title : $write;
-                    $write = $title;
-                    $x = $obj['x'];
-                    $y = $obj['y'];
-                    $size = $obj['font_size'];
-                    $type = $obj['font_type'];
-                    // $certcode = $obj['certcode'];
-                    // if($certcode!=='none') {
-                    // $pdf->write2DBarcode('https://survey.tareq.live', 'QRCODE,L', 170, 108, 16, 16, $style, 'N');
-                    // // $pdf->Text(170, 124, 'QRCODE L');
-                    // }
-                    $pdf->SetFont("$type",'B',$size);// Arial bold 15
-                    $pdf->SetTextColor($r , $g , $b);
-                    $pdf->SetXY($x, $y);
-                    $pdf->Write(0, $write);
-                    endforeach;
-                    $file_path = 'storage/pdf/pdf_'.strtotime('now').'.pdf';
-                    $pdf->Output( public_path($file_path) , 'F');
-    
-                    // foreach($request->option1 as $option):
-                    if(isset($path)):
-                        Storage::delete($path);
-                        $ImageD->file = $file_path;
-                    else:
-                        $ImageD->file = $file_path;
-                    endif;
-                    $ImageD->title = $s->name.'_'.$s->group;
-                    $ImageD->option1 = $s->group;
-                    $ImageD->student_id = $s->id;
-                    $ImageD->save();
-
-                    $path = str_replace('/storage/' , '' , $path);
-                    Storage::delete($path);
-            endif;    
-            \Session::flash("msg","تم حفظ الملف بنجاح");
-            return redirect()->route('templates.index');
-
-        endif;
-
-        /*
-
-
-
     foreach(request('data') as $i => $obj):
     $color = $obj['font_color'];
     list($r , $g , $b) = sscanf($color , "#%02x%02x%02x");
@@ -428,7 +310,6 @@ class TestController extends Controller
     return redirect()->route('temp-create');
 
     endif;
-    */
     }
 
 

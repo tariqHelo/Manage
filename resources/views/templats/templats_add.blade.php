@@ -242,7 +242,7 @@
 								   <div class="form-group">
 										<label class="control-label col-md-3">إضافة كود التحقق</label>
 										<div class="col-md-4">
-											 <select class="form-control input-lg" name="data[0][certcode]" value="{{ isset($certcode) ? $certcode : "" }}" data-placeholder="اختر ">
+											 <select class="form-control input-lg" data-placeholder="اختر ">
 												<option  value="none">بلا</option>
 												<option  value="top:1mm;right:1mm">فوق يمين</option>
 												<option  value="top:1mm;right:50%">فوق وسط</option>

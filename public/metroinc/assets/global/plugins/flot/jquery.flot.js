@@ -1204,7 +1204,7 @@ Licensed under the MIT license.
                             && points[k - ps] != null
                             && points[k - ps] != points[k]
                             && points[k - ps + 1] != points[k + 1]) {
-                            // copy the point to make room for a middle point
+                            // copy the point to make rooms for a middle point
                             for (m = 0; m < ps; ++m)
                                 points[k + ps + m] = points[k + m];
 
@@ -1261,7 +1261,7 @@ Licensed under the MIT license.
                 }
 
                 if (s.bars.show) {
-                    // make sure we got room for the bar on the dancing floor
+                    // make sure we got rooms for the bar on the dancing floor
                     var delta;
 
                     switch (s.bars.align) {
@@ -1426,7 +1426,7 @@ Licensed under the MIT license.
 
         function allocateAxisBoxFirstPhase(axis) {
             // find the bounding box of the axis by looking at label
-            // widths/heights and ticks, make room by diminishing the
+            // widths/heights and ticks, make rooms by diminishing the
             // plotOffset; this first phase only looks at one
             // dimension per axis, the other dimension depends on the
             // other axes so will have to wait
@@ -2010,7 +2010,7 @@ Licensed under the MIT license.
                             ctx.lineTo(xrange.to + subPixel, yrange.to);
                         } else {
                             ctx.moveTo(xrange.from, yrange.to + subPixel);
-                            ctx.lineTo(xrange.to, yrange.to + subPixel);                            
+                            ctx.lineTo(xrange.to, yrange.to + subPixel);
                         }
                         ctx.stroke();
                     } else {
@@ -2525,9 +2525,9 @@ Licensed under the MIT license.
                 radius = series.points.radius,
                 symbol = series.points.symbol;
 
-            // If the user sets the line width to 0, we change it to a very 
+            // If the user sets the line width to 0, we change it to a very
             // small value. A line width of 0 seems to force the default of 1.
-            // Doing the conditional here allows the shadow setting to still be 
+            // Doing the conditional here allows the shadow setting to still be
             // optional even with a lineWidth of 0.
 
             if( lw == 0 )

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use App\Models\Group;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -24,10 +25,11 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::orderBy('id', 'DESC')->get();
+        $gr = Group::get();
         $files = ImageDetail::select("title")->groupBy("title")->get();
         $groups = \DB::table("students")->select("group")->groupBy("group")->get();
        // $groupName = Student::select("group")->groupBy("group")->get();
-        return view('students.index')->with(compact('students', 'files', 'groups'));
+        return view('students.index')->with(compact('students', 'files', 'groups' , 'gr'));
     }
 
     /**

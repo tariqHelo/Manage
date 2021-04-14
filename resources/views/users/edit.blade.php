@@ -1,68 +1,72 @@
-@extends("admin.dashboard")
+@extends('layouts.admin')
+@section('content')
 
-
-@section("content")
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Edit New User</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
-            </div>
-        </div>
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.edit') }} {{ trans('cruds.user.title_singular') }}
     </div>
 
-
-    @if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-        </ul>
+    <div class="card-body">
+        <form method="POST" action="{{ route("users.update", [$user->id]) }}" enctype="multipart/form-data">
+            @method('PUT')
+            @csrf
+            <div class="form-group">
+                <label class="required" for="name">{{ trans('cruds.user.fields.name') }}</label>
+                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $user->name) }}" required>
+                @if($errors->has('name'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('name') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.name_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="email">{{ trans('cruds.user.fields.email') }}</label>
+                <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" id="email" value="{{ old('email', $user->email) }}" required>
+                @if($errors->has('email'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('email') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.email_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="password">{{ trans('cruds.user.fields.password') }}</label>
+                <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password" name="password" id="password">
+                @if($errors->has('password'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('password') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.password_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="roles">{{ trans('cruds.user.fields.roles') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('roles') ? 'is-invalid' : '' }}" name="roles[]" id="roles" multiple required>
+                    @foreach($roles as $id => $roles)
+                        <option value="{{ $id }}" {{ (in_array($id, old('roles', [])) || $user->roles->contains($id)) ? 'selected' : '' }}>{{ $roles }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('roles'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('roles') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-danger" type="submit">
+                    {{ trans('global.save') }}
+                </button>
+            </div>
+        </form>
     </div>
-    @endif
+</div>
 
-
-    {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id]]) !!}
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Name:</strong>
-                {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Email:</strong>
-                {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Password:</strong>
-                {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Confirm Password:</strong>
-                {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Role:</strong>
-                {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </div>
-    {!! Form::close() !!}
 
 
 @endsection

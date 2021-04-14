@@ -151,11 +151,11 @@ if(jQuery) (function($) {
             .prop('size', 7)
             .wrap(minicolors)
             .after(
-                '<div class="minicolors-panel minicolors-slider-' + settings.control + '">' +
-                    '<div class="minicolors-slider minicolors-sprite">' +
+                '<div class="minicolors-panel minicolors-Slider-' + settings.control + '">' +
+                    '<div class="minicolors-Slider minicolors-sprite">' +
                         '<div class="minicolors-picker"></div>' +
                     '</div>' +
-                    '<div class="minicolors-opacity-slider minicolors-sprite">' +
+                    '<div class="minicolors-opacity-Slider minicolors-sprite">' +
                         '<div class="minicolors-picker"></div>' +
                     '</div>' +
                     '<div class="minicolors-grid minicolors-sprite">' +
@@ -272,7 +272,7 @@ if(jQuery) (function($) {
         if( y > target.height() ) y = target.height();
 
         // Constrain color wheel values to the wheel
-        if( target.parent().is('.minicolors-slider-wheel') && picker.parent().is('.minicolors-grid') ) {
+        if( target.parent().is('.minicolors-Slider-wheel') && picker.parent().is('.minicolors-grid') ) {
             wx = 75 - x;
             wy = 75 - y;
             r = Math.sqrt(wx * wx + wy * wy);
@@ -338,8 +338,8 @@ if(jQuery) (function($) {
 
             // Panel objects
             grid = minicolors.find('.minicolors-grid'),
-            slider = minicolors.find('.minicolors-slider'),
-            opacitySlider = minicolors.find('.minicolors-opacity-slider'),
+            slider = minicolors.find('.minicolors-Slider'),
+            opacitySlider = minicolors.find('.minicolors-opacity-Slider'),
 
             // Picker objects
             gridPicker = grid.find('[class$=-picker]'),
@@ -352,7 +352,7 @@ if(jQuery) (function($) {
             opacityPos = getCoords(opacityPicker, opacitySlider);
 
         // Handle colors
-        if( target.is('.minicolors-grid, .minicolors-slider') ) {
+        if( target.is('.minicolors-grid, .minicolors-Slider') ) {
 
             // Determine HSB values
             switch(settings.control) {
@@ -437,7 +437,7 @@ if(jQuery) (function($) {
         }
 
         // Handle opacity
-        if( target.is('.minicolors-opacity-slider') ) {
+        if( target.is('.minicolors-opacity-Slider') ) {
             if( settings.opacity ) {
                 opacity = parseFloat(1 - (opacityPos.y / opacitySlider.height())).toFixed(2);
             } else {
@@ -472,8 +472,8 @@ if(jQuery) (function($) {
 
             // Panel objects
             grid = minicolors.find('.minicolors-grid'),
-            slider = minicolors.find('.minicolors-slider'),
-            opacitySlider = minicolors.find('.minicolors-opacity-slider'),
+            slider = minicolors.find('.minicolors-Slider'),
+            opacitySlider = minicolors.find('.minicolors-opacity-Slider'),
 
             // Picker objects
             gridPicker = grid.find('[class$=-picker]'),
@@ -520,7 +520,7 @@ if(jQuery) (function($) {
                     left: x + 'px'
                 });
 
-                // Set slider position
+                // Set Slider position
                 y = 150 - (hsb.b / (100 / grid.height()));
                 if( hex === '' ) y = 0;
                 sliderPicker.css('top', y + 'px');
@@ -538,7 +538,7 @@ if(jQuery) (function($) {
                     left: x + 'px'
                 });
 
-                // Set slider position
+                // Set Slider position
                 y = keepWithin(slider.height() - (hsb.s * (slider.height() / 100)), 0, slider.height());
                 sliderPicker.css('top', y + 'px');
 
@@ -556,7 +556,7 @@ if(jQuery) (function($) {
                     left: x + 'px'
                 });
 
-                // Set slider position
+                // Set Slider position
                 y = keepWithin(slider.height() - (hsb.b * (slider.height() / 100)), 0, slider.height());
                 sliderPicker.css('top', y + 'px');
 
@@ -574,7 +574,7 @@ if(jQuery) (function($) {
                     left: x + 'px'
                 });
 
-                // Set slider position
+                // Set Slider position
                 y = keepWithin(slider.height() - (hsb.h / (360 / slider.height())), 0, slider.height());
                 sliderPicker.css('top', y + 'px');
 
@@ -772,7 +772,7 @@ if(jQuery) (function($) {
             }
         })
         // Start moving
-        .on('mousedown.minicolors touchstart.minicolors', '.minicolors-grid, .minicolors-slider, .minicolors-opacity-slider', function(event) {
+        .on('mousedown.minicolors touchstart.minicolors', '.minicolors-grid, .minicolors-Slider, .minicolors-opacity-Slider', function(event) {
             var target = $(this);
             event.preventDefault();
             $(document).data('minicolors-target', target);

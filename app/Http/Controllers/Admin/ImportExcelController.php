@@ -33,10 +33,14 @@ class ImportExcelController extends Controller
    public function import(Request $request)
     {  //dd($request->all());
         $this->validate($request, [
-            'select_file'  => 'required|mimes:xls,xlsx'
+            'select_file'  => 'required|mimes:xls,xlsx',
+            'group' => 'required'
+
         ],
         [
             'select_file.required' => __('يرجي إدخال الملف '),
+            'group.required' => __('يرجي إدخال المجموعة '),
+
         ]);
 
         $file = $request->select_file;

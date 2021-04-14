@@ -14,14 +14,16 @@ class CreateStudentsTable extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->id();
+               $table->id();
                $table->string('name');
                $table->bigInteger('numberId');
                $table->string('email')->nuallable();
                $table->bigInteger('mobile')->nuallable();
-               $table->string('group');
+           //    $table->string('group');
                $table->string('class')->nullable();
                $table->string('school')->nullable();
+               $table->foreignId("group_id")->nullable();
+               $table->foreign('group_id')->references('id')->on("groups")->cascadeOnDelete()->cascadeOnUpdate();
                $table->timestamps();
         });
     }

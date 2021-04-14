@@ -1,59 +1,102 @@
-@extends("admin.dashboard")
-
-
-@section("content")
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>إدارة المستخدمين</h2>
+@extends('layouts.admin')
+@section('content')
+    @can('user_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("users.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
+                </a>
+            </div>
         </div>
-        <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('users.create') }}"> إنشاء عضو جديد</a>
+    @endcan
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.user.title_singular') }} {{ trans('global.list') }}
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-User">
+                <thead>
+                    <tr>
+                        <th width="10">
+
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.name') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.email') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.email_verified_at') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.roles') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($users as $key => $user)
+                        <tr data-entry-id="{{ $user->id }}">
+                            <td>
+
+                            </td>
+                            <td>
+                                {{ $user->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->email ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->email_verified_at ?? '' }}
+                            </td>
+                            <td>
+                                @foreach($user->roles as $key => $item)
+                                    <span class="badge badge-info">{{ $item->title }}</span>
+                                @endforeach
+                            </td>
+                            <td>
+                                @can('user_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('users.show', $user->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
+
+                                @can('user_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('users.edit', $user->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
+
+                                @can('user_delete')
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
+                                @endcan
+
+                            </td>
+
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 
 
-@if ($message = Session::get('success'))
-<div class="alert alert-success">
-  <p>{{ $message }}</p>
-</div>
-@endif
-
-
-<table class="table table-bordered">
- <tr>
-   <th>#</th>
-   <th>الإسم</th>
-   <th>الإسميل</th>
-   <th>الصلاحيات</th>
-   <th width="280px">Action</th>
- </tr>
- @foreach ($data as $key => $user)
-  <tr>
-    <td>{{ ++$i }}</td>
-    <td>{{ $user->name }}</td>
-    <td>{{ $user->email }}</td>
-    <td>
-      @if(!empty($user->getRoleNames()))
-        @foreach($user->getRoleNames() as $v)
-           <label class="badge badge-success">{{ $v }}</label>
-        @endforeach
-      @endif
-    </td>
-    <td>
-       <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">معاينة</a>
-       <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">تعديل</a>
-        {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-            {!! Form::submit('حذف', ['class' => 'btn btn-danger']) !!}
-        {!! Form::close() !!}
-    </td>
-  </tr>
- @endforeach
-</table>
-
-
-{!! $data->render() !!}
-
 
 @endsection
+

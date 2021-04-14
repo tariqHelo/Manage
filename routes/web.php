@@ -14,6 +14,13 @@ use App\Http\Controllers\WaterMarkController;
 use App\Http\Controllers\Admin\ImportExcelController;
 
 
+use App\Http\Controllers\Admin\PermissionsController;
+use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\GroupController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,8 +42,23 @@ Auth::routes();
 
 Route::group(['prefix'=>'admin','middleware' => ['auth']], function () {
     
-    Route::resource('roles',    RoleController::class);
-    Route::resource('users',    UserController::class);
+     // Permissions
+     Route::delete('permissions/destroy',[PermissionsController::class
+     ,'massDestroy'])->name('permissions.massDestroy');
+     Route::resource('permissions', PermissionsController::class);
+     // Roles
+     Route::delete('roles/destroy', [RolesController::class,'massDestroy'])->name('roles.massDestroy');
+     Route::resource('roles', RolesController::class);
+     // Users
+     Route::delete('users/destroy',[UsersController::class,'massDestroy'])->name('users.massDestroy');
+     Route::resource('users', UsersController::class);
+     //change-password
+     Route::get("/change-password", [ AdminController::class,'changePassword'])->name("change-password");
+     Route::put("/change-password", [ AdminController::class,'postChangePassword'])->name("post-change-password");
+
+    Route::resource('/groups', GroupController::class);
+    Route::post('/update/groups/{id}', [GroupController::class ,'update'])->name('groups-update');
+    Route::get('/delete/groups/{id}', [GroupController::class ,'destroy'])->name('groups-delete');
 
 
     Route::resource('/templates',    TestController::class);

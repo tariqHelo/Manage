@@ -251,9 +251,9 @@
 			} catch(e) {
 				this.preview.backgroundColor = this.color.toHex();
 			}
-			//set the color for brightness/saturation slider
+			//set the color for brightness/saturation Slider
 			this.base.backgroundColor = this.color.toHex(this.color.value.h, 1, 1, 1);
-			//set te color for alpha slider
+			//set te color for alpha Slider
 			if (this.alpha) {
 				this.alpha.backgroundColor = this.color.toHex();
 			}
@@ -269,7 +269,7 @@
 			
 			var target = $(e.target);
 			
-			//detect the slider and set the limits and callbacks
+			//detect the Slider and set the limits and callbacks
 			var zone = target.closest('div');
 			if (!zone.is('.colorpicker')) {
 				if (zone.is('.colorpicker-saturation')) {

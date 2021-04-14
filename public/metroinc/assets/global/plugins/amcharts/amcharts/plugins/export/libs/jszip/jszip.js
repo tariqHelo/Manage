@@ -4101,7 +4101,7 @@ function put_byte(s, b) {
 
 /* =========================================================================
  * Put a short in the pending buffer. The 16-bit value is put in MSB order.
- * IN assertion: the stream state is correct and there is enough room in
+ * IN assertion: the stream state is correct and there is enough rooms in
  * pending_buf.
  */
 function putShortMSB(s, b) {
@@ -4290,7 +4290,7 @@ function fill_window(s) {
 
 
     /* If the window is almost full and there is insufficient lookahead,
-     * move the upper half to the lower one to make room in the upper half.
+     * move the upper half to the lower one to make rooms in the upper half.
      */
     if (s.strstart >= _w_size + (_w_size - MIN_LOOKAHEAD)) {
 
@@ -4409,7 +4409,7 @@ function fill_window(s) {
 //  }
 //
 //  Assert((ulg)s->strstart <= s->window_size - MIN_LOOKAHEAD,
-//    "not enough room for search");
+//    "not enough rooms for search");
 }
 
 /* ===========================================================================
@@ -5727,7 +5727,7 @@ function GZheader() {
                        // but leave for few code modifications
 
   //
-  // Setup limits is not necessary because in js we should not preallocate memory 
+  // Setup limits is not necessary because in js we should not preallocate memory
   // for inflate use constant limit in 65536 bytes
   //
 
@@ -8098,7 +8098,7 @@ function d_code(dist) {
 
 /* ===========================================================================
  * Output a short LSB first on the stream.
- * IN assertion: there is enough room in pendingBuf.
+ * IN assertion: there is enough rooms in pendingBuf.
  */
 function put_short (s, w) {
 //    put_byte(s, (uch)((w) & 0xff));

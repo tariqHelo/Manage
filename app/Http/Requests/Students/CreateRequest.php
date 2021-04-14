@@ -31,7 +31,7 @@ class CreateRequest extends FormRequest
             'mobile' => 'required',
             'class' => 'required',
             'school' => 'required',
-            'school' => 'required',
+           // 'gr' => 'required',
 
 
         ];

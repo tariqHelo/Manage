@@ -1,39 +1,73 @@
-@extends("admin.dashboard")
-@section("content")
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2> Show User</h2>
+@extends('layouts.admin')
+@section('content')
+
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.show') }} {{ trans('cruds.user.title') }}
+    </div>
+
+    <div class="card-body">
+        <div class="form-group">
+            <div class="form-group">
+                <a class="btn btn-default" href="{{ route('users.index') }}">
+                    {{ trans('global.back_to_list') }}
+                </a>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
+            <table class="table table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.id') }}
+                        </th>
+                        <td>
+                            {{ $user->id }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.name') }}
+                        </th>
+                        <td>
+                            {{ $user->name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.email') }}
+                        </th>
+                        <td>
+                            {{ $user->email }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.email_verified_at') }}
+                        </th>
+                        <td>
+                            {{ $user->email_verified_at }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.roles') }}
+                        </th>
+                        <td>
+                            @foreach($user->roles as $key => $roles)
+                                <span class="label label-info">{{ $roles->title }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-group">
+                <a class="btn btn-default" href="{{ route('users.index') }}">
+                    {{ trans('global.back_to_list') }}
+                </a>
             </div>
         </div>
     </div>
+</div>
 
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Name:</strong>
-                {{ $user->name }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Email:</strong>
-                {{ $user->email }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Roles:</strong>
-                @if(!empty($user->getRoleNames()))
-                    @foreach($user->getRoleNames() as $v)
-                        <label class="badge badge-success">{{ $v }}</label>
-                    @endforeach
-                @endif
-            </div>
-        </div>
-    </div>
+
 @endsection

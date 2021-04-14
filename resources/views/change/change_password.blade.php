@@ -9,21 +9,21 @@
                 <div class="form-body">
                     <div class="form-group form-md-line-input has-success">
                         <input type="password" class="form-control" id="form_control_1" name="current_password" value="">
-                        <label for="form_control">Current Password</label>
+                        <label for="form_control">كلمة المرور الحالية </label>
                     </div>
                 </div>
                 
                 <div class="form-body">
                     <div class="form-group form-md-line-input has-success">
                         <input type="password" class="form-control" id="form_control_1" name="new_password" value="">
-                        <label for="form_control">New Password</label>
+                        <label for="form_control">الكلمة الجديدة</label>
                     </div>
                 </div>
                 
                 <div class="form-body">
                     <div class="form-group form-md-line-input has-success">
                         <input type="password" class="form-control" id="form_control_1" name="new_password_confirmation" value="">
-                        <label for="form_control">Re-type New Password</label>
+                        <label for="form_control">إعادة كلمة المرور</label>
                     </div>
                 </div>
                 

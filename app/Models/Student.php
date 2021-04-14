@@ -17,8 +17,13 @@ class Student extends Model
           'numberId',
           'class',
           'school',
-          'group',
+         // 'group',
     ];
+        public function groups(){
+            
+           return $this->belongsTo(App\Models\Group::class);
+
+        }
 }
 
 // class ExcelImport implements ToCollection

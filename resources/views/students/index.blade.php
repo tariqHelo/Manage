@@ -85,11 +85,22 @@
 						<label>Excel File</label>
 						<input type="file"  name="select_file" class="form-control input-lg" placeholder="input-lg">
 					</div>
-					<div class="form-group">
-						<label>إسم المجموعة </label>
-						<input type="text" name="group" id="group" class="form-control input-lg" placeholder="input-lg" required>
+					<div >
+	                  <label class="col-md-3 control-label">اسم المجموعة</label>
+						<div>
+							<select class="form-control  input-lg"  name="group" data-placeholder="Select...">
+								<option></option>
+								@foreach($gr as $g)
+									<option value="{{ $g->title }}" >{{ $g->title }}  </option>
+								@endforeach
+							</select>
+					   </div>
 					</div>
-				<div class="form-actions left">
+					<div class="clearfix">
+					
+					
+					</div>
+				<div class="form-actions left ">
 						<button type="submit" class="btn btn-circle btn-lg blue m-icon-big">
 						Submit <i class="m-icon-big-swapdown m-icon-white"></i>
 						</button>
@@ -99,9 +110,9 @@
 					
 					
 					</div>
+				</div>
 			</form>
 		</div>
-	</div>
 	<!-- END SAMPLE FORM PORTLET-->
 	 <form action="{{ route('receve') }}" method="POST" class="row">
 			@csrf
@@ -138,24 +149,25 @@
 								<i class="fa fa-globe"></i>كل الطلاب
 							</div>
 						
-						</div>
-						<div class="portlet-body">
+					    	</div>
+				     		<div class="portlet-body">
 							<div class="table-toolbar">
-								<div class="row">
-									<div class="col-md-6">
+							    	<div class="row">
+										<div class="col-md-6">
+											<div class="btn-group">
+												<a data-target="#stack1" data-toggle="modal" class="btn green">
+												إضافة<i class="fa fa-plus"></i>
+											</a>
+										</div>
 										<div class="btn-group">
-											<a data-target="#stack1" data-toggle="modal" class="btn green">
-											إضافة<i class="fa fa-plus"></i>
-										</a>
-										<div class="col-md-8">
 											<select class="form-control input-medium select2me"  name="sd" data-placeholder="Select...">
 												<option value="all">الكل</option>
 												@foreach($groups as $group)
-											    	<option value="{{ $group->group }}">{{ $group->group }}</option>
+													<option value="{{ $group->group }}">{{ $group->group }}</option>
 												@endforeach
 											</select>
 										</div>
-										</div>
+
 									</div>
 									<div class="col-md-6">
 										<div class="btn-group pull-right">
@@ -194,12 +206,7 @@
 								<th>
 									 رقم الهوية
 								</th>
-								{{-- <th>
-									الصف
-								</th> 
-								<th>
-									 المدرسة
-								</th>--}}
+								
 								<th>
 									 Status
 								</th>
@@ -242,152 +249,151 @@
 						</div>
 					</div>
 					<!-- END EXAMPLE TABLE PORTLET-->
-		    </div>
+		       </div>
 	</form>
-	<!-- /.modal -->
-				{{--Start Add New --}}
-					 <form action="{{ route('student-store') }}" method="POST" id="stack1" class="modal fade" tabindex="-1" data-width="400">
-						@csrf
-						@method('POST')
+	{{--Start Add New --}}
+			<form action="{{ route('student-store') }}" method="POST" id="stack1" class="modal fade" tabindex="-1" data-width="400">
+			@csrf
+			@method('POST')
 
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-									<h4 class="modal-title">إضافة طالب جديد</h4>
-								</div>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h4 class="modal-title">إضافة طالب جديد</h4>
+					</div>
+					<div class="modal-body">
+					<!-- form add -->
+							
 								<div class="modal-body">
-								<!-- form add -->
-										
-											<div class="modal-body">
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">الإسم</label>
-													<div class="col-sm-9">
-														<input type="text"name="name" value="{{ old('name') }}" class="form-control" placeholder="الإسم">
-													</div>
-												</div>
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">الإيميل</label>
-													<div class="col-sm-9">
-														<input type="text" name="email" value="{{ old('email') }}" class="form-control" placeholder="أدخل الإيميل ">
-													</div>
-												</div>
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">رقم الجوال</label>
-													<div class="col-sm-9">
-														<input type="text" name="mobile" value="{{ old('mobile') }}" class="form-control" placeholder="رقم الجوال ">
-													</div>
-												</div>
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">رقم الهوية</label>
-													<div class="col-sm-9">
-														<input type="text" name="numberId" value="{{ old('numberId') }}" class="form-control" placeholder="رقم الهوية">
-													</div>
-												</div>
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">الصف</label>
-													<div class="col-sm-9">
-														<input type="text" name="class" value="{{ old('class') }}" class="form-control" placeholder="الصف">
-													</div>
-												</div>
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">المدرسة</label>
-													<div class="col-sm-9">
-														<input type="text" name="school" value="{{ old('school') }}" class="form-control" placeholder="المدرسة">
-													</div>
-												</div>
-									          	<div class="form-group row">
-													<label class="col-sm-3 col-form-label">إسم المجموعة</label>
-													<div class="col-sm-9">
-						                        	<select class="form-control select2me  input-lg" name="group" value="{{ old('group') }}" >
-														@foreach($groups as $group)
-															<option value="{{ $group->group }}">{{ $group->group }}</option>
-														@endforeach
-													</select>
-													{{-- <input type="text" name="group" value="{{ old('group') }}" class="form-control" placeholder="المجموعة "> --}}
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">الإسم</label>
+										<div class="col-sm-9">
+											<input type="text"name="name" value="{{ old('name') }}" class="form-control" placeholder="الإسم">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">الإيميل</label>
+										<div class="col-sm-9">
+											<input type="text" name="email" value="{{ old('email') }}" class="form-control" placeholder="أدخل الإيميل ">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">رقم الجوال</label>
+										<div class="col-sm-9">
+											<input type="text" name="mobile" value="{{ old('mobile') }}" class="form-control" placeholder="رقم الجوال ">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">رقم الهوية</label>
+										<div class="col-sm-9">
+											<input type="text" name="numberId" value="{{ old('numberId') }}" class="form-control" placeholder="رقم الهوية">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">الصف</label>
+										<div class="col-sm-9">
+											<input type="text" name="class" value="{{ old('class') }}" class="form-control" placeholder="الصف">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">المدرسة</label>
+										<div class="col-sm-9">
+											<input type="text" name="school" value="{{ old('school') }}" class="form-control" placeholder="المدرسة">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">إسم المجموعة</label>
+										<div class="col-sm-9">
+										<select class="form-control select2me  input-lg" name="group" value="{{ old('group') }}" >
+											@foreach($groups as $group)
+												<option value="{{ $group->group }}">{{ $group->group }}</option>
+											@endforeach
+										</select>
+										{{-- <input type="text" name="group" value="{{ old('group') }}" class="form-control" placeholder="المجموعة "> --}}
 
-													</div>
-												</div>
-												
-
-											</div>
-								</div>
-								<div class="modal-footer">
-									<button type="button" data-dismiss="modal" class="btn">إلغاء</button>
-									<button type="submit" class="btn red">حفظ</button>
-								</div>
-							</div>
-						</div>
-					</form>
-				{{--End Add New --}}
-				{{--Start Edit --}}
-		         @foreach($students as  $student)
-					<form action="{{ route('student-update',$student->id) }}" method="POST"id="stack2{{ $student->id }}" class="modal fade" tabindex="-1" data-width="400">
-						@csrf
-						@method('POST')
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-									<h4 class="modal-title">تعديل طالب</h4>
-								</div>
-								
-								<div class="modal-body">
+										</div>
+									</div>
 									
-											<div class="modal-body">
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">الإسم</label>
-													<div class="col-sm-9">
-														<input type="text"  name="name" value="{{ $student->name }}" class="form-control" placeholder="Enter Name">
-													</div>
-												</div>
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">الإيميل</label>
-													<div class="col-sm-9">
-														<input type="text" name="email" class="form-control" value="{{ $student->email }}" >
-													</div>
-												</div>
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">رقم الجوال</label>
-													<div class="col-sm-9">
-														<input type="text" name="mobile" class="form-control" value="{{ $student->mobile }}" >
-													</div>
-												</div>
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">رقم الهوية</label>
-													<div class="col-sm-9">
-														<input type="text" name="numberId" class="form-control" value="{{ $student->numberId }}">
-													</div>
-												</div>
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">الصف</label>
-													<div class="col-sm-9">
-														<input type="text" name="class" class="form-control" value="{{ $student->class }}">
-													</div>
-												</div>
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">المدرسة</label>
-													<div class="col-sm-9">
-														<input type="text" name="school" class="form-control" value="{{ $student->school }}">
-													</div>
-												</div>
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">إسم المجموعة</label>
-													<div class="col-sm-9">
-														<input type="text" name="group" class="form-control" value="{{ $student->group }}">
-													</div>
-												</div>
-											</div>
+
 								</div>
-								<div class="modal-footer">
-									<button type="button" data-dismiss="modal" class="btn">إلغاء</button>
-									<button type="submit" class="btn red">حفظ </button>
+					</div>
+					<div class="modal-footer">
+						<button type="button" data-dismiss="modal" class="btn">إلغاء</button>
+						<button type="submit" class="btn red">حفظ</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	{{--End Add New --}}
+	{{--Start Edit --}}
+		@foreach($students as  $student)
+		<form action="{{ route('student-update',$student->id) }}" method="POST"id="stack2{{ $student->id }}" class="modal fade" tabindex="-1" data-width="400">
+			@csrf
+			@method('POST')
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h4 class="modal-title">تعديل طالب</h4>
+					</div>
+					
+					<div class="modal-body">
+						
+								<div class="modal-body">
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">الإسم</label>
+										<div class="col-sm-9">
+											<input type="text"  name="name" value="{{ $student->name }}" class="form-control" placeholder="Enter Name">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">الإيميل</label>
+										<div class="col-sm-9">
+											<input type="text" name="email" class="form-control" value="{{ $student->email }}" >
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">رقم الجوال</label>
+										<div class="col-sm-9">
+											<input type="text" name="mobile" class="form-control" value="{{ $student->mobile }}" >
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">رقم الهوية</label>
+										<div class="col-sm-9">
+											<input type="text" name="numberId" class="form-control" value="{{ $student->numberId }}">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">الصف</label>
+										<div class="col-sm-9">
+											<input type="text" name="class" class="form-control" value="{{ $student->class }}">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">المدرسة</label>
+										<div class="col-sm-9">
+											<input type="text" name="school" class="form-control" value="{{ $student->school }}">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 col-form-label">إسم المجموعة</label>
+										<div class="col-sm-9">
+											<input type="text" name="group" class="form-control" value="{{ $student->group }}">
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-					</form>
-			     @endforeach
-				{{--End Edit --}}
+					</div>
+					<div class="modal-footer">
+						<button type="button" data-dismiss="modal" class="btn">إلغاء</button>
+						<button type="submit" class="btn red">حفظ </button>
+					</div>
+				</div>
+			</div>
+		</form>
+		@endforeach
+	{{--End Edit --}}
 </div>
 
 @endsection

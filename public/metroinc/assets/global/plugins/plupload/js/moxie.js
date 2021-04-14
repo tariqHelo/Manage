@@ -1068,7 +1068,7 @@ define("moxie/core/utils/Env", [
 	            ], [[NAME, 'Firefox OS'], VERSION], [
 
 	            // Console
-	            /(nintendo|playstation)\s([wids3portablevu]+)/i,                    // Nintendo/Playstation
+	            /(nintendo|playStores)\s([wids3portablevu]+)/i,                    // Nintendo/PlayStores
 
 	            // GNU/Linux based
 	            /(mint)[\/\s\(]?(\w+)*/i,                                           // Mint

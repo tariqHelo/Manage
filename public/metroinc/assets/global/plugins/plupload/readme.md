@@ -79,7 +79,7 @@ pre-compiled `SWF` and `XAP` components, with [every release](https://github.com
 
 There are cases where you might need a custom build, for example free of unnecessary runtimes, half the 
 original size, etc. The difficult part of this task comes from mOxie and its set of additional runtimes 
-that require special tools on your workstation in order to compile. 
+that require special tools on your workStores in order to compile. 
 Consider [build instructions for mOxie](https://github.com/moxiecode/moxie#build-instructions) - 
 everything applies to Plupload as well.
 

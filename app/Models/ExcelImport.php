@@ -13,9 +13,9 @@ class ExcelImport implements ToCollection
 
     public $group;
 
-    protected $fillable = [
-          'group',
-    ];
+    // protected $fillable = [
+    //       'group',
+    // ];
     /**
     * @param Collection $collection
     */
@@ -43,7 +43,7 @@ class ExcelImport implements ToCollection
                      ,'mobile'    =>$value[4]
                      ,'class'       =>    isset($value[5]) ? $value[5] : ''
                      ,'school'      =>   isset($value[6]) ? $value[6] : '',
-                     'group'      => $this->group,
+                     'group_id'      => $this->group,
                     
                 ]);
                   

@@ -5,6 +5,14 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Group;
+use App\Models\Student;
+
+use Storage;
+
+use App\Models\ImageDetail;
+
+
+
 use Redirect;
 use Illuminate\Support\Facades\Session;
 class GroupController extends Controller
@@ -95,6 +103,17 @@ class GroupController extends Controller
     public function destroy($id)
     {
          //dd(20);
+         $ids = Student::where('group_id' , $id)->pluck('id')->all();
+         $files = ImageDetail::select('file')->whereIn('student_id' , $ids)->pluck('file')->all();
+
+        //  Storage::delete($files);
+        foreach($files as $file):
+            $file = str_replace('storage/' , '' , $file);
+            if(Storage::exists($file)):
+                Storage::delete($file);
+            endif;
+        endforeach;
+
          $groups = Group::findOrFail($id)->delete();
          session()->flash("msg", "w: Group Deleted Successfully");
           return redirect()->route('groups.index');

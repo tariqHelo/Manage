@@ -42,7 +42,6 @@ class ImportExcelController extends Controller
             'group.required' => __('يرجي إدخال المجموعة '),
 
         ]);
-
         $file = $request->select_file;
        // $group =$request->group;
        try {
@@ -53,28 +52,4 @@ class ImportExcelController extends Controller
        }
         return redirect()->back();
     }
-    // // insert
-    // public function importInsert(Request $request)
-    // {    
-    // }
-    // // update
-	// public function importUpdate(Request $request)
-	// { //dd(20);
-	// 	$importUpdate = [
-    //         'id'    =>	$request->idUpdate,
-    //         'No' 	=>	$request->No,
-    //         'Name' 	=>	$request->Name,
-    //         'Sex' 	=>	$request->Sex,
-    //         'Age'   =>	$request->Age
-    //     ];
-	// 	DB::table('students')->where('id',$request->idUpdate)->update($importUpdate);
-	// 	return redirect()->back()->with('importUpdate' ,'Update Successfull.!');
-    // }
-
-    // // delete
-    // public function importDelete($importID)
-    // { //dd(20);
-	// 	DB::table('students')->where('id',$importID)->delete();
-	// 	return redirect()->back()->with('importDelete','Delect Successfull.!');
-	// }
 }

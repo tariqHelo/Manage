@@ -90,8 +90,8 @@
 						<div>
 							<select class="form-control  input-lg"  name="group" data-placeholder="Select...">
 								<option></option>
-								@foreach($gr as $g)
-									<option value="{{ $g->title }}" >{{ $g->title }}  </option>
+								@foreach($groups as $group)
+									<option value="{{ $group->id }}" >{{ $group->title }}  </option>
 								@endforeach
 							</select>
 					   </div>
@@ -132,9 +132,11 @@
 										<label class="control-label col-md-3"> إسم الملف</label>
 										<div class="col-md-4">
 											<select class="form-control input-medium select2me"  name="sm" data-placeholder="Select...">
-												@foreach($groups as $group)
-													<option value="{{ $group->group }}">{{ $group->group }}</option>
+												
+												@foreach($SelectedGroups as $group)
+													<option value="{{ $group->id }}">{{ $group->title }}</option>
 												@endforeach
+												
 											</select>
 										</div>
 									</div>
@@ -162,9 +164,11 @@
 										<div class="btn-group">
 											<select class="form-control input-medium select2me"  name="sd" data-placeholder="Select...">
 												<option value="all">الكل</option>
-												@foreach($groups as $group)
-													<option value="{{ $group->group }}">{{ $group->group }}</option>
+												
+												@foreach($SelectedGroups as $group)
+													<option value="{{ $group->id }}">{{ $group->title }}</option>
 												@endforeach
+												
 											</select>
 										</div>
 
@@ -307,11 +311,11 @@
 										<div class="col-sm-9">
 										<select class="form-control select2me  input-lg" name="group" value="{{ old('group') }}" >
 												<option></option>
-												@foreach($gr as $g)
-													<option value="{{ $g->title }}" >{{ $g->title }}  </option>
+												@foreach($groups as $group)
+													<option value="{{ $group['id'] }}" >{{ $group['title'] }}  </option>
 												@endforeach
 										</select>
-										{{-- <input type="text" name="group" value="{{ old('group') }}" class="form-control" placeholder="المجموعة "> --}}
+										<input type="text" name="group" value="{{ old('group') }}" class="form-control" placeholder="المجموعة ">
 
 										</div>
 									</div>

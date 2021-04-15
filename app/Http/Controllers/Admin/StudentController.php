@@ -24,11 +24,14 @@ class StudentController extends Controller
      */
     public function index()
     {
+        $groups = Group::get();
         $students = Student::orderBy('id', 'DESC')->get();
-        $gr = Group::get();
+        $ids = Student::select('group_id')->groupBy('group_id')->pluck('group_id')->all();
+        $SelectedGroups = Group::whereIn('id' , $ids)->get();
         $files = ImageDetail::select("title")->groupBy("title")->get();
-        $groups = \DB::table("students")->select("group_id")->groupBy("group_id")->get();
-        return view('students.index')->with(compact('students', 'files', 'groups' , 'gr'));
+        // dd($groups);
+        // $groups = \DB::table("students")->select("group_id")->groupBy("group_id")->get();
+        return view('students.index')->with(compact('students', 'files', 'groups' , 'SelectedGroups' ));
     }
 
     /**
@@ -69,7 +72,7 @@ class StudentController extends Controller
 
 
             foreach ($students as $student) :
-                $details = ImageDetail::where('student_id', $student->id)->where('option1', $student->group)->first();
+                $details = ImageDetail::where('student_id', $student->id)->where('option1', $student->group_id)->first();
                 if ($details == null) :
                     continue;
                 endif;
@@ -93,7 +96,7 @@ class StudentController extends Controller
 
 
             foreach ($students as $student) :
-                $details = ImageDetail::where('student_id', $student->id)->where('option1', $student->group)->first();
+                $details = ImageDetail::where('student_id', $student->id)->where('option1', $student->group_id)->first();
                 if ($details == null) :
                     continue;
                 endif;
@@ -152,7 +155,7 @@ class StudentController extends Controller
             if ($request->val == 'all') :
                 $students = DB::table("students")->get();
             else :
-                $students = DB::table("students")->where("group", $request->val)->get();
+                $students = DB::table("students")->where("group_id", $request->val)->get();
             endif;
         else :
             $students = [];

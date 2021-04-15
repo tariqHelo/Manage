@@ -40,19 +40,19 @@
 										@if(isset($details))
 										<select class="form-control select2me  input-lg" multiple name="option1[]" disabled>
 											@foreach($groups as $group)
-												<option value="{{ $group->group }}" {{ (isset($details) && $details['option1'] == $group->group) ? 'selected' : ''  }}  >{{ $group->group }}</option>
+												<option value="{{ $group->id }}" {{ (isset($details) && $details['option1'] == $group->id) ? 'selected' : ''  }}  >{{ $group->title }}</option>
 											@endforeach
 										</select>
 										@elseif(request('option1') !== null )
 										<select class="form-control select2me  input-lg" multiple name="option1[]" >
 											@foreach($groups as $group)
-												<option value="{{ $group->group }}" {{ in_array($group->group , request('option1') ) ? 'selected' : ''  }}  >{{ $group->group }}</option>
+												<option value="{{ $group->id }}" {{ in_array($group->id , request('option1') ) ? 'selected' : ''  }}  >{{ $group->title }}</option>
 											@endforeach
 										</select>
 										@else
 										<select class="form-control select2me  input-lg" multiple name="option1[]" >
 											@foreach($groups as $group)
-												<option value="{{ $group->group }}">{{ $group->group }}</option>
+												<option value="{{ $group->id }}">{{ $group->title }}</option>
 											@endforeach
 										</select>
 

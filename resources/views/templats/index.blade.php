@@ -40,7 +40,7 @@
 											{{ $template->id }}
 										</td>
 										<td>
-											{{ $template->option1 }}
+											{{ $template->title }}
 										</td>
 										<td>
 											 <form method="post" action="{{ route('templates.destroy', $template->id) }}">

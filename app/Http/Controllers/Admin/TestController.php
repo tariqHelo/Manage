@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use App\Models\Group;
 
 use App\Http\Controllers\Controller;
 use Image;
@@ -29,7 +30,8 @@ class TestController extends Controller
         ->with('templates' , $templates);
     }
     public function create(){
-        $groups = DB::table("students")->select("group_id")->groupBy("group_id")->get();
+        $ids = Student::select('group_id')->groupBy('group_id')->pluck('group_id')->all();
+        $groups = Group::whereIn('id' , $ids)->get();
         $students = Student::get();
 
         $route = route('store_temp');
@@ -41,7 +43,8 @@ class TestController extends Controller
     }
      public function makeimage(Request $request)  
     {
-         $groups = DB::table("students")->select("group")->groupBy("group")->get();
+        $ids = Student::select('group_id')->groupBy('group_id')->pluck('group_id')->all();
+        $groups = Group::whereIn('id' , $ids)->get();
 
         $route = route('print-image');
         $request->validate([
@@ -56,7 +59,8 @@ class TestController extends Controller
     public function printimage(Request $request){
         $path = request('file');
         $students = Student::get();
-        $groups = DB::table("students")->select("group")->groupBy("group")->get();
+        $ids = Student::select('group_id')->groupBy('group_id')->pluck('group_id')->all();
+        $groups = Group::whereIn('id' , $ids)->get();
 
        // dd($path);
         // initiate FPDI
@@ -123,10 +127,11 @@ class TestController extends Controller
         else:            ///Save in Path Public
 
             if(isset($request->option1) && is_array($request->option1) ):
-                $groupStudents = Student::whereIn('group' , $request->option1)->get();
+                $groupStudents = Student::whereIn('group_id' , $request->option1)->get();
+                $gg = Group::find($request->option1);
                 // dd($groupStudents);
                 foreach($groupStudents as $index => $s):
-
+                    $fileName = $s->name .'('.$gg[0]->title.')';
                     $pdf = new Fpdi();
                     // add a page
                     $pdf->AddPage();
@@ -185,7 +190,7 @@ class TestController extends Controller
                         else:
                             $ImageD->file = $file_path;
                         endif;
-                        $ImageD->title = $s->name.'_'.$s->group;
+                        $ImageD->title = $fileName;
                         $ImageD->option1 = $s->group;
                         $ImageD->student_id = $s->id;
                         $ImageD->save();
@@ -215,7 +220,8 @@ class TestController extends Controller
     }
     public function edit(Request $request , $id)
     {  //$students = Student::get();
-         $groups = DB::table("students")->select("group")->groupBy("group")->get();
+        $ids = Student::select('group_id')->groupBy('group_id')->pluck('group_id')->all();
+        $groups = Group::whereIn('id' , $ids)->get();
          $details = ImageDetail::find($id);
         $image = ImageDetail::find($id);
         $route = route('update-print-image' , ['id' => $id]);
@@ -233,7 +239,8 @@ class TestController extends Controller
     $path = request('file');
     $students = Student::get();
     $details = ImageDetail::find($id);
-     $groups = DB::table("students")->select("group")->groupBy("group")->get();
+        $ids = Student::select('group_id')->groupBy('group_id')->pluck('group_id')->all();
+        $groups = Group::whereIn('id' , $ids)->get();
     // initiate FPDI
     $pdf = new Fpdi();
     // add a page
@@ -359,7 +366,7 @@ class TestController extends Controller
                     else:
                         $ImageD->file = $file_path;
                     endif;
-                    $ImageD->title = $s->name.'_'.$s->group;
+                    // $ImageD->title = $s->name.'_'.$s->group;
                     $ImageD->option1 = $s->group;
                     $ImageD->student_id = $s->id;
                     $ImageD->save();

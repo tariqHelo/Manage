@@ -6,79 +6,79 @@
 	@method('POST')
 
 						<!-- START PORTLET-->
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-gift"></i> تصميم قالب
-								</div>
-							</div>
-							<div class="portlet-body form">
-								<div class="form-horizontal">
-									@if(isset($file))
-									<input type="hidden" value="{{ $file }}" name="file">
-									@endif
-									@if(isset($path))
-									<input type="hidden" value="{{ $path }}" name="path">
-									@endif	
-										<div class="form-body">
-										@if(!isset($file))
-										<div class="form-group">
-											<label class="col-md-3 control-label">إختار ملف</label>
-											<div class="col-md-6">
-												<input  id="file" name="file" type="file"  class="form-control input-lg" placeholder="Large Input">
-											</div>
-										</div>
-										@endif
-										<div class="form-group">
-											<label class="col-md-3 control-label">عنوان القالب</label>
-											<div class="col-md-6">
-												<input id="title" name="title" value="{{ request('title') }}" type="text" class="form-control input-lg" placeholder="Large Input">
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-3 control-label">اسم المجموعة</label>
-											<div class="col-md-6">
-												@if(isset($details))
-												<select class="form-control select2me  input-lg" multiple name="option1[]" disabled>
-													@foreach($groups as $group)
-														<option value="{{ $group->group }}" {{ (isset($details) && $details['option1'] == $group->group) ? 'selected' : ''  }}  >{{ $group->group }}</option>
-													@endforeach
-												</select>
-												@elseif(request('option1') !== null )
-												<select class="form-control select2me  input-lg" multiple name="option1[]" >
-													@foreach($groups as $group)
-														<option value="{{ $group->group }}" {{ in_array($group->group , request('option1') ) ? 'selected' : ''  }}  >{{ $group->group }}</option>
-													@endforeach
-												</select>
-												@else
-												<select class="form-control select2me  input-lg" multiple name="option1[]" >
-													@foreach($groups as $group)
-														<option value="{{ $group->group }}">{{ $group->group }}</option>
-													@endforeach
-												</select>
-
-												@endif
-											</div>
-										</div>
-									<div class="form-actions right1">
-									<button type="submit" class="btn btn-circle green-meadow">تحميل الملف</button>
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-gift"></i> تصميم قالب
+						</div>
+					</div>
+					<div class="portlet-body form">
+						<div class="form-horizontal">
+							@if(isset($file))
+							<input type="hidden" value="{{ $file }}" name="file">
+							@endif
+							@if(isset($path))
+							<input type="hidden" value="{{ $path }}" name="path">
+							@endif	
+								<div class="form-body">
+								@if(!isset($file))
+								<div class="form-group">
+									<label class="col-md-3 control-label">إختار ملف</label>
+									<div class="col-md-6">
+										<input  id="file" name="file" type="file"  class="form-control input-lg" placeholder="Large Input">
 									</div>
-							
-								  <div class="form-group" id="preview">
-										<h2>عرض تقريبي:</h2>
-										@if(isset($file))
-											<div style="width: 100%; height: 700px;border: 1px #ff1c1c dotted;padding: 5px;">
-													<embed
-														src="{{ isset($path) ? $path : $file }}"
-														type="application/pdf"
-														frameBorder="0"
-														scrolling="initial"
-														height="100%"
-														width="100%"
-													></embed>
-											</div>
+								</div>
+								@endif
+								<div class="form-group">
+									<label class="col-md-3 control-label">عنوان القالب</label>
+									<div class="col-md-6">
+										<input id="title" name="title" value="{{ request('title') }}" type="text" class="form-control input-lg" placeholder="Large Input">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label">اسم المجموعة</label>
+									<div class="col-md-6">
+										@if(isset($details))
+										<select class="form-control select2me  input-lg" multiple name="option1[]" disabled>
+											@foreach($groups as $group)
+												<option value="{{ $group->group }}" {{ (isset($details) && $details['option1'] == $group->group) ? 'selected' : ''  }}  >{{ $group->group }}</option>
+											@endforeach
+										</select>
+										@elseif(request('option1') !== null )
+										<select class="form-control select2me  input-lg" multiple name="option1[]" >
+											@foreach($groups as $group)
+												<option value="{{ $group->group }}" {{ in_array($group->group , request('option1') ) ? 'selected' : ''  }}  >{{ $group->group }}</option>
+											@endforeach
+										</select>
+										@else
+										<select class="form-control select2me  input-lg" multiple name="option1[]" >
+											@foreach($groups as $group)
+												<option value="{{ $group->group }}">{{ $group->group }}</option>
+											@endforeach
+										</select>
+
 										@endif
-						     </div>
-			               </div>
+									</div>
+								</div>
+							<div class="form-actions right1">
+							<button type="submit" class="btn btn-circle green-meadow">تحميل الملف</button>
+							</div>
+					
+							<div class="form-group" id="preview">
+								<h2>عرض تقريبي:</h2>
+								@if(isset($file))
+									<div style="width: 100%; height: 700px;border: 1px #ff1c1c dotted;padding: 5px;">
+											<embed
+												src="{{ isset($path) ? $path : $file }}"
+												type="application/pdf"
+												frameBorder="0"
+												scrolling="initial"
+												height="100%"
+												width="100%"
+											></embed>
+									</div>
+								@endif
+						</div>
+					</div>
  					<!-- BEGIN PORTLET-->
 					<!-- BEGIN PORTLET-->
 					<div class="portlet box yellow">
@@ -122,13 +122,7 @@
 												<textarea rows="1" name='data[{{ $i }}][free_text]' value="{{ $obj['free_text'] }}"  class="form-control input-lg free_text"></textarea> </div>
 											<div class="col-md-1">
 												<label class="control-label">الطول</label>
-												<input name='data[{{ $i }}][y]' value="{{ $obj['y'] }}" value="{{ isset($y) ? $y : "" }}" type="text" placeholder="" class="form-control input-lg" /> </div>
-											<div class="col-md-1">
-												<label class="control-label"> تحديد</label>
-												<select class="form-control input-lg" name="data[{{ $i }}][position_fixed]" value="{{ $obj['position_fixed'] }}" data-placeholder="اختر ">
-													<option value="width: auto;">تحديد</option>
-													<option value="width: 100%; text-align:center;">في المنتصف</option>
-												</select> </div>
+												<input name='data[{{ $i }}][y]' value="{{ $obj['y'] }}" value="{{ isset($y) ? $y : "" }}" type="text" placeholder="" class="form-control input-lg" /> </div>											
 											<div class="col-md-1">
 												<label class="control-label">  العرض</label>
 												<input name='data[{{ $i }}][x]' value="{{ $obj['x'] }}"  type="text" placeholder="" class="form-control input-lg " /> </div>
@@ -190,12 +184,7 @@
 											<div class="col-md-1">
 												<label class="control-label">الطول</label>
 												<input name='data[0][y]' value="{{ isset($y) ? $y : "" }}" type="text" placeholder="" class="form-control input-lg" /> </div>
-											<div class="col-md-1">
-												<label class="control-label"> تحديد</label>
-												<select class="form-control input-lg" name="data[0][position_fixed]" data-placeholder="اختر ">
-													<option value="width: auto;">تحديد</option>
-													<option value="width: 100%; text-align:center;">في المنتصف</option>
-												</select> </div>
+								
 											<div class="col-md-1">
 												<label class="control-label">   العرض</label>
 												<input name='data[0][x]' value="{{ isset($x) ? $x : "" }}" type="text" placeholder="" class="form-control input-lg " /> </div>
@@ -294,9 +283,8 @@
 							
 							<!-- END FORM-->
 						</div>
-							
+					</div>		
 					<!-- END PORTLET-->
-				
 
 </form>		
 	<!-- END CONTENT -->

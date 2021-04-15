@@ -306,9 +306,10 @@
 										<label class="col-sm-3 col-form-label">إسم المجموعة</label>
 										<div class="col-sm-9">
 										<select class="form-control select2me  input-lg" name="group" value="{{ old('group') }}" >
-											@foreach($groups as $group)
-												<option value="{{ $group->group }}">{{ $group->group }}</option>
-											@endforeach
+												<option></option>
+												@foreach($gr as $g)
+													<option value="{{ $g->title }}" >{{ $g->title }}  </option>
+												@endforeach
 										</select>
 										{{-- <input type="text" name="group" value="{{ old('group') }}" class="form-control" placeholder="المجموعة "> --}}
 
@@ -375,12 +376,6 @@
 										<label class="col-sm-3 col-form-label">المدرسة</label>
 										<div class="col-sm-9">
 											<input type="text" name="school" class="form-control" value="{{ $student->school }}">
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-3 col-form-label">إسم المجموعة</label>
-										<div class="col-sm-9">
-											<input type="text" name="group" class="form-control" value="{{ $student->group }}">
 										</div>
 									</div>
 								</div>

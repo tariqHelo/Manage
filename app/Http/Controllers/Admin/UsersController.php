@@ -17,11 +17,11 @@ class UsersController extends Controller
     public function index()
     { 
         
-        //abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $users = User::all();
 
-        return view('admin.users.index', compact('users'));
+        return view('users.index', compact('users'));
     }
 
     public function create()
@@ -30,7 +30,7 @@ class UsersController extends Controller
 
         $roles = Role::all()->pluck('title', 'id');
 
-        return view('admin.users.create', compact('roles'));
+        return view('users.create', compact('roles'));
     }
 
     public function store(StoreUserRequest $request)
@@ -38,19 +38,19 @@ class UsersController extends Controller
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('users.index');
 
     }
 
     public function edit(User $user)
     {
-        abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+       abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $roles = Role::all()->pluck('title', 'id');
 
         $user->load('roles');
 
-        return view('admin.users.edit', compact('roles', 'user'));
+        return view('users.edit', compact('roles', 'user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
@@ -58,17 +58,17 @@ class UsersController extends Controller
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('users.index');
 
     }
 
     public function show(User $user)
     {
-        abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+      abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $user->load('roles');
 
-        return view('admin.users.show', compact('user'));
+        return view('users.show', compact('user'));
     }
 
     public function destroy(User $user)

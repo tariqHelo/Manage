@@ -29,7 +29,7 @@ class TestController extends Controller
         ->with('templates' , $templates);
     }
     public function create(){
-        $groups = DB::table("students")->select("group")->groupBy("group")->get();
+        $groups = DB::table("students")->select("group_id")->groupBy("group_id")->get();
         $students = Student::get();
 
         $route = route('store_temp');

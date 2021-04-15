@@ -19,14 +19,14 @@ class PermissionsController extends Controller
 
         $permissions = Permission::all();
 
-        return view('admin.permissions.index', compact('permissions'));
+        return view('permissions.index', compact('permissions'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('permission_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.permissions.create');
+        return view('permissions.create');
     }
 
     public function store(StorePermissionRequest $request)
@@ -39,9 +39,9 @@ class PermissionsController extends Controller
 
     public function edit(Permission $permission)
     {
-        abort_if(Gate::denies('permission_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+       abort_if(Gate::denies('permission_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.permissions.edit', compact('permission'));
+        return view('permissions.edit', compact('permission'));
     }
 
     public function update(UpdatePermissionRequest $request, Permission $permission)
@@ -56,7 +56,7 @@ class PermissionsController extends Controller
     {
         abort_if(Gate::denies('permission_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.permissions.show', compact('permission'));
+        return view('permissions.show', compact('permission'));
     }
 
     public function destroy(Permission $permission)

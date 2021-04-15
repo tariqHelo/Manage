@@ -1,35 +1,57 @@
-@extends("admin.dashboard")
+@extends('admin.dashboard') 
+@section('content')
 
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.show') }} {{ trans('cruds.role.title') }}
+    </div>
 
-@section("content")
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2> Show Role</h2>
+    <div class="card-body">
+        <div class="form-group">
+            <div class="form-group">
+                <a class="btn btn-default" href="{{ route('roles.index') }}">
+                    {{ trans('global.back_to_list') }}
+                </a>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
+            <table class="table table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.role.fields.id') }}
+                        </th>
+                        <td>
+                            {{ $role->id }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.role.fields.title') }}
+                        </th>
+                        <td>
+                            {{ $role->title }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.role.fields.permissions') }}
+                        </th>
+                        <td>
+                            @foreach($role->permissions as $key => $permissions)
+                                <span class="label label-info">{{ $permissions->title }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-group">
+                <a class="btn btn-default" href="{{ route('roles.index') }}">
+                    {{ trans('global.back_to_list') }}
+                </a>
             </div>
         </div>
     </div>
+</div>
 
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Name:</strong>
-                {{ $role->name }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Permissions:</strong>
-                @if(!empty($rolePermissions))
-                    @foreach($rolePermissions as $v)
-                        <label class="label label-success">{{ $v->name }},</label>
-                    @endforeach
-                @endif
-            </div>
-        </div>
-    </div>
+
 @endsection

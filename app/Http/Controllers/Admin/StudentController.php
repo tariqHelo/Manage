@@ -27,8 +27,7 @@ class StudentController extends Controller
         $students = Student::orderBy('id', 'DESC')->get();
         $gr = Group::get();
         $files = ImageDetail::select("title")->groupBy("title")->get();
-        $groups = \DB::table("students")->select("group")->groupBy("group")->get();
-       // $groupName = Student::select("group")->groupBy("group")->get();
+        $groups = \DB::table("students")->select("group_id")->groupBy("group_id")->get();
         return view('students.index')->with(compact('students', 'files', 'groups' , 'gr'));
     }
 

@@ -93,7 +93,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search..." name="query">
                             <span class="input-group-btn">
-                                <a href="javascript:;" class="btn submit">
+                                <a href="#" class="btn submit">
                                     <i class="icon-magnifier"></i>
                                 </a>
                             </span>

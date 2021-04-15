@@ -10,4 +10,9 @@ class Group extends Model
     use HasFactory;
     
     protected $fillable =['title'];
+
+
+    public function students(){
+        return $this->belongsTo(App\Models\Student::class);
+    }
 }

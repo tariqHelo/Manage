@@ -343,7 +343,40 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- END CONTAINER -->
         <!-- BEGIN FOOTER -->
        
-	<script>
+
+            <!-- BEGIN CORE PLUGINS -->
+            <script src="{{asset('metroinc/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
+            <script src="{{asset('metroinc/assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
+            <script src="{{asset('metroinc/assets/global/plugins/js.cookie.min.js')}}" type="text/javascript"></script>
+            <script src="{{asset('metroinc/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')}}" type="text/javascript"></script>
+            <script src="{{asset('metroinc/assets/global/plugins/jquery.blockui.min.js')}}" type="text/javascript"></script>
+            <script src="{{asset('metroinc/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
+            <!-- END CORE PLUGINS -->
+            <!-- BEGIN PAGE LEVEL PLUGINS -->
+            <script src="{{asset('metroinc/assets/global/plugins/highcharts/js/highcharts.js')}}" type="text/javascript"></script>
+            <script src="{{asset('metroinc/assets/global/plugins/highcharts/js/highcharts-3d.js')}}" type="text/javascript"></script>
+            <script src="{{asset('metroinc/assets/global/plugins/highcharts/js/highcharts-more.js')}}" type="text/javascript"></script>
+            <script src="{{asset('metroinc/assets/global/plugins/highmaps/js/modules/data.js')}}" type="text/javascript"></script>
+            <script src="{{asset('metroinc/assets/global/plugins/highmaps/js/modules/map.js')}}" type="text/javascript"></script>
+			<!-- END PAGE LEVEL PLUGINS -->
+			     <!-- BEGIN PAGE LEVEL PLUGINS -->
+            <script src="{{asset('metroinc/assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
+            <!-- END PAGE LEVEL PLUGINS -->
+            <!-- BEGIN THEME GLOBAL SCRIPTS -->
+            <script src="{{asset('metroinc/assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
+			<!-- END THEME GLOBAL SCRIPTS -->
+			    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            <script src="{{asset('metroinc/pages/scripts/components-select2.min.js')}}" type="text/javascript"></script>
+            <!-- END PAGE LEVEL SCRIPTS -->
+            <!-- BEGIN THEME LAYOUT SCRIPTS -->
+            <script src="{{asset('metroinc/assets/layouts/layout2/scripts/layout.min.js')}}" type="text/javascript"></script>
+            <script src="{{asset('metroinc/assets/layouts/layout2/scripts/demo.min.js')}}" type="text/javascript"></script>
+            <script src="{{asset('metroinc/assets/layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script>
+            <script src="{{asset('metroinc/assets/layouts/global/scripts/quick-nav.min.js')}}" type="text/javascript"></script>
+			<!-- END THEME LAYOUT SCRIPTS -->
+			
+	@stack('js')
+		<script>
 		$(function(){
 			$.ajaxSetup({
 				headers: {
@@ -383,12 +416,6 @@ License: You must have a valid license purchased only from themeforest(the above
 													<input name='data[${index}][y]' value="{{ isset($y) ? $y : "" }}" type="text" placeholder="" class="form-control input-lg" /> </div>
 												<div class="col-md-1">
 													<label class="control-label"> العرض</label>
-													<select class="form-control input-lg" name="data[${index}][position_fixed]" data-placeholder="اختر ">
-														<option value="width: auto;">تحديد</option>
-														<option value="width: 100%; text-align:center;">في المنتصف</option>
-													</select> </div>
-												<div class="col-md-1">
-													<label class="control-label">  قيمة العرض</label>
 													<input name='data[${index}][x]' value="{{ isset($x) ? $x : "" }}" type="text" placeholder="" class="form-control input-lg " /> </div>
 												<div class="col-md-1">
 													<label class="control-label"> حجم الخط</label>
@@ -433,37 +460,5 @@ License: You must have a valid license purchased only from themeforest(the above
 			});
 		});
 	</script>
-            <!-- BEGIN CORE PLUGINS -->
-            <script src="{{asset('metroinc/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
-            <script src="{{asset('metroinc/assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
-            <script src="{{asset('metroinc/assets/global/plugins/js.cookie.min.js')}}" type="text/javascript"></script>
-            <script src="{{asset('metroinc/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')}}" type="text/javascript"></script>
-            <script src="{{asset('metroinc/assets/global/plugins/jquery.blockui.min.js')}}" type="text/javascript"></script>
-            <script src="{{asset('metroinc/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
-            <!-- END CORE PLUGINS -->
-            <!-- BEGIN PAGE LEVEL PLUGINS -->
-            <script src="{{asset('metroinc/assets/global/plugins/highcharts/js/highcharts.js')}}" type="text/javascript"></script>
-            <script src="{{asset('metroinc/assets/global/plugins/highcharts/js/highcharts-3d.js')}}" type="text/javascript"></script>
-            <script src="{{asset('metroinc/assets/global/plugins/highcharts/js/highcharts-more.js')}}" type="text/javascript"></script>
-            <script src="{{asset('metroinc/assets/global/plugins/highmaps/js/modules/data.js')}}" type="text/javascript"></script>
-            <script src="{{asset('metroinc/assets/global/plugins/highmaps/js/modules/map.js')}}" type="text/javascript"></script>
-			<!-- END PAGE LEVEL PLUGINS -->
-			     <!-- BEGIN PAGE LEVEL PLUGINS -->
-            <script src="{{asset('metroinc/assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
-            <!-- END PAGE LEVEL PLUGINS -->
-            <!-- BEGIN THEME GLOBAL SCRIPTS -->
-            <script src="{{asset('metroinc/assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
-			<!-- END THEME GLOBAL SCRIPTS -->
-			    <!-- BEGIN PAGE LEVEL SCRIPTS -->
-            <script src="{{asset('metroinc/pages/scripts/components-select2.min.js')}}" type="text/javascript"></script>
-            <!-- END PAGE LEVEL SCRIPTS -->
-            <!-- BEGIN THEME LAYOUT SCRIPTS -->
-            <script src="{{asset('metroinc/assets/layouts/layout2/scripts/layout.min.js')}}" type="text/javascript"></script>
-            <script src="{{asset('metroinc/assets/layouts/layout2/scripts/demo.min.js')}}" type="text/javascript"></script>
-            <script src="{{asset('metroinc/assets/layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script>
-            <script src="{{asset('metroinc/assets/layouts/global/scripts/quick-nav.min.js')}}" type="text/javascript"></script>
-			<!-- END THEME LAYOUT SCRIPTS -->
-			
-	@stack('js')
     </body>
 </html>

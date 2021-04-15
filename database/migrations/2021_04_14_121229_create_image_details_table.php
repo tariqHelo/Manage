@@ -13,7 +13,7 @@ class CreateImageDetailsTable extends Migration
      */
     public function up()
     {
-          Schema::create('image_details', function (Blueprint $table) {
+        Schema::create('image_details', function (Blueprint $table) {
             $table->id();
             $table->string('file');
             $table->foreignId("student_id")->nullable();

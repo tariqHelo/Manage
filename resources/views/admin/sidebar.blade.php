@@ -168,26 +168,26 @@
                             </ul>
                         </li>
                         <li class="nav-item ">
-                            <a href="javascript:;" class="nav-link nav-toggle">
+                        <a href="#" class="nav-link nav-toggle">
                                 <i class="icon-diamond"></i>
                                 <span class="title">إدارة المستخدمين</span>
                                 <span class="arrow"></span>
                             </a>
                          <ul class="sub-menu">
                                 <li class="nav-item start ">
-                                    <a href="index.html" class="nav-link ">
+                                    <a href="{{route('permissions.index')}}" class="nav-link ">
                                         <i class="icon-bar-chart"></i>
                                         <span class="title">الصلاحيات</span>
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="dashboard_2.html" class="nav-link ">
+                                    <a href="{{route('roles.index')}}" class="nav-link ">
                                         <i class="icon-bulb"></i>
                                         <span class="title">الرولز</span>
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="dashboard_3.html" class="nav-link ">
+                                    <a href="{{route('users.index')}}" class="nav-link ">
                                         <i class="icon-graph"></i>
                                         <span class="title">المستخدمين</span>
                                     </a>
